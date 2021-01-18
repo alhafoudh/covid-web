@@ -18,6 +18,6 @@ class TestDateSnapshot < ApplicationRecord
   end
 
   def self.last_updated_at
-    last_updated.created_at
+    last_updated&.created_at
   end
 end
