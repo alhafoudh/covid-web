@@ -33,6 +33,7 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'concurrent-ruby'
 gem 'concurrent-ruby-edge', require: 'concurrent-edge'
+gem 'clockwork'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
