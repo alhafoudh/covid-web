@@ -2,7 +2,7 @@ Rails.logger = Logger.new($stdout)
 
 class Seeds
   GROUPS = {
-    all: %i[moms regions counties],
+    all: %i[moms regions counties test_dates],
     common: [],
   }.freeze
 
@@ -86,6 +86,20 @@ class Seeds
     County.find_each do |county|
       County.reset_counters(county.id, :moms)
     end
+  end
+
+  attr_reader :test_dates
+
+  def seed_test_dates
+    @test_dates = (Date.new(2021, 1, 19)...Date.new(2021, 1, 26)).map do |date|
+      {
+        date: date,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now,
+      }
+    end
+
+    TestDate.insert_all!(test_dates)
   end
 
   def log(*args)
