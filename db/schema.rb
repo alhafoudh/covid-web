@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_18_132747) do
+ActiveRecord::Schema.define(version: 2021_01_18_172855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "counties", force: :cascade do |t|
+    t.bigint "region_id"
+    t.string "name"
+    t.integer "moms_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["region_id"], name: "index_counties_on_region_id"
+  end
 
   create_table "moms", force: :cascade do |t|
     t.string "title"
@@ -29,6 +38,22 @@ ActiveRecord::Schema.define(version: 2021_01_18_132747) do
     t.string "county_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["city"], name: "index_moms_on_city"
+    t.index ["county_id"], name: "index_moms_on_county_id"
+    t.index ["county_name"], name: "index_moms_on_county_name"
+    t.index ["latitude"], name: "index_moms_on_latitude"
+    t.index ["longitude"], name: "index_moms_on_longitude"
+    t.index ["postal_code"], name: "index_moms_on_postal_code"
+    t.index ["region_id"], name: "index_moms_on_region_id"
+    t.index ["region_name"], name: "index_moms_on_region_name"
+    t.index ["title"], name: "index_moms_on_title"
   end
 
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "counties", "regions", on_delete: :restrict
 end

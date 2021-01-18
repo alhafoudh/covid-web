@@ -1,0 +1,14 @@
+sk:
+  activerecord:
+    models:
+      mom:
+        one: "Mobilné odberné miesto"
+        few: "Mobilné odberné miesta"
+        other: "Mobilné odberné miesta"
+    attributes:
+      mom:
+        title: "Názov"
+        address: "Adresa"
+
+  regions: "Regióny"
+  for_region_county: "pre %{region} kraj, %{county}"

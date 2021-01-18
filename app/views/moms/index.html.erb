@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= Mom.model_name.human(count: 2) %> <%= t(:for_region_county, region: @region.name, county: @county.name) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= Mom.human_attribute_name :title %></th>
+      <th><%= Mom.human_attribute_name :address %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @moms.each do |mom| %>
+      <tr class="<%= cycle('bg-gray-50', '') %>">
+        <td><%= mom.title %></td>
+        <td><%= link_to mom.address, mom.map_url %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
