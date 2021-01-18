@@ -21,12 +21,15 @@ module SkCovidTesting
     config.i18n.default_locale = :sk
 
     config.generators do |g|
-      g.assets            false
-      g.helper            false
-      g.test_framework    nil
-      g.jbuilder          false
+      g.assets false
+      g.helper false
+      g.test_framework nil
+      g.jbuilder false
     end
 
     config.hosts = nil
+
+    config.logger = Logger.new(STDOUT)
+    config.log_level = ENV.fetch('LOG_LEVEL', :info).to_sym
   end
 end
