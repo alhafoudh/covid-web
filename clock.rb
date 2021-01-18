@@ -10,6 +10,7 @@ module Clockwork
   UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
 
   every(UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL.minutes, 'update_all_test_date_snapshots') do
+    UpdateMoms.new.perform
     UpdateAllMomTestDateSnapshots.new(rate_limit: UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT).perform
   end
 

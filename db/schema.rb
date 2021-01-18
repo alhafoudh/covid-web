@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_18_200237) do
+ActiveRecord::Schema.define(version: 2021_01_18_230411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2021_01_18_200237) do
     t.bigint "region_id"
     t.string "name"
     t.integer "moms_count", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.index ["region_id"], name: "index_counties_on_region_id"
   end
 
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 2021_01_18_200237) do
     t.bigint "mom_id", null: false
     t.bigint "test_date_id", null: false
     t.bigint "test_date_snapshot_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.index ["mom_id", "test_date_id"], name: "index_latest_test_date_snapshots_on_mom_id_and_test_date_id", unique: true
     t.index ["mom_id"], name: "index_latest_test_date_snapshots_on_mom_id"
     t.index ["test_date_id"], name: "index_latest_test_date_snapshots_on_test_date_id"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 2021_01_18_200237) do
     t.string "region_name"
     t.string "county_id"
     t.string "county_name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.bigint "latest_test_date_snapshot_id"
     t.index ["city"], name: "index_moms_on_city"
     t.index ["county_id"], name: "index_moms_on_county_id"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 2021_01_18_200237) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.integer "moms_count", default: 0, null: false
   end
 
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 2021_01_18_200237) do
     t.bigint "test_date_id", null: false
     t.boolean "is_closed", null: false
     t.integer "free_capacity", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.index ["created_at"], name: "index_test_date_snapshots_on_created_at"
     t.index ["free_capacity"], name: "index_test_date_snapshots_on_free_capacity"
     t.index ["is_closed"], name: "index_test_date_snapshots_on_is_closed"
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 2021_01_18_200237) do
 
   create_table "test_dates", force: :cascade do |t|
     t.date "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.index ["date"], name: "index_test_dates_on_date"
   end
 

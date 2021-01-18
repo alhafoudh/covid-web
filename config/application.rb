@@ -29,7 +29,7 @@ module SkCovidTesting
 
     config.hosts = nil
 
-    config.logger = Logger.new(STDOUT)
+    config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
     config.log_level = ENV.fetch('LOG_LEVEL', :info).to_sym
   end
 end

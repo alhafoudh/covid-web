@@ -1,4 +1,6 @@
 class UpdateMomTestDateSnapshots < ApplicationService
+  include NcziClient
+
   attr_reader :mom
 
   def initialize(mom:)
@@ -51,9 +53,17 @@ class UpdateMomTestDateSnapshots < ApplicationService
     test_dates_status = data.fetch('payload', [])
 
     test_dates_status.map do |test_date_status|
+      parsed_date = Date.parse(test_date_status['c_date'])
       test_date = test_dates.find do |test_date|
-        test_date.date == Date.parse(test_date_status['c_date'])
+        test_date.date == parsed_date
       end
+
+      unless test_date.present?
+        test_date = TestDate.create!(
+          date: parsed_date,
+        )
+      end
+
       TestDateSnapshot.new(
         test_date: test_date,
         mom_id: mom.id,
@@ -68,17 +78,7 @@ class UpdateMomTestDateSnapshots < ApplicationService
   end
 
   def fetch_nczi_data
-    response = client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.id.to_s })
+    response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.id.to_s })
     response.body
-  end
-
-  def client
-    @client ||= Faraday.new do |faraday|
-      faraday.use :instrumentation
-      faraday.use Faraday::Response::RaiseError
-      faraday.request :json
-      faraday.response :json
-      faraday.adapter Faraday.default_adapter
-    end
   end
 end

@@ -8,6 +8,7 @@ class TestDateSnapshot < ApplicationRecord
 
   def different?(other)
     other.nil? ||
+      other.test_date.id != self.test_date.id ||
       other.is_closed != self.is_closed ||
       other.free_capacity != self.free_capacity
   end
