@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slovakia COVID-19 Testing dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<div>
+  <% if content_for?(:header) %>
+    <header class="bg-white shadow">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">
+          <%= yield(:header) %>
+        </h1>
+      </div>
+    </header>
+  <% end %>
+
+  <main>
+    <%= render 'layouts/flash' %>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <%= yield %>
+    </div>
+  </main>
+</div>
+</body>
+</html>

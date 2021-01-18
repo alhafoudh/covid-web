@@ -1,0 +1,133 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+body {
+  @apply antialiased;
+  @apply text-gray-900;
+}
+
+a {
+  @apply text-indigo-600 hover:text-indigo-900;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-semibold text-gray-900;
+}
+
+h1 {
+  @apply text-4xl sm:text-3xl;
+}
+
+h2 {
+  @apply text-3xl sm:text-2xl;
+}
+
+h3 {
+  @apply text-2xl sm:text-xl;
+}
+
+#notice {
+  @apply rounded-md overflow-hidden mb-5;
+  @apply px-6 py-3 text-blue-800 bg-gradient-to-r from-blue-50 to-blue-100;
+
+  &:empty {
+    @apply hidden;
+  }
+}
+
+form {
+  @apply shadow rounded-md overflow-hidden bg-white my-5;
+}
+
+#error_explanation {
+  @apply px-6 py-6 text-red-800 bg-gradient-to-r from-red-50 to-red-100;
+
+  ul {
+    @apply list-disc list-inside;
+  }
+}
+
+.field {
+  @apply px-4 py-6 bg-white;
+
+  & + .field {
+    @apply pt-0;
+  }
+}
+
+label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+[type='text'],
+[type='email'],
+[type='url'],
+[type='password'],
+[type='number'],
+[type='date'],
+[type='datetime-local'],
+[type='month'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='week'],
+[multiple],
+textarea,
+select {
+  @apply mt-1;
+  @apply focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-sm border-gray-300 rounded-md;
+}
+
+.actions {
+  @apply px-6 py-3 bg-gray-50;
+
+  input[type='submit'] {
+    @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+  }
+}
+
+.field_with_errors {
+  label {
+    @apply text-red-800;
+  }
+
+  input {
+    @apply border-red-800 text-red-800;
+  }
+}
+
+table {
+  @apply my-5;
+  @apply shadow overflow-hidden border-b border-gray-200 sm:rounded-lg;
+  @apply min-w-full divide-y divide-gray-200;
+}
+
+thead {
+  @apply bg-gray-50;
+
+  th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+  }
+}
+
+tbody {
+  @apply bg-white divide-y divide-gray-200;
+
+  td {
+    @apply px-6 py-4 whitespace-nowrap;
+  }
+}
+
+.link {
+  @apply text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+
+  &-active {
+    @apply bg-gray-900 text-white;
+  }
+}
+
+
+@import 'tailwindcss/utilities';
