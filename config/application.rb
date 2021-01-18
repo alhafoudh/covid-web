@@ -26,5 +26,7 @@ module SkCovidTesting
       g.test_framework    nil
       g.jbuilder          false
     end
+
+    config.hosts = nil
   end
 end
