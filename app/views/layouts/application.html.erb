@@ -40,7 +40,9 @@
     <%= render 'layouts/flash' %>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <div class="text-right">
-        <div class="text-sm italic"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></div>
+        <% if TestDateSnapshot.last_updated_at.present? %>
+          <div class="text-sm italic"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></div>
+        <% end %>
       </div>
       <%= yield %>
     </div>
