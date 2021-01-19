@@ -6,7 +6,9 @@ class DashboardController < ApplicationController
 
     @update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
 
-    @test_dates = TestDate.order(date: :asc)
+    @test_dates = TestDate
+                    .where('date >= ?', Date.today)
+                    .order(date: :asc)
 
     @regions = Region
                  .joins(:counties)
