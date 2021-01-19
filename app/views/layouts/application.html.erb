@@ -29,7 +29,7 @@
 <div>
   <% if content_for?(:header) %>
     <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto py-6 px-2 lg:px-8">
         <h1 class="text-3xl font-bold leading-tight text-gray-900">
           <%= yield(:header) %>
         </h1>
@@ -39,10 +39,13 @@
 
   <main>
     <%= render 'layouts/flash' %>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div class="text-right">
+    <div class="max-w-7xl mx-auto py-6 lg:px-8 px-2">
+      <div class="lg:text-right text-center">
         <% if TestDateSnapshot.last_updated_at.present? %>
-          <div class="text-sm italic"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></div>
+          <div class="text-sm italic flex flex-col lg:flex-row lg:justify-end lg:mb-0 mb-2">
+            <span class="lg:mr-1"><%= t(:last_updated_at) %></span>
+            <span><%= l TestDateSnapshot.last_updated_at, format: :long %></span>
+          </div>
         <% end %>
       </div>
       <%= yield %>

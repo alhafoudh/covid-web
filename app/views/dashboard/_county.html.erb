@@ -1,0 +1,9 @@
+<div class="mb-4">
+  <span class="text-xl font-bold"><%= county.name %></span>
+  <div>
+    <div class="md:block hidden">
+      <%= render 'dashboard/moms/header', test_dates: @test_dates %>
+    </div>
+    <%= render 'dashboard/moms/list', moms: moms_for(county) %>
+  </div>
+</div>
