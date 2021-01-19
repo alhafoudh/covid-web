@@ -34,5 +34,5 @@ sk:
   meta_title: "Zoznam odberných miest s objednávaním pre testovanie na COVID-19 - 🇸🇰 Slovensko"
   meta_description: "Zoznam odberných miest s objednávaním a ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
   footer_html: |
-    &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>
+    &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter. GitHub <a href="https://github.com/alhafoudh/sk-covid-testing">alhafoudh/sk-covid-testing</a>.
   other_region: "Nezaradené"
