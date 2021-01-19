@@ -10,8 +10,9 @@
           <% snapshot = mom.latest_snapshot_at(test_date) %>
           <% if snapshot.present? %>
             <div class="w-full flex flex-col items-center md:justify-center justify-between p-2 bg-opacity-60 <%= snapshot.available? ? 'bg-green-100' : 'bg-red-100' %>">
-              <div class="text-xs text-center md:hidden block">
-                <%= l test_date.date, format: :short %>
+              <div class="text-xs text-center md:hidden block flex flex-col">
+                <span><%= l test_date.date, format: '%a' %></span>
+                <span><%= l test_date.date, format: '%d %b' %></span>
               </div>
               <div class="flex items-center justify-center md:mt-0 mt-2">
                 <% if snapshot.is_closed %>

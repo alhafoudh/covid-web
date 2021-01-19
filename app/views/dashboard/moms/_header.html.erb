@@ -4,7 +4,9 @@
   </div>
   <div class="flex items-stretch w-full">
     <% test_dates.map do |test_date| %>
-      <div class="w-full flex items-center justify-center text-center text-sm"><%= l test_date.date, format: :short %></div>
+      <div class="w-full flex items-center justify-center text-center text-sm">
+        <%= l test_date.date, format: '%a %d %b' %>
+      </div>
     <% end %>
   </div>
 </div>
