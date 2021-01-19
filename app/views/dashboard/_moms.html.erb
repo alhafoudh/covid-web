@@ -1,0 +1,9 @@
+<div class="mb-4">
+  <span class="text-xl font-bold md:hidden block"><%= title %></span>
+  <div>
+    <div class="md:block hidden">
+      <%= render 'dashboard/moms/header', title: title, test_dates: @test_dates %>
+    </div>
+    <%= render 'dashboard/moms/list', moms: moms %>
+  </div>
+</div>

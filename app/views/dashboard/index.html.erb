@@ -23,7 +23,14 @@
       <% @regions.map do |region| %>
         <%= link_to region.name, root_path(anchor: dom_id(region)), class: 'mr-4 mb-2' %>
       <% end %>
+      <%= link_to t(:other_region), root_path(anchor: 'other'), class: 'mr-4 mb-2' %>
     </div>
   </div>
   <%= render partial: 'region', collection: @regions %>
+  <div class="mb-8">
+    <span class="text-2xl font-bold"><a id="other"></a><%= t(:other_region) %></span>
+    <div class="mt-2">
+      <%= render 'moms', title: nil, moms: moms_for(nil) %>
+    </div>
+  </div>
 </div>
