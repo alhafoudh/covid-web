@@ -12,6 +12,7 @@ class DashboardController < ApplicationController
                  .joins(:counties)
                  .includes(:counties)
                  .order(name: :asc, 'counties.name': :asc)
+
     @moms = Mom
               .includes(
                 :region, :county,
