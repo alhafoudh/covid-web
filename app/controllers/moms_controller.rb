@@ -1,7 +1,7 @@
 class MomsController < ApplicationController
   def index
     request.session_options[:skip] = true
-    
+
     region_id = params[:region_id]
     county_id = params[:county_id]
 
@@ -14,6 +14,7 @@ class MomsController < ApplicationController
               .where(region_id: region_id, county_id: county_id)
               .order(title: :asc)
 
-    fresh_when etag: @county, last_modified: @county.updated_at, public: true
+    fresh_when(etag: @county, last_modified: @county.updated_at, public: true)
+    expires_in(cached_content_expires_in, public: true, stale_while_revalidate: cached_content_allowed_stale)
   end
 end
