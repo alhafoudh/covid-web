@@ -4,6 +4,8 @@ class DashboardController < ApplicationController
   def index
     request.session_options[:skip] = true
 
+    @update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
+
     @test_dates = TestDate.order(date: :asc)
 
     @regions = Region
@@ -15,6 +17,8 @@ class DashboardController < ApplicationController
                 :region, :county,
                 latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
               .order(title: :asc)
+
+    @make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
 
     if stale?(@moms, public: true)
       @moms_by_county = @moms.group_by(&:county)

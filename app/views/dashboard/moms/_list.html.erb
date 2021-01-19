@@ -1,6 +1,6 @@
 <div>
   <% moms.map do |mom| %>
-    <div class="flex lg:flex-row flex-col <%= cycle('bg-gray-100', 'bg-gray-200') %> rounded-2xl mb-1 overflow-hidden items-stretch">
+    <div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch">
       <div class="flex flex-wrap items-start justify-between p-2 px-4 lg:max-w-sm w-full">
         <%= mom.title %>
         <%= link_to mom.address, mom.map_url, target: '_blank', class: 'text-sm' %>

@@ -1,3 +1,29 @@
 <div>
+  <div class="max-w-3xl mx-auto">
+    <%= t(:dashboard_info_html) %>
+  </div>
+  <div class="max-w-3xl mx-auto text-center my-4">
+    <div class="inline-flex rounded-md shadow">
+      <%= link_to t(:make_reservation), @make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
+    </div>
+  </div>
+  <div class="lg:text-right">
+    <% if TestDateSnapshot.last_updated_at.present? %>
+      <div class="flex flex-col text-sm italic lg:mb-0 mb-2">
+        <div class="flex flex-col lg:flex-row lg:justify-end">
+          <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></span>
+        </div>
+        <%= t(:update_period_info, minutes: @update_interval) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="p-8 bg-gray-200 rounded-xl my-4">
+    <strong><%= t(:jump_to_region) %></strong>
+    <div class="flex flex-wrap items-start mt-4">
+      <% @regions.map do |region| %>
+        <%= link_to region.name, root_path(anchor: dom_id(region)), class: 'mr-4 mb-2' %>
+      <% end %>
+    </div>
+  </div>
   <%= render partial: 'region', collection: @regions %>
 </div>
