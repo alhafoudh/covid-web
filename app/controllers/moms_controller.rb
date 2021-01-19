@@ -1,5 +1,7 @@
 class MomsController < ApplicationController
   def index
+    request.session_options[:skip] = true
+    
     region_id = params[:region_id]
     county_id = params[:county_id]
 

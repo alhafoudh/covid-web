@@ -1,5 +1,7 @@
 class RegionsController < ApplicationController
   def index
+    request.session_options[:skip] = true
+
     @regions = Region
                  .joins(:counties)
                  .includes(:counties)
