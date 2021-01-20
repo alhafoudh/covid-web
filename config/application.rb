@@ -31,5 +31,7 @@ module SkCovidTesting
 
     config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
     config.log_level = ENV.fetch('LOG_LEVEL', :info).to_sym
+
+    config.middleware.use Rack::Deflater
   end
 end
