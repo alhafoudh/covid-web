@@ -25,9 +25,6 @@ class DashboardController < ApplicationController
 
     if stale?(moms, public: true)
       @moms_by_county = moms
-                          .select do |mom|
-        mom.any_free_capacity?(@test_dates)
-      end
                           .group_by(&:county)
     end
     expires_in(cached_content_expires_in, public: true, stale_while_revalidate: cached_content_allowed_stale)
