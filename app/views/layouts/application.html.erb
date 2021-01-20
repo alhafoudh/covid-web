@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+      'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-5KXNCRG');</script>
+  <!-- End Google Tag Manager -->
+
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -9,12 +25,12 @@
   <meta name="description" content="<%= meta_description %>">
 
   <!-- Facebook Open Graph data -->
-  <meta property="og:title" content="<%= meta_title %>" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="<%= request.original_url %>" />
-  <meta property="og:image" content="<%= meta_image %>" />
-  <meta property="og:description" content="<%= meta_description %>" />
-  <meta property="og:site_name" content="<%= meta_title %>" />
+  <meta property="og:title" content="<%= meta_title %>"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="<%= request.original_url %>"/>
+  <meta property="og:image" content="<%= meta_image %>"/>
+  <meta property="og:description" content="<%= meta_description %>"/>
+  <meta property="og:site_name" content="<%= meta_title %>"/>
 
   <title><%= meta_title %></title>
   <meta name="description" content="<%= meta_description %>">
@@ -39,6 +55,12 @@
 </head>
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5KXNCRG"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div>
   <header class="bg-white shadow">
     <div class="max-w-7xl mx-auto py-6 px-2 lg:px-8">
