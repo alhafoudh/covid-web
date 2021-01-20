@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: sk_covid_testing_production
-  username: sk_covid_testing
-  password: <%= ENV['SK_COVID_TESTING_DATABASE_PASSWORD'] %>
