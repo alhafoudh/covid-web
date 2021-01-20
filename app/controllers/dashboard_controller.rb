@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
     @update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
 
     @test_dates = TestDate
-                    .where('date >= ?', Date.today)
+                    .where('date >= ? AND date <= ?', Date.today, Date.today + num_test_days)
                     .order(date: :asc)
 
     @regions = Region
@@ -33,5 +33,9 @@ class DashboardController < ApplicationController
 
   def moms_for(county)
     @moms_by_county.fetch(county, [])
+  end
+
+  def num_test_days
+    ENV.fetch('NUM_TEST_DAYS', 10).to_i
   end
 end
