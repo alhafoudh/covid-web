@@ -19,22 +19,24 @@ sk:
   closed: "Zatvorené"
   last_updated_at: "Naposledny aktualizované"
   make_reservation: "Objednať"
-  update_period_info: "Zoznam a obsadenosť sa aktualizuje každých %{minutes} minút."
+  update_period_info_html: |
+    <p>
+      Zoznam a obsadenosť sa aktualizuje každých %{minutes} minút.<br/>
+      Vytvorené <a href="https://www.freevision.sk" target="_blank">www.freevision.sk</a>
+    </p>
   jump_to_region: "Prejsť na región"
   dashboard_info_html: |
     <p>
-      <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje
-      <strong>iba odberné miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň</strong>.<br/>
-      Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva
-      zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.<br/>
-      Sledujte aj stránku svojej mestskej časti alebo obce pre ďalšie informácie ohľadom testovacích miest, prípadne
-      využite komerčné testovanie.<br/>
+      Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje každých 15 minút.<br/>
+      <br/>
+      <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba odberné miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
+      Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.<br/>
+      Sledujte aj stránku svojej mestskej časti alebo obce pre ďalšie informácie ohľadom testovacích miest, prípadne využite komerčné testovanie.<br/>
       Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
     </p>
-  meta_title: "Zoznam odberných miest s objednávaním pre testovanie na COVID-19 - 🇸🇰 Slovensko"
-  meta_description: "Zoznam odberných miest s objednávaním a ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
+  meta_title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
+  meta_description: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19 a ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
   footer_html: |
     &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter. GitHub <a href="https://github.com/alhafoudh/sk-covid-testing">alhafoudh/sk-covid-testing</a>.
   other_region: "Nezaradené"
   commercial: "Komerčný"
-  reservation_info: "Tlačidlo na objednanie nájdete pri každom odbernom mieste v zozname ..."
