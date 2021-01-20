@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_075652) do
+ActiveRecord::Schema.define(version: 2021_01_20_124848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2021_01_19_075652) do
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.bigint "latest_test_date_snapshot_id"
+    t.string "type", default: "NcziMom", null: false
+    t.string "reservations_url"
     t.index ["city"], name: "index_moms_on_city"
     t.index ["county_id"], name: "index_moms_on_county_id"
     t.index ["county_name"], name: "index_moms_on_county_name"
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_01_19_075652) do
     t.index ["region_id"], name: "index_moms_on_region_id"
     t.index ["region_name"], name: "index_moms_on_region_name"
     t.index ["title"], name: "index_moms_on_title"
+    t.index ["type"], name: "index_moms_on_type"
   end
 
   create_table "regions", force: :cascade do |t|

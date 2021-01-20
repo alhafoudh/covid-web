@@ -18,7 +18,7 @@ sk:
   for_region_county: "pre %{region} kraj, %{county}"
   closed: "Zatvorené"
   last_updated_at: "Naposledny aktualizované"
-  make_reservation: "Objednať termín"
+  make_reservation: "Objednať"
   update_period_info: "Zoznam a obsadenosť sa aktualizuje každých %{minutes} minút."
   jump_to_region: "Prejsť na región"
   dashboard_info_html: |
@@ -36,3 +36,5 @@ sk:
   footer_html: |
     &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter. GitHub <a href="https://github.com/alhafoudh/sk-covid-testing">alhafoudh/sk-covid-testing</a>.
   other_region: "Nezaradené"
+  commercial: "Komerčný"
+  reservation_info: "Tlačidlo na objednanie nájdete pri každom odbernom mieste v zozname ..."

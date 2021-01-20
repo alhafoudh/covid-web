@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
                 latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
               .order(title: :asc)
 
-    @make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
+    @default_make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
 
     if stale?(@moms, public: true)
       @moms_by_county = @moms.group_by(&:county)

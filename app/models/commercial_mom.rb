@@ -1,0 +1,2 @@
+class CommercialMom < Mom
+end

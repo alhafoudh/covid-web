@@ -6,8 +6,7 @@ class Mom < ApplicationRecord
 
   def address
     [
-      street_address,
-      city
+      street_address
     ].compact
       .reject(&:blank?)
       .join(', ')
