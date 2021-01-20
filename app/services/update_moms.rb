@@ -82,6 +82,8 @@ class UpdateMoms < ApplicationService
   end
 
   def region_by_external_id(external_id)
+    return if external_id.nil?
+    
     all_regions.find do |region|
       region.external_id == external_id
     end
@@ -92,6 +94,8 @@ class UpdateMoms < ApplicationService
   end
 
   def county_by_external_id(external_id)
+    return if external_id.nil?
+
     all_counties.find do |county|
       county.external_id == external_id
     end
