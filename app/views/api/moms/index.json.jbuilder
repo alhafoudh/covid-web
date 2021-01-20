@@ -1,6 +1,9 @@
 json.array! @moms do |mom|
+  json.type mom.type
   json.id mom.id
+  json.external_id mom.external_id
   json.title mom.title
+  json.reservations_url mom.reservations_url
   json.latitude mom.latitude
   json.longitude mom.longitude
   json.city mom.city
