@@ -44,4 +44,25 @@ class Mom < ApplicationRecord
   def commercial?
     false
   end
+
+  def total_free_capacity(test_dates = nil)
+    latest_test_date_snapshots.reduce(0) do |acc, latest_test_date_snapshot|
+      snapshot = latest_test_date_snapshot&.test_date_snapshot
+
+      next acc unless snapshot.present?
+      next acc if test_dates.present? && !test_dates.include?(snapshot.test_date)
+
+      free_capacity = if snapshot.is_closed
+                        0
+                      else
+                        snapshot.free_capacity.to_i
+                      end
+
+      acc + (free_capacity > 0 ? free_capacity : 0)
+    end
+  end
+
+  def any_free_capacity?(test_dates = nil)
+    total_free_capacity(test_dates) > 0
+  end
 end

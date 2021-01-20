@@ -1,1 +1,2 @@
+<% return if moms_for(county).empty? %>
 <%= render 'moms', title: county.name, moms: moms_for(county) %>

@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
                  .includes(:counties)
                  .order(name: :asc, 'counties.name': :asc)
 
-    @moms = Mom
+    moms = Mom
               .includes(
                 :region, :county,
                 latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
@@ -23,8 +23,12 @@ class DashboardController < ApplicationController
 
     @default_make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
 
-    if stale?(@moms, public: true)
-      @moms_by_county = @moms.group_by(&:county)
+    if stale?(moms, public: true)
+      @moms_by_county = moms
+                          .select do |mom|
+        mom.any_free_capacity?(@test_dates)
+      end
+                          .group_by(&:county)
     end
     expires_in(cached_content_expires_in, public: true, stale_while_revalidate: cached_content_allowed_stale)
   end
