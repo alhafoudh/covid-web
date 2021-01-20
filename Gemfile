@@ -42,6 +42,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring'
 
+gem 'sentry-ruby'
+gem 'sentry-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
