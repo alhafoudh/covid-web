@@ -7,12 +7,19 @@ class UpdateAllMomTestDateSnapshots < ApplicationService
 
   def perform
     ActiveRecord::Base.transaction do
-      moms_count = Mom.count
-      jobs = job_queue_for(moms_count)
+      all_jobs = []
       limiter = get_limiter
 
-      Mom.find_each(batch_size: 50) do |mom|
-        jobs << UpdateMomTestDateSnapshots.new(mom: mom)
+      VacuumlabsMom.find_each(batch_size: 50) do |mom|
+        all_jobs << UpdateVacuumlabsMomTestDateSnapshots.new(mom: mom)
+      end
+      NcziMom.find_each(batch_size: 50) do |mom|
+        all_jobs << UpdateNcziMomTestDateSnapshots.new(mom: mom)
+      end
+
+      jobs = job_queue_for(all_jobs.size)
+      all_jobs.map do |job|
+        jobs << job
       end
 
       jobs.close

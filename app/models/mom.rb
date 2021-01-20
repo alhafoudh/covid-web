@@ -40,4 +40,8 @@ class Mom < ApplicationRecord
       test_date_snapshot.test_date == test_date
     end.first
   end
+
+  def commercial?
+    false
+  end
 end

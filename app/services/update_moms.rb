@@ -5,68 +5,100 @@ class UpdateMoms < ApplicationService
     logger.info "Updating moms"
 
     ActiveRecord::Base.transaction do
-      update_moms!
-      update_regions!
-      update_counties!
+      moms = fetch_moms
+      update_regions!(moms)
+      update_counties!(moms)
+      update_moms!(moms)
     end
   end
 
   private
 
-  def update_moms!
-    moms = fetch_nczi_data.map do |mom|
-      mom.symbolize_keys
-        .merge(updated_at: Time.zone.now)
+  def fetch_moms
+    fetch_nczi_data.map do |mom|
+      mom
+        .merge(
+          external_id: mom[:id],
+          reservations_url: 'https://www.old.korona.gov.sk/covid-19-patient-form.php',
+          updated_at: Time.zone.now,
+        )
+        .except(:id)
     end
-
-    Mom.upsert_all(moms, unique_by: :id)
   end
 
-  def update_regions!
-    regions = Mom
-                .pluck(:region_id, :region_name)
-                .uniq
-                .reject do |(region_id, _)|
-      region_id.nil?
-    end
-                .map do |(region_id, region_name)|
-      {
-        id: region_id,
-        name: region_name,
-      }
-    end
+  def update_regions!(moms)
+    regions = moms.map do |mom|
+      next unless mom[:region_id].present?
 
-    Region.upsert_all(regions, unique_by: :id)
+      {
+        external_id: mom[:region_id],
+        name: mom[:region_name],
+      }
+    end.compact.uniq
+
+    Region.upsert_all(regions, unique_by: :external_id)
 
     Region.find_each do |region|
       Region.reset_counters(region.id, :moms)
     end
   end
 
-  def update_counties!
-    counties = Mom
-                 .pluck(:region_id, :county_id, :county_name)
-                 .uniq
-                 .reject do |(_, county_id, _)|
-      county_id.nil?
-    end
-                 .map do |(region_id, county_id, county_name)|
-      {
-        region_id: region_id,
-        id: county_id,
-        name: county_name,
-      }
-    end
+  def update_counties!(moms)
+    counties = moms.map do |mom|
+      next unless mom[:county_id].present?
 
-    County.upsert_all(counties)
+      region = region_by_external_id(mom[:region_id])
+
+      {
+        external_id: mom[:county_id],
+        region_id: region&.id,
+        name: mom[:county_name],
+      }
+    end.compact.uniq
+
+    County.upsert_all(counties, unique_by: :external_id)
 
     County.find_each do |county|
       County.reset_counters(county.id, :moms)
     end
   end
 
+  def update_moms!(moms)
+    updated_moms = moms.map do |mom|
+      region = region_by_external_id(mom[:region_id])
+      county = county_by_external_id(mom[:county_id])
+
+      mom[:region_id] = region&.id
+      mom[:county_id] = county&.id
+
+      mom
+    end
+
+    Mom.upsert_all(updated_moms, unique_by: :external_id)
+  end
+
+  def all_regions
+    @all_regions ||= Region.all
+  end
+
+  def region_by_external_id(external_id)
+    all_regions.find do |region|
+      region.external_id == external_id
+    end
+  end
+
+  def all_counties
+    @all_counties ||= County.all
+  end
+
+  def county_by_external_id(external_id)
+    all_counties.find do |county|
+      county.external_id == external_id
+    end
+  end
+
   def fetch_nczi_data
     response = nczi_client.get('https://www.old.korona.gov.sk/mom_ag.json')
-    response.body
+    response.body.map(&:symbolize_keys)
   end
 end

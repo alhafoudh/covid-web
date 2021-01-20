@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_124848) do
+ActiveRecord::Schema.define(version: 2021_01_20_193508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2021_01_20_124848) do
     t.integer "moms_count", default: 0, null: false
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.string "external_id"
+    t.index ["external_id"], name: "index_counties_on_external_id", unique: true
     t.index ["region_id"], name: "index_counties_on_region_id"
   end
 
@@ -53,9 +55,11 @@ ActiveRecord::Schema.define(version: 2021_01_20_124848) do
     t.bigint "latest_test_date_snapshot_id"
     t.string "type", default: "NcziMom", null: false
     t.string "reservations_url"
+    t.string "external_id"
     t.index ["city"], name: "index_moms_on_city"
     t.index ["county_id"], name: "index_moms_on_county_id"
     t.index ["county_name"], name: "index_moms_on_county_name"
+    t.index ["external_id"], name: "index_moms_on_external_id", unique: true
     t.index ["latest_test_date_snapshot_id"], name: "index_moms_on_latest_test_date_snapshot_id"
     t.index ["latitude"], name: "index_moms_on_latitude"
     t.index ["longitude"], name: "index_moms_on_longitude"
@@ -71,6 +75,8 @@ ActiveRecord::Schema.define(version: 2021_01_20_124848) do
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.integer "moms_count", default: 0, null: false
+    t.string "external_id"
+    t.index ["external_id"], name: "index_regions_on_external_id", unique: true
   end
 
   create_table "test_date_snapshots", force: :cascade do |t|

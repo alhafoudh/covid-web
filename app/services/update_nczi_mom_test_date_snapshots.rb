@@ -1,4 +1,4 @@
-class UpdateMomTestDateSnapshots < ApplicationService
+class UpdateNcziMomTestDateSnapshots < ApplicationService
   include NcziClient
 
   attr_reader :mom
@@ -8,19 +8,19 @@ class UpdateMomTestDateSnapshots < ApplicationService
   end
 
   def perform
-    logger.info "Updating test date snapshots for mom #{mom.inspect}"
+    logger.info "Updating NCZI test date snapshots for mom #{mom.inspect}"
 
     ActiveRecord::Base.transaction do
-      test_date_snapshots = update_mom_test_date_snapshots!
+      test_date_snapshots = update_nczi_mom_test_date_snapshots!
       update_mom_latest_test_date_snapshots!(test_date_snapshots)
     end
   end
 
   private
 
-  def update_mom_test_date_snapshots!
+  def update_nczi_mom_test_date_snapshots!
     latest_test_date_snapshots_map = mom.latest_test_date_snapshots.group_by(&:test_date)
-    fetch_mom_test_date_snapshots.map do |test_date_snapshot|
+    fetch_nczi_mom_test_date_snapshots.map do |test_date_snapshot|
       latest_test_date_snapshot = latest_test_date_snapshots_map.fetch(test_date_snapshot.test_date, []).first
 
       if test_date_snapshot.different?(latest_test_date_snapshot&.test_date_snapshot)
@@ -48,8 +48,8 @@ class UpdateMomTestDateSnapshots < ApplicationService
     end
   end
 
-  def fetch_mom_test_date_snapshots
-    data = fetch_nczi_data
+  def fetch_nczi_mom_test_date_snapshots
+    data = fetch_nczi_snapshots
     test_dates_status = data.fetch('payload', [])
 
     test_dates_status.map do |test_date_status|
@@ -77,8 +77,8 @@ class UpdateMomTestDateSnapshots < ApplicationService
     @test_dates ||= TestDate.all.to_a
   end
 
-  def fetch_nczi_data
-    response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.id.to_s })
+  def fetch_nczi_snapshots
+    response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.external_id.to_s })
     response.body
   end
 end

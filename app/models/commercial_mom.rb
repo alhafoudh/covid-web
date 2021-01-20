@@ -1,2 +1,0 @@
-class CommercialMom < Mom
-end
