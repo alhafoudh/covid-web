@@ -12,6 +12,15 @@ class Mom < ApplicationRecord
       .join(', ')
   end
 
+  def address_full
+    [
+      street_address,
+      city
+    ].compact
+      .reject(&:blank?)
+      .join(', ')
+  end
+
   def street_address
     [street_name, street_number]
       .compact
@@ -20,7 +29,7 @@ class Mom < ApplicationRecord
   end
 
   def map_url
-    "https://maps.google.com/?q=#{CGI.escape(address)}"
+    "https://maps.google.com/?q=#{CGI.escape(address_full)}"
   end
 
   def latest_snapshot_at(test_date)
