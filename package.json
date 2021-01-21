@@ -7,7 +7,8 @@
     "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/typography": "^0.4.0",
     "stimulus": "^2.0.0",
-    "tailwindcss": "^2.0.1-compat"
+    "tailwindcss": "^2.0.1-compat",
+    "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
