@@ -1,7 +1,13 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: [],
+  purge: [
+    './app/**/*.rb',
+    './app/**/*.html.erb',
+    './app/**/*.js',
+    './app/**/*.ts',
+    './app/**/*.scss',
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
