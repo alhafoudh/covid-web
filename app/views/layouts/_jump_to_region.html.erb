@@ -2,8 +2,8 @@
   <strong><%= t(:jump_to_region) %></strong>
   <div class="flex flex-wrap items-start mt-4">
     <% @regions.map do |region| %>
-      <%= link_to region.name, root_path(anchor: dom_id(region)), class: 'mr-4 mb-2', data: { turbolinks: false } %>
+      <%= link_to region.name, "##{dom_id(region)}", class: 'mr-4 mb-2', data: { turbolinks: false } %>
     <% end %>
-    <%= link_to t(:other_region), root_path(anchor: 'other'), class: 'mr-4 mb-2', data: { turbolinks: false } %>
+    <%= link_to t(:other_region), '#other', class: 'mr-4 mb-2', data: { turbolinks: false } %>
   </div>
 </div>
