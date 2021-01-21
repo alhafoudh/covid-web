@@ -12,15 +12,7 @@
       </div>
     <% end %>
   </div>
-  <div class="p-8 bg-gray-200 rounded-xl my-4">
-    <strong><%= t(:jump_to_region) %></strong>
-    <div class="flex flex-wrap items-start mt-4">
-      <% @regions.map do |region| %>
-        <%= link_to region.name, root_path(anchor: dom_id(region)), class: 'mr-4 mb-2' %>
-      <% end %>
-      <%= link_to t(:other_region), root_path(anchor: 'other'), class: 'mr-4 mb-2' %>
-    </div>
-  </div>
+  <%= render 'jump_to_region' %>
   <%= render 'empty_switcher' %>
   <%= render partial: 'region', collection: @regions %>
   <div class="mb-8">
