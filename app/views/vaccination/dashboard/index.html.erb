@@ -1,13 +1,13 @@
-<% content_for :title do t(:'testing.title') end %>
+<% content_for :title do t(:'vaccination.title') end %>
 <div>
   <div class="max-w-7xl mx-auto">
-    <%= t(:'testing.dashboard_info_html') %>
+    <%= t(:'vaccination.dashboard_info_html') %>
   </div>
   <div class="lg:text-right">
-    <% if TestDateSnapshot.last_updated_at.present? %>
+    <% if VaccinationDateSnapshot.last_updated_at.present? %>
       <div class="flex flex-col text-sm italic lg:mb-0 mb-2">
         <div class="flex flex-col lg:flex-row lg:justify-end">
-          <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></span>
+          <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l VaccinationDateSnapshot.last_updated_at, format: :long %></span>
         </div>
         <%= t(:update_period_info_html, minutes: @update_interval) %>
       </div>

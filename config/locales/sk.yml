@@ -19,12 +19,15 @@ sk:
   closed: "Zatvorené"
   last_updated_at: "Naposledny aktualizované"
   make_reservation: "Objednať"
+  update_period_info_html: |
+    <p>
+      Zoznam a obsadenosť sa aktualizuje každých %{minutes} minút.<br/>
+      Vytvorené <a href="https://www.freevision.sk" target="_blank">www.freevision.sk</a>
+    </p>
+  meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
+  meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
   testing:
-    update_period_info_html: |
-      <p>
-        Zoznam a obsadenosť sa aktualizuje každých %{minutes} minút.<br/>
-        Vytvorené <a href="https://www.freevision.sk" target="_blank">www.freevision.sk</a>
-      </p>
+    title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
     dashboard_info_html: |
       <p>
         Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje každých 15 minút.<br/>
@@ -34,11 +37,22 @@ sk:
         Sledujte aj stránku svojej mestskej časti alebo obce pre ďalšie informácie ohľadom testovacích miest, prípadne využite komerčné testovanie.<br/>
         Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
       </p>
-    meta_title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
-    meta_description: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19 a ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
+  vaccination:
+    title: "Zoznam očkovacích miest s objednávaním na COVID-19"
+    dashboard_info_html: |
+      <p>
+        Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje každých 15 minút.<br/>
+        <br/>
+        <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong>
+      </p>
   jump_to_region: "Prejsť na región"
   footer_html: |
     &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter. GitHub <a href="https://github.com/alhafoudh/sk-covid-testing">alhafoudh/sk-covid-testing</a>.
   other_region: "Nezaradené"
   commercial: "Komerčný"
   show_only_free_capacity: "Zobraziť iba voľné"
+  menu:
+    testing: "Antigénové testovanie"
+    vaccination: "Očkovanie"
+  open_main_menu: "Otvoriť hlavné menu"
+  app_title: "SK COVID-19 Info"

@@ -1,27 +1,27 @@
-<div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch <%= class_names('opacity-40 no-free-capacity': !mom.any_moms_free_capacity?(@test_dates)) %>">
+<div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch <%= class_names('opacity-40 no-free-capacity': false) %>">
   <div class="flex flex-row md:items-center justify-between lg:max-w-sm w-full">
     <div class="flex flex-col items-start justify-between py-2 md:pb-2 pb-0 pl-4 pl md:pr-1">
         <span>
-          <% if mom.commercial? %>
+          <% if vacc.commercial? %>
           <span class="uppercase text-xs px-2 py-1 rounded bg-yellow-500 font-bold text-white"><%= t(:commercial) %></span>
           <% end %>
-          <%= mom.title %>
+          <%= vacc.title %>
         </span>
-      <%= link_to mom.address, mom.map_url, target: '_blank', class: 'text-sm' %>
+      <%= link_to vacc.address, vacc.map_url, target: '_blank', class: 'text-sm' %>
     </div>
     <div class="px-2 md:py-4 py-2 flex items-end justify-end">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to t(:make_reservation), mom.reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
+        <%= link_to t(:make_reservation), vacc.reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
       </div>
     </div>
   </div>
   <div class="flex w-full md:overflow-hidden overflow-scroll">
-    <% @test_dates.map do |test_date| %>
-      <% snapshot = mom.latest_snapshot_at(test_date) %>
+    <% @vaccination_dates.map do |vaccination_date| %>
+      <% snapshot = vacc.latest_snapshot_at(vaccination_date) %>
       <div class="w-full flex flex-col items-center md:justify-center justify-between p-2 bg-opacity-60 <%= snapshot&.available? ? 'bg-green-100' : 'bg-red-100' %>">
         <div class="text-xs text-center md:hidden block flex flex-col">
-          <span><%= l test_date.date, format: '%a' %></span>
-          <span><%= l test_date.date, format: '%d %b' %></span>
+          <span><%= l vaccination_date.date, format: '%a' %></span>
+          <span><%= l vaccination_date.date, format: '%d %b' %></span>
         </div>
         <div class="flex items-center justify-center md:mt-0 mt-2">
           <% if snapshot.nil? || snapshot.is_closed %>

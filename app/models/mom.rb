@@ -1,35 +1,13 @@
 class Mom < ApplicationRecord
+  include Locatable
+
   belongs_to :region, counter_cache: true
   belongs_to :county, counter_cache: true, touch: true
   has_many :test_date_snapshots
   has_many :latest_test_date_snapshots
 
-  def address
-    [
-      street_address
-    ].compact
-      .reject(&:blank?)
-      .join(', ')
-  end
-
-  def address_full
-    [
-      street_address,
-      city
-    ].compact
-      .reject(&:blank?)
-      .join(', ')
-  end
-
-  def street_address
-    [street_name, street_number]
-      .compact
-      .reject(&:blank?)
-      .join(' ')
-  end
-
-  def map_url
-    "https://maps.google.com/?q=#{CGI.escape(address_full)}"
+  def commercial?
+    false
   end
 
   def latest_snapshot_at(test_date)
@@ -41,11 +19,7 @@ class Mom < ApplicationRecord
     end.first
   end
 
-  def commercial?
-    false
-  end
-
-  def total_free_capacity(test_dates = nil)
+  def total_moms_free_capacity(test_dates = nil)
     latest_test_date_snapshots.reduce(0) do |acc, latest_test_date_snapshot|
       snapshot = latest_test_date_snapshot&.test_date_snapshot
 
@@ -62,7 +36,7 @@ class Mom < ApplicationRecord
     end
   end
 
-  def any_free_capacity?(test_dates = nil)
-    total_free_capacity(test_dates) > 0
+  def any_moms_free_capacity?(test_dates = nil)
+    total_moms_free_capacity(test_dates) > 0
   end
 end

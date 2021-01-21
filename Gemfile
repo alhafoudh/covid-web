@@ -34,6 +34,7 @@ gem 'faraday_middleware'
 gem 'concurrent-ruby'
 gem 'concurrent-ruby-edge', require: 'concurrent-edge'
 gem 'clockwork'
+gem 'active_link_to'
 gem 'dotenv-rails'
 
 # Reduces boot times through caching; required in config/boot.rb

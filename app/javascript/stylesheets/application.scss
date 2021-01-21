@@ -129,5 +129,14 @@ tbody {
   }
 }
 
+#menu {
+  .link {
+    @apply text-gray-900 hover:bg-gray-300 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium;
+
+    &-active {
+      @apply bg-gray-900 text-white;
+    }
+  }
+}
 
 @import 'tailwindcss/utilities';

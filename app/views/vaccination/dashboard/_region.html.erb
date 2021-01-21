@@ -1,0 +1,7 @@
+<% return if region.counties.all? { |county| vaccs_for(county).empty? } %>
+<div class="mb-8 <%= class_names('no-free-capacity': false) %>">
+  <span class="text-2xl font-bold"><a id="<%= dom_id(region) %>"></a><%= region.name %></span>
+  <div class="mt-2">
+    <%= render partial: 'county', collection: region.counties %>
+  </div>
+</div>

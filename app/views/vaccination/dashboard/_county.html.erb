@@ -1,0 +1,4 @@
+<% return if vaccs_for(county).empty? %>
+<div class="<%= class_names('no-free-capacity': false) %>">
+  <%= render 'vaccs', title: county.name, vaccs: vaccs_for(county) %>
+</div>
