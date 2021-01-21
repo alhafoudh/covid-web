@@ -12,14 +12,26 @@ class DashboardController < ApplicationController
 
     @regions = Region
                  .joins(:counties)
-                 .includes(:counties)
+                 .includes(
+                   counties: {
+                     moms: [
+                       :region,
+                       :county,
+                       {
+                         latest_test_date_snapshots: {
+                           test_date_snapshot: [:test_date]
+                         }
+                       }
+                     ]
+                   }
+                 )
                  .order(name: :asc, 'counties.name': :asc)
 
     moms = Mom
-              .includes(
-                :region, :county,
-                latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
-              .order(title: :asc)
+             .includes(
+               :region, :county,
+               latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
+             .order(title: :asc)
 
     @default_make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
 
