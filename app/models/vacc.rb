@@ -19,7 +19,7 @@ class Vacc < ApplicationRecord
     end.first
   end
 
-  def total_vaccs_free_capacity(vaccination_dates = nil)
+  def total_free_capacity(vaccination_dates = nil)
     latest_vaccination_date_snapshots.reduce(0) do |acc, latest_vaccination_date_snapshot|
       snapshot = latest_vaccination_date_snapshot&.vaccination_date_snapshot
 
@@ -36,7 +36,7 @@ class Vacc < ApplicationRecord
     end
   end
 
-  def any_vaccs_free_capacity?(vaccination_dates = nil)
-    total_vaccs_free_capacity(vaccination_dates) > 0
+  def any_free_capacity?(vaccination_dates = nil)
+    total_free_capacity(vaccination_dates) > 0
   end
 end

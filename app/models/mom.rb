@@ -19,7 +19,7 @@ class Mom < ApplicationRecord
     end.first
   end
 
-  def total_moms_free_capacity(test_dates = nil)
+  def total_free_capacity(test_dates = nil)
     latest_test_date_snapshots.reduce(0) do |acc, latest_test_date_snapshot|
       snapshot = latest_test_date_snapshot&.test_date_snapshot
 
@@ -36,7 +36,7 @@ class Mom < ApplicationRecord
     end
   end
 
-  def any_moms_free_capacity?(test_dates = nil)
-    total_moms_free_capacity(test_dates) > 0
+  def any_free_capacity?(test_dates = nil)
+    total_free_capacity(test_dates) > 0
   end
 end

@@ -5,11 +5,21 @@ class County < ApplicationRecord
 
   def total_moms_free_capacity(test_dates = nil)
     moms.reduce(0) do |acc, mom|
-      acc + mom.total_moms_free_capacity(test_dates)
+      acc + mom.total_free_capacity(test_dates)
     end
   end
 
   def any_moms_free_capacity?(test_dates = nil)
     total_moms_free_capacity(test_dates) > 0
+  end
+
+  def total_vaccs_free_capacity(test_dates = nil)
+    vaccs.reduce(0) do |acc, vacc|
+      acc + vacc.total_free_capacity(test_dates)
+    end
+  end
+
+  def any_vaccs_free_capacity?(test_dates = nil)
+    total_vaccs_free_capacity(test_dates) > 0
   end
 end
