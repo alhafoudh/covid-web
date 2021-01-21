@@ -1,0 +1,38 @@
+<div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch <%= class_names('opacity-40': !mom.any_free_capacity?(@test_dates)) %>">
+  <div class="flex flex-row md:items-center justify-between lg:max-w-sm w-full">
+    <div class="flex flex-col items-start justify-between py-2 md:pb-2 pb-0 pl-4 pl md:pr-1">
+        <span>
+          <% if mom.is_a?(VacuumlabsMom) %>
+          <span class="uppercase text-xs px-2 py-1 rounded bg-yellow-500 font-bold text-white"><%= t(:commercial) %></span>
+          <% end %>
+          <%= mom.title %>
+        </span>
+      <%= link_to mom.address, mom.map_url, target: '_blank', class: 'text-sm' %>
+    </div>
+    <div class="px-2 md:py-4 py-2 flex items-end justify-end">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to t(:make_reservation), mom.reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
+      </div>
+    </div>
+  </div>
+  <div class="flex w-full md:overflow-hidden overflow-scroll">
+    <% @test_dates.map do |test_date| %>
+      <% snapshot = mom.latest_snapshot_at(test_date) %>
+      <div class="w-full flex flex-col items-center md:justify-center justify-between p-2 bg-opacity-60 <%= snapshot&.available? ? 'bg-green-100' : 'bg-red-100' %>">
+        <div class="text-xs text-center md:hidden block flex flex-col">
+          <span><%= l test_date.date, format: '%a' %></span>
+          <span><%= l test_date.date, format: '%d %b' %></span>
+        </div>
+        <div class="flex items-center justify-center md:mt-0 mt-2">
+          <% if snapshot.nil? || snapshot.is_closed %>
+              <span title="<%= t(:closed) %>" class="text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="inline fill-current" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg>
+              </span>
+          <% else %>
+            <%= snapshot.free_capacity >= 0 ? snapshot.free_capacity : 0 %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

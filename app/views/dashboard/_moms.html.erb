@@ -4,6 +4,6 @@
     <div class="md:block hidden">
       <%= render 'dashboard/moms/header', title: title, test_dates: @test_dates %>
     </div>
-    <%= render 'dashboard/moms/list', moms: moms %>
+    <%= render partial: 'dashboard/moms/mom', collection: moms %>
   </div>
 </div>

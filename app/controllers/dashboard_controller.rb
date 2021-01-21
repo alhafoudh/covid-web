@@ -11,7 +11,6 @@ class DashboardController < ApplicationController
                     .order(date: :asc)
 
     @regions = Region
-                 .joins(:counties)
                  .includes(
                    counties: {
                      moms: [
@@ -25,7 +24,7 @@ class DashboardController < ApplicationController
                      ]
                    }
                  )
-                 .order(name: :asc, 'counties.name': :asc)
+                 .order(name: :asc)
 
     moms = Mom
              .includes(
