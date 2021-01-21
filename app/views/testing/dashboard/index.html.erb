@@ -1,6 +1,6 @@
 <div>
   <div class="max-w-7xl mx-auto">
-    <%= t(:dashboard_info_html) %>
+    <%= t(:'testing.dashboard_info_html') %>
   </div>
   <div class="lg:text-right">
     <% if TestDateSnapshot.last_updated_at.present? %>
@@ -8,7 +8,7 @@
         <div class="flex flex-col lg:flex-row lg:justify-end">
           <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></span>
         </div>
-        <%= t(:update_period_info_html, minutes: @update_interval) %>
+        <%= t(:'testing.update_period_info_html', minutes: @update_interval) %>
       </div>
     <% end %>
   </div>
