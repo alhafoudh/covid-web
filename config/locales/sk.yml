@@ -65,7 +65,10 @@ sk:
       description: Analytické cookies (napr. Google Analytics) nám pomáhajú zlepšovať webovú stránku zhromažďovaním a hlásením informácií o jej použití. Umožňujú nám najmä zostaviť anonymné štatistiky o využívaní našej webovej stránky. Zároveň používame aj marketingové cookies (napr. Google Tag Manager, Google AdWords, Facebook Pixel), ktoré nám umožňujú ponúknuť reklamu podľa záujmu používateľa.
   jump_to_region: "Prejsť na región"
   footer_html: |
-    &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter. GitHub <a href="https://github.com/alhafoudh/sk-covid-testing">alhafoudh/sk-covid-testing</a>.
+    &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter.
+  footer_menu:
+    cookies: Cookies policy
+    github: "GitHub"
   other_region: "Nezaradené"
   commercial: "Komerčný"
   show_only_free_capacity: "Zobraziť iba voľné"
