@@ -21,7 +21,7 @@
   <%= csrf_meta_tags unless response.cache_control[:public] %>
   <%= csp_meta_tag %>
 
-  <title><%= content_for?(:title) ? yield(:title) : meta_title %></title>
+  <title><%= content_for?(:title) ? yield(:title) : meta_title %> &bull; <%= t(:app_title) %></title>
   <meta name="description" content="<%= meta_description %>">
 
   <!-- Facebook Open Graph data -->
@@ -31,9 +31,6 @@
   <meta property="og:image" content="<%= meta_image %>"/>
   <meta property="og:description" content="<%= meta_description %>"/>
   <meta property="og:site_name" content="<%= meta_title %>"/>
-
-  <title><%= meta_title %></title>
-  <meta name="description" content="<%= meta_description %>">
 
   <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
