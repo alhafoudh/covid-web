@@ -1,7 +1,7 @@
 <div class="max-w-7xl mx-auto text-center my-4 text-sm">
   <p><%= t(:footer_html) %></p>
   <p>
-    <a href="/cookies_policy"><%= t('footer_menu.cookies') %></a>
+    <%= link_to t('footer_menu.cookies'), cookies_page_path  %>
     |
     <a href="https://github.com/alhafoudh/sk-covid-testing" target="_blank" rel="noopener"><%= t('footer_menu.github') %></a>
   </p>

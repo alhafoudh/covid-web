@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     root to: 'dashboard#index'
   end
 
-  get 'cookies_policy', to: 'pages#cookies_policy'
+  get 'cookies', to: 'pages#cookies', as: 'cookies_page'
 
   root to: 'testing/dashboard#index'
 end

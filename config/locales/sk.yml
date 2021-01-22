@@ -48,12 +48,13 @@ sk:
         <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong>
       </p>
   cookies:
+    title: "Cookies"
     info_html: |
       Táto webová stránka používa súbory cookies na ukladanie informácií do vášho počítača alebo mobilného zariadenia.<br />
       <br />
       Niektoré z týchto súborov cookies sú nevyhnutné pre správne fungovanie našej webovej stránky, zatiaľ čo iné nám pomáhajú zlepšovať váš užívateľský komfort tým, že nám poskytnete niektoré informácie a dáta o tom, ako našu webovú stránku používate. Súhlasíte so spracúvaním nevyhnutných cookies?
     more_info_html: |
-      Pre viac informácií o cookies kliknite <a href="/cookies_policy">tu</a>.
+      Pre viac informácií o cookies kliknite <a href="/cookies">tu</a>.
     configure: Vlastné nastavenie
     accept: Súhlasím
     accept_all: Súhlasím
