@@ -68,7 +68,7 @@ sk:
   footer_html: |
     &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter.
   footer_menu:
-    cookies: Cookies policy
+    cookies: "Cookies"
     github: "GitHub"
   other_region: "Nezaradené"
   commercial: "Komerčný"
