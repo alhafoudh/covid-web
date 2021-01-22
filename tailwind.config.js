@@ -7,6 +7,7 @@ module.exports = {
     './app/**/*.js',
     './app/**/*.ts',
     './app/**/*.scss',
+    './config/locales/*.yml'
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
