@@ -1,15 +1,14 @@
-<nav class="bg-white" data-controller="toggle" id="menu">
+<nav class="bg-gray-800" data-controller="toggle" id="menu">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <span class="h-8 w-8">🏥</span>
-          <span class="ml-2 font-bold text-black"><%= t(:app_title) %></span>
+          <span class="ml-2 font-bold text-white"><%= t(:app_title) %></span>
         </div>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
-            <%= active_link_to t(:'menu.testing'), root_path, active: :exclusive, class_active: 'link link-active', class_inactive: 'link' %>
-            <%= active_link_to t(:'menu.vaccination'), vaccination_root_path, class_active: 'link link-active', class_inactive: 'link' %>
+            <%= render 'layouts/menu_items' %>
           </div>
         </div>
       </div>
@@ -29,8 +28,7 @@
       </div>
     </div>
     <div data-toggle-name="menu-list" class="hidden md:hidden flex flex-col">
-      <%= active_link_to t(:'menu.testing'), root_path, active: :exclusive, class_active: 'link link-active', class_inactive: 'link' %>
-      <%= active_link_to t(:'menu.vaccination'), vaccination_root_path, class_active: 'link link-active', class_inactive: 'link' %>
+      <%= render 'layouts/menu_items' %>
     </div>
   </div>
 </nav>
