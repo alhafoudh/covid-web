@@ -17,7 +17,7 @@ export default class extends Controller {
   }
 
   acceptAll() {
-    const configuration = {analytic: true}
+    const configuration = {}
     this.saveConfiguration(configuration)
   }
 
