@@ -43,6 +43,8 @@ sk:
       <p>
         Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje každých 15 minút.<br/>
         <br/>
+        <span class="text-yellow-600 bg-yellow-100 block px-4 py-2 border-l-4 border-yellow-600 rounded-r-xl">Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie. V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.</span>
+        <br/>
         <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong>
       </p>
   jump_to_region: "Prejsť na región"
