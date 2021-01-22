@@ -47,6 +47,22 @@ sk:
         <br/>
         <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong>
       </p>
+  cookies:
+    info_html: |
+      Táto webová stránka používa súbory cookies na ukladanie informácií do vášho počítača alebo mobilného zariadenia.<br />
+      <br />
+      Niektoré z týchto súborov cookies sú nevyhnutné pre správne fungovanie našej webovej stránky, zatiaľ čo iné nám pomáhajú zlepšovať váš užívateľský komfort tým, že nám poskytnete niektoré informácie a dáta o tom, ako našu webovú stránku používate. Súhlasíte so spracúvaním nevyhnutných cookies?
+    more_info_html: |
+      Pre viac informácií o cookies kliknite <a href="/cookies_policy">tu</a>.
+    configure: Vlastné nastavenie
+    accept: Súhlasím
+    accept_all: Súhlasím
+    required:
+      title: Nevyhnutné cookies
+      description: Nevyhnutné súbory cookies umožňujú základné funkcie, ako je navigácia na webovej stránke a prístup do jednotlivých jej častí. Webová stránka bez týchto súborov cookies nemôže správne fungovať a je možné ich deaktivovať iba zmenou predvolieb vášho internetového prehliadača. Tieto nevyhnutné cookies neslúžia na zber informácií o vás.
+    analytics:
+      title: Analytické a marketingové cookies
+      description: Analytické cookies (napr. Google Analytics) nám pomáhajú zlepšovať webovú stránku zhromažďovaním a hlásením informácií o jej použití. Umožňujú nám najmä zostaviť anonymné štatistiky o využívaní našej webovej stránky. Zároveň používame aj marketingové cookies (napr. Google Tag Manager, Google AdWords, Facebook Pixel), ktoré nám umožňujú ponúknuť reklamu podľa záujmu používateľa.
   jump_to_region: "Prejsť na región"
   footer_html: |
     &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter. GitHub <a href="https://github.com/alhafoudh/sk-covid-testing">alhafoudh/sk-covid-testing</a>.
