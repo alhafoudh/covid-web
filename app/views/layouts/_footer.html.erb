@@ -1,8 +1,17 @@
 <div class="max-w-7xl mx-auto text-center my-4 text-sm">
-  <p><%= t(:footer_html) %></p>
-  <p>
-    <%= link_to t('footer_menu.cookies'), cookies_page_path  %>
-    |
-    <a href="https://github.com/alhafoudh/sk-covid-testing" target="_blank" rel="noopener"><%= t('footer_menu.github') %></a>
-  </p>
+  <div class="flex flex-col items-center">
+    <div>
+      <%= link_to 'https://www.freevision.sk', target: '_blank' do %>
+        <%= image_tag 'freevision_logo.png', title: 'freevision.sk logo', width: 200 %>
+      <% end %>
+    </div>
+    <div>
+      <p><%= t(:footer_html) %></p>
+      <p>
+        <%= link_to t('footer_menu.cookies'), cookies_page_path  %>
+        |
+        <a href="https://github.com/alhafoudh/sk-covid-testing" target="_blank" rel="noopener"><%= t('footer_menu.github') %></a>
+      </p>
+    </div>
+  </div>
 </div>
