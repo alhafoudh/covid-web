@@ -13,6 +13,11 @@ class UpdateAllMomTestDateSnapshots < ApplicationService
       VacuumlabsMom.find_each(batch_size: 50) do |mom|
         all_jobs << UpdateVacuumlabsMomTestDateSnapshots.new(mom: mom)
       end
+      RychlejsieMom
+        .where(supports_reservation: true)
+        .find_each(batch_size: 50) do |mom|
+        all_jobs << UpdateRychlejsieMomTestDateSnapshots.new(mom: mom)
+      end
       NcziMom.find_each(batch_size: 50) do |mom|
         all_jobs << UpdateNcziMomTestDateSnapshots.new(mom: mom)
       end

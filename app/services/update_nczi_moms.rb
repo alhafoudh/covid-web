@@ -1,8 +1,8 @@
-class UpdateMoms < ApplicationService
+class UpdateNcziMoms < ApplicationService
   include NcziClient
 
   def perform
-    logger.info "Updating moms"
+    logger.info "Updating NCZI moms"
 
     ActiveRecord::Base.transaction do
       moms = fetch_moms
@@ -19,6 +19,7 @@ class UpdateMoms < ApplicationService
       mom
         .merge(
           external_id: mom[:id],
+          external_details: mom,
           reservations_url: 'https://www.old.korona.gov.sk/covid-19-patient-form.php',
           updated_at: Time.zone.now,
         )
@@ -70,6 +71,7 @@ class UpdateMoms < ApplicationService
 
       mom[:region_id] = region&.id
       mom[:county_id] = county&.id
+      mom[:type] = 'NcziMom'
 
       mom
     end
@@ -102,7 +104,7 @@ class UpdateMoms < ApplicationService
   end
 
   def fetch_nczi_data
-    response = nczi_client.get('https://www.old.korona.gov.sk/mom_ag.json')
+    response = nczi_client.get("#{base_url}/mom_ag.json")
     response.body.map(&:symbolize_keys)
   end
 end

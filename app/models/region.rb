@@ -1,5 +1,5 @@
 class Region < ApplicationRecord
-  has_many :counties
+  has_many :counties, -> { order(name: :asc) }
   has_many :moms
   has_many :vaccs
 

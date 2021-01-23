@@ -11,7 +11,7 @@
     </div>
     <div class="px-2 md:py-4 py-2 flex items-end justify-end">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to t(:make_reservation), vacc.reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
+        <%= link_to t(:make_reservation), vacc.final_reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
       </div>
     </div>
   </div>

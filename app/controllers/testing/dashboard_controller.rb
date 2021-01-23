@@ -27,7 +27,7 @@ module Testing
                    )
                    .order(name: :asc)
 
-      moms = Mom
+      moms = RychlejsieMom
                .includes(
                  :region, :county,
                  latest_test_date_snapshots: { test_date_snapshot: [:test_date] })

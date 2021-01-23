@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_130229) do
+ActiveRecord::Schema.define(version: 2021_01_23_224314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(version: 2021_01_21_130229) do
     t.string "type", default: "NcziMom", null: false
     t.string "reservations_url"
     t.string "external_id"
+    t.string "external_endpoint"
+    t.boolean "supports_reservation", default: true, null: false
+    t.jsonb "external_details"
     t.index ["city"], name: "index_moms_on_city"
     t.index ["county_id"], name: "index_moms_on_county_id"
     t.index ["county_name"], name: "index_moms_on_county_name"
@@ -79,6 +82,7 @@ ActiveRecord::Schema.define(version: 2021_01_21_130229) do
     t.index ["postal_code"], name: "index_moms_on_postal_code"
     t.index ["region_id"], name: "index_moms_on_region_id"
     t.index ["region_name"], name: "index_moms_on_region_name"
+    t.index ["supports_reservation"], name: "index_moms_on_supports_reservation"
     t.index ["title"], name: "index_moms_on_title"
     t.index ["type"], name: "index_moms_on_type"
   end

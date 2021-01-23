@@ -1,7 +1,7 @@
 class UpdateMomTestDateSnapshotsBase < ApplicationService
   protected
 
-  def update_mom_test_date_snapshots!(snapshots)
+  def create_test_date_snapshots!(snapshots)
     latest_test_date_snapshots_map = mom.latest_test_date_snapshots.group_by(&:test_date)
     snapshots.map do |test_date_snapshot|
       latest_test_date_snapshot = latest_test_date_snapshots_map.fetch(test_date_snapshot.test_date, []).first
@@ -18,7 +18,7 @@ class UpdateMomTestDateSnapshotsBase < ApplicationService
     end.compact
   end
 
-  def update_mom_latest_test_date_snapshots!(test_date_snapshots)
+  def update_latest_test_date_snapshots!(test_date_snapshots)
     test_date_snapshots.map do |test_date_snapshot|
       latest_test_date_snapshot = LatestTestDateSnapshot.find_or_initialize_by(
         mom_id: test_date_snapshot.mom_id,

@@ -1,7 +1,7 @@
 class UpdateVaccVaccinationDateSnapshotsBase < ApplicationService
   protected
 
-  def update_vacc_vaccination_date_snapshots!(snapshots)
+  def create_vaccination_date_snapshots!(snapshots)
     latest_vaccination_date_snapshots_map = vacc.latest_vaccination_date_snapshots.group_by(&:vaccination_date)
     snapshots.map do |vaccination_date_snapshot|
       latest_vaccination_date_snapshot = latest_vaccination_date_snapshots_map.fetch(vaccination_date_snapshot.vaccination_date, []).first
@@ -18,7 +18,7 @@ class UpdateVaccVaccinationDateSnapshotsBase < ApplicationService
     end.compact
   end
 
-  def update_vacc_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
+  def update_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
     vaccination_date_snapshots.map do |vaccination_date_snapshot|
       latest_vaccination_date_snapshot = LatestVaccinationDateSnapshot.find_or_initialize_by(
         vacc_id: vaccination_date_snapshot.vacc_id,

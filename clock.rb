@@ -4,7 +4,6 @@ require './config/environment'
 
 Thread.report_on_exception = true
 
-
 module Clockwork
   UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
   UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
@@ -12,7 +11,10 @@ module Clockwork
   UPDATE_VACCINATION_DATE_SNAPSHOTS_RATE_LIMIT = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
 
   every(UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL.minutes, 'update_all_test_date_snapshots') do
-    UpdateMoms.new.perform
+    UpdateNcziMoms.new.perform
+    RychlejsieMom.instances.map do |config|
+      UpdateRychlejsieMoms.new(config).perform
+    end
     UpdateAllMomTestDateSnapshots.new(rate_limit: UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT).perform
   end
 

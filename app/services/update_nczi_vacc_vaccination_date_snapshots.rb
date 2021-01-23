@@ -11,14 +11,14 @@ class UpdateNcziVaccVaccinationDateSnapshots < ApplicationService
     logger.info "Updating NCZI vaccination date snapshots for vacc #{vacc.inspect}"
 
     ActiveRecord::Base.transaction do
-      vaccination_date_snapshots = update_nczi_vacc_vaccination_date_snapshots!
-      update_vacc_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
+      vaccination_date_snapshots = create_vacc_vaccination_date_snapshots!
+      update_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
     end
   end
 
   private
 
-  def update_nczi_vacc_vaccination_date_snapshots!
+  def create_vacc_vaccination_date_snapshots!
     latest_vaccination_date_snapshots_map = vacc.latest_vaccination_date_snapshots.group_by(&:vaccination_date)
     fetch_nczi_vacc_vaccination_date_snapshots.map do |vaccination_date_snapshot|
       latest_vaccination_date_snapshot = latest_vaccination_date_snapshots_map.fetch(vaccination_date_snapshot.vaccination_date, []).first
@@ -35,7 +35,7 @@ class UpdateNcziVaccVaccinationDateSnapshots < ApplicationService
     end.compact
   end
 
-  def update_vacc_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
+  def update_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
     vaccination_date_snapshots.map do |vaccination_date_snapshot|
       latest_vaccination_date_snapshot = LatestVaccinationDateSnapshot.find_or_initialize_by(
         vacc_id: vaccination_date_snapshot.vacc_id,

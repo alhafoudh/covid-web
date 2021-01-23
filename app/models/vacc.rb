@@ -39,4 +39,8 @@ class Vacc < ApplicationRecord
   def any_free_capacity?(vaccination_dates = nil)
     total_free_capacity(vaccination_dates) > 0
   end
+
+  def final_reservations_url
+    reservations_url % attributes.symbolize_keys
+  end
 end

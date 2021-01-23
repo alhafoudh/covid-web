@@ -9,15 +9,15 @@ class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     logger.info "Updating Vacuumlabs test date snapshots for mom #{mom.inspect}"
 
     ActiveRecord::Base.transaction do
-      test_date_snapshots = update_mom_test_date_snapshots!(fetch_vacuumlabs_mom_test_date_snapshots)
-      update_mom_latest_test_date_snapshots!(test_date_snapshots)
+      test_date_snapshots = create_test_date_snapshots!(fetch_test_date_snapshots)
+      update_latest_test_date_snapshots!(test_date_snapshots)
     end
   end
 
   private
 
-  def fetch_vacuumlabs_mom_test_date_snapshots
-    data = fetch_vacuumlabs_snapshots
+  def fetch_test_date_snapshots
+    data = fetch_snapshots
     timeslots = data
                   .fetch('timeslots', [])
                   .map(&:symbolize_keys)
@@ -54,7 +54,7 @@ class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     @test_dates ||= TestDate.all.to_a
   end
 
-  def fetch_vacuumlabs_snapshots
+  def fetch_snapshots
     response = vacuumlabs_client.get("https://rychlotest-covid.sk/api/public/collection_sites/#{mom.external_id}")
     response.body
   end
