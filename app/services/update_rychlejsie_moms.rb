@@ -27,7 +27,7 @@ class UpdateRychlejsieMoms < ApplicationService
   def fetch_moms
     fetch_data.map do |mom|
       address = mom[:address]
-      _, street_name, postal_code, county_name = address.match(/(.+?),\ ([0-9]{5})\ (.*)/).to_a
+      _, street_name, postal_code, county_name = address.match(/(.+?),\ ([0-9 ]{5,6})\ (.*)/).to_a
 
       {
         title: mom[:name],
