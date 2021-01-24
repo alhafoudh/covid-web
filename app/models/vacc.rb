@@ -41,6 +41,6 @@ class Vacc < ApplicationRecord
   end
 
   def final_reservations_url
-    reservations_url % attributes.symbolize_keys
+    reservations_url.to_s % attributes.symbolize_keys
   end
 end
