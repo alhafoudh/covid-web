@@ -9,8 +9,12 @@ class County < ApplicationRecord
     end
   end
 
+  def all_moms_support_reservation?
+    moms.all?(&:supports_reservation)
+  end
+
   def any_moms_free_capacity?(test_dates = nil)
-    total_moms_free_capacity(test_dates) > 0
+    !all_moms_support_reservation? || total_moms_free_capacity(test_dates) > 0
   end
 
   def total_vaccs_free_capacity(test_dates = nil)

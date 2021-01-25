@@ -37,14 +37,10 @@ class Mom < ApplicationRecord
   end
 
   def any_free_capacity?(test_dates = nil)
-    total_free_capacity(test_dates) > 0
+    !supports_reservation || total_free_capacity(test_dates) > 0
   end
 
   def final_reservations_url
     reservations_url.to_s % attributes.symbolize_keys
-  end
-
-  def supports_walk_in?
-    false
   end
 end

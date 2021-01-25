@@ -13,6 +13,7 @@ module Testing
 
       @regions = Region
                    .includes(
+                     :moms,
                      counties: {
                        moms: [
                          :region,
