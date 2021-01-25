@@ -29,6 +29,7 @@ module Testing
                    .order(name: :asc)
 
       moms = Mom
+               .enabled
                .includes(
                  :region, :county,
                  latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
