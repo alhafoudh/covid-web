@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_224314) do
+ActiveRecord::Schema.define(version: 2021_01_25_111417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,9 +72,12 @@ ActiveRecord::Schema.define(version: 2021_01_23_224314) do
     t.string "external_endpoint"
     t.boolean "supports_reservation", default: true, null: false
     t.jsonb "external_details"
+    t.boolean "enabled", default: true, null: false
     t.index ["city"], name: "index_moms_on_city"
     t.index ["county_id"], name: "index_moms_on_county_id"
     t.index ["county_name"], name: "index_moms_on_county_name"
+    t.index ["enabled"], name: "index_moms_on_enabled"
+    t.index ["external_endpoint"], name: "index_moms_on_external_endpoint"
     t.index ["external_id"], name: "index_moms_on_external_id", unique: true
     t.index ["latest_test_date_snapshot_id"], name: "index_moms_on_latest_test_date_snapshot_id"
     t.index ["latitude"], name: "index_moms_on_latitude"

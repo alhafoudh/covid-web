@@ -6,6 +6,8 @@ class Mom < ApplicationRecord
   has_many :test_date_snapshots
   has_many :latest_test_date_snapshots
 
+  scope :enabled, -> { where(enabled: true) }
+
   def commercial?
     false
   end

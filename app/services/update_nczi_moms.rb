@@ -9,7 +9,11 @@ class UpdateNcziMoms < ApplicationService
       update_regions!(moms)
       update_counties!(moms)
       update_moms!(moms)
+      disable_missing_moms!(moms)
+
+      logger.info "Done updating NCZI moms. Currently we have #{NcziMom.enabled.count} enabled NCZI moms"
     end
+
   end
 
   private
@@ -22,6 +26,7 @@ class UpdateNcziMoms < ApplicationService
           external_details: mom,
           reservations_url: 'https://www.old.korona.gov.sk/covid-19-patient-form.php',
           updated_at: Time.zone.now,
+          enabled: true,
         )
         .except(:id)
     end
@@ -77,6 +82,14 @@ class UpdateNcziMoms < ApplicationService
     end
 
     Mom.upsert_all(updated_moms, unique_by: :external_id)
+  end
+
+  def disable_missing_moms!(moms)
+    NcziMom
+      .where.not(external_id: moms.pluck(:external_id))
+      .update_all(enabled: false).tap do |num_disabled_moms|
+      logger.info "Disabled #{num_disabled_moms} NCZI moms"
+    end
   end
 
   def all_regions

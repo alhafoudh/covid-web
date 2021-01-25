@@ -12,13 +12,18 @@ class UpdateRychlejsieMoms < ApplicationService
   end
 
   def perform
-    logger.info "Updating Rychlejsie moms from #{base_url} #{city} #{region.name}"
+    logger.tagged(base_url) do
+      logger.info "Updating Rychlejsie moms from #{base_url} #{city} #{region.name}"
 
-    ActiveRecord::Base.transaction do
-      moms = fetch_moms
+      ActiveRecord::Base.transaction do
+        moms = fetch_moms
 
-      update_counties!(moms)
-      update_moms!(moms)
+        update_counties!(moms)
+        update_moms!(moms)
+        disable_missing_moms!(moms)
+
+        logger.info "Done updating Rychlejsie moms. Currently we have #{RychlejsieMom.enabled.count} enabled Rychlejsie moms"
+      end
     end
   end
 
@@ -30,6 +35,7 @@ class UpdateRychlejsieMoms < ApplicationService
       _, street_name, postal_code, county_name = address.match(/(.+?),\ ([0-9 ]{5,6})\ (.*)/).to_a
 
       {
+        enabled: true,
         title: mom[:name],
         longitude: mom[:lng],
         latitude: mom[:lat],
@@ -76,6 +82,15 @@ class UpdateRychlejsieMoms < ApplicationService
     end
 
     Mom.upsert_all(updated_moms, unique_by: :external_id)
+  end
+
+  def disable_missing_moms!(moms)
+    RychlejsieMom
+      .where(external_endpoint: base_url)
+      .where.not(external_id: moms.pluck(:external_id))
+      .update_all(enabled: false).tap do |num_disabled_moms|
+      logger.info "Disabled #{num_disabled_moms} Rychlejsie.sk moms"
+    end
   end
 
   def all_counties
