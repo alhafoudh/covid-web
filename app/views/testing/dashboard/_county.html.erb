@@ -1,4 +1,0 @@
-<% return if moms_for(county).empty? %>
-<div class="<%= class_names('no-free-capacity': !county.any_moms_free_capacity?(@test_dates)) %>">
-  <%= render 'moms', title: county.name, moms: moms_for(county) %>
-</div>

@@ -4,17 +4,10 @@
     <%= t(:'testing.dashboard_info_html') %>
   </div>
   <div class="lg:text-right">
-    <% if TestDateSnapshot.last_updated_at.present? %>
-      <div class="flex flex-col text-sm italic lg:mb-0 mb-2">
-        <div class="flex flex-col lg:flex-row lg:justify-end">
-          <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l TestDateSnapshot.last_updated_at, format: :long %></span>
-        </div>
-        <%= t(:update_period_info_html, minutes: @update_interval) %>
-      </div>
-    <% end %>
+    <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: @update_interval) %>
   </div>
-  <%= render 'layouts/jump_to_region' %>
-  <%= render 'layouts/empty_switcher' %>
-  <%= render partial: 'region', collection: @regions %>
-  <%= render 'others_region' %>
+  <%= render Dashboard::JumpToRegionComponent.new(regions: @regions) %>
+  <%= render Dashboard::EmptySwitcherComponent.new %>
+  <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+  <%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>
 </div>

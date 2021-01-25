@@ -1,3 +1,3 @@
-class TestDate < ApplicationRecord
-  validates :date, presence: true
+class TestDate < PlanDate
+  self.table_name = 'vaccination_dates'
 end

@@ -1,7 +1,7 @@
 <div class="p-8 bg-gray-200 rounded-xl my-4">
   <strong><%= t(:jump_to_region) %></strong>
   <div class="flex flex-wrap items-start mt-4">
-    <% @regions.map do |region| %>
+    <% regions.map do |region| %>
       <%= link_to region.name, "##{dom_id(region)}", class: 'mr-4 mb-2', data: { turbolinks: false } %>
     <% end %>
     <%= link_to t(:other_region), '#other', class: 'mr-4 mb-2', data: { turbolinks: false } %>

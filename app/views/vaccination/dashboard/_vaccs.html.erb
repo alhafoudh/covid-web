@@ -1,9 +1,0 @@
-<div class="mb-4">
-  <span class="text-xl font-bold md:hidden block"><%= title %></span>
-  <div>
-    <div class="md:block hidden">
-      <%= render 'vaccination/dashboard/vaccs/header', title: title, vaccination_dates: @vaccination_dates %>
-    </div>
-    <%= render partial: 'vaccination/dashboard/vaccs/vacc', collection: vaccs %>
-  </div>
-</div>

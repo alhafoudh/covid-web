@@ -217,6 +217,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    view_component (2.24.0)
+      activesupport (>= 5.0.0, < 7.0)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -267,6 +269,7 @@ DEPENDENCIES
   sentry-ruby
   spring
   turbolinks (~> 5)
+  view_component
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)

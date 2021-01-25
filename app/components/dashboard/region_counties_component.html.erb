@@ -1,0 +1,6 @@
+<div class="mb-8 <%= classes %>">
+  <h2 class="text-2xl font-bold" id="<%= dom_id(region) %>"><%= title %></h2>
+  <div class="mt-2">
+    <%= render Dashboard::CountyPlacesComponent.with_collection(region.counties, places_by_county: places_by_county, plan_dates: plan_dates) %>
+  </div>
+</div>

@@ -1,44 +1,40 @@
-<div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch <%= class_names('opacity-40 no-free-capacity': mom.supports_reservation && !mom.any_free_capacity?(@test_dates)) %>">
+<div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch <%= classes %>">
   <div class="flex flex-row md:items-center justify-between lg:max-w-sm w-full">
     <div class="flex-1 flex flex-col items-start justify-between py-2 md:pb-2 pb-0 pl-4 pl md:pr-1">
         <span>
-          <% if mom.commercial? %>
+          <% if place.commercial? %>
           <span class="uppercase text-xs px-2 py-1 rounded bg-yellow-500 font-bold text-white"><%= t(:commercial) %></span>
           <% end %>
-          <%= mom.title %>
+          <%= place.title %>
         </span>
-      <%= link_to mom.address, mom.map_url, target: '_blank', class: 'text-sm' %>
+      <%= link_to place.address, place.map_url, target: '_blank', class: 'text-sm' %>
     </div>
     <div class="flex-0 w-32 flex justify-center items-center">
-      <% if mom.supports_reservation %>
-      <div class="px-2 md:py-4 py-2 flex items-end justify-end">
-        <div class="inline-flex rounded-md shadow">
-          <%= link_to t(:make_reservation), mom.final_reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
+      <% if place.supports_reservation %>
+        <div class="px-2 md:py-4 py-2 flex items-end justify-end">
+          <div class="inline-flex rounded-md shadow">
+            <%= link_to t(:make_reservation), place.final_reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
+          </div>
         </div>
-      </div>
-      <% elsif mom.is_a? RychlejsieMom %>
-      <div class="px-2 md:py-4 py-2 flex items-end justify-end">
-        <div class="inline-flex rounded-md shadow">
-          <%= link_to t(:more_info), mom.final_reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 hover:text-white' %>
-        </div>
-      </div>
       <% else %>
-      <span class="text-xs text-center text-yellow-600">
-        <%= t(:without_reservations) %>
-      </span>
+        <div class="px-2 md:py-4 py-2 flex items-end justify-end">
+          <div class="inline-flex rounded-md shadow">
+            <%= link_to t(:more_info), place.final_reservations_url || @default_make_reservation_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 hover:text-white' %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
   <div class="flex w-full md:overflow-hidden overflow-scroll">
-    <% @test_dates.map do |test_date| %>
-      <% snapshot = mom.latest_snapshot_at(test_date) %>
-      <div class="w-full flex flex-col items-center md:justify-center justify-between p-2 bg-opacity-60 bg-gray-100 <%= class_names('bg-green-100': snapshot.present? && snapshot.available?, 'bg-yellow-100': !mom.supports_reservation && test_date.date == Date.today) %>">
+    <% plan_dates.map do |test_date| %>
+      <% snapshot = place.latest_snapshot_at(test_date) %>
+      <div class="w-full flex flex-col items-center md:justify-center justify-between p-2 bg-opacity-60 bg-gray-100 <%= class_names('bg-green-100': snapshot.present? && snapshot.available?, 'bg-yellow-100': !place.supports_reservation && test_date.date == Date.today) %>">
         <div class="text-xs text-center md:hidden block flex flex-col">
           <span><%= l test_date.date, format: '%a' %></span>
           <span><%= l test_date.date, format: '%d %b' %></span>
         </div>
         <div class="flex items-center justify-center md:mt-0 mt-2">
-          <% if mom.supports_reservation %>
+          <% if place.supports_reservation %>
             <% if snapshot.nil? %>
               <span title="<%= t(:unknown) %>" class="text-gray-500">
                 ?
@@ -54,7 +50,7 @@
             <% if test_date.date == Date.today %>
             <span class="text-yellow-600 text-xs text-center">
               <%= t(:wait_time) %>
-              <%= mom.queue_wait_time %>
+              <%= place.queue_wait_time %>
             </span>
             <% else %>
               <span></span>
