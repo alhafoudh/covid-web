@@ -1,0 +1,26 @@
+<div class="w-full flex flex-col items-center md:justify-center justify-between p-2 bg-opacity-60 bg-gray-100 <%= classes(place, latest_snapshot, snapshot, plan_date) %>">
+  <div class="text-xs text-center md:hidden block flex flex-col">
+    <span><%= l plan_date.date, format: '%a' %></span>
+    <span><%= l plan_date.date, format: '%d %b' %></span>
+  </div>
+  <div class="flex items-center justify-center md:mt-0 mt-2">
+    <% if place.supports_reservation %>
+      <% if is_closed? %>
+        <span title="<%= t(:closed) %>" class="text-red-500">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="inline fill-current" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg>
+        </span>
+      <% else %>
+        <%= free_capacity %>
+      <% end %>
+    <% else %>
+      <% if plan_date.date == Date.today %>
+        <span class="text-yellow-600 text-xs text-center">
+          <%= t(:wait_time) %>
+          <%= place.queue_wait_time %>
+        </span>
+      <% else %>
+        <span></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

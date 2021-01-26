@@ -4,4 +4,8 @@ class LatestTestDateSnapshot < ApplicationRecord
   belongs_to :test_date_snapshot
 
   scope :enabled, -> { where(enabled: true) }
+
+  def snapshot
+    test_date_snapshot
+  end
 end

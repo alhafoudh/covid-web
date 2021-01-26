@@ -23,19 +23,4 @@ class Dashboard::PlacePlanComponent < ViewComponent::Base
   def available?
     place.available?(plan_dates)
   end
-
-  def cell_classes(place, latest_snapshot, snapshot, plan_date)
-    return unless latest_snapshot.present?
-    return unless snapshot.present?
-
-    if place.supports_reservation
-      if !latest_snapshot.enabled || snapshot.is_closed || !snapshot.available?
-        'bg-red-100'
-      else
-        'bg-green-200'
-      end
-    elsif plan_date.date == Date.today
-      'bg-yellow-200'
-    end
-  end
 end
