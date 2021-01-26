@@ -2,5 +2,5 @@
   <div class="flex flex-col lg:flex-row lg:justify-end">
     <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l last_updated_at, format: :long %></span>
   </div>
-  <%= t(:update_period_info_html, minutes: update_interval) %>
+  <%= t(:update_period_info_html, every_minutes: t(:every_minutes, count: update_interval)) %>
 </div>
