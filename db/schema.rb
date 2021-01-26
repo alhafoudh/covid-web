@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_111417) do
+ActiveRecord::Schema.define(version: 2021_01_26_151015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2021_01_25_111417) do
     t.bigint "test_date_snapshot_id"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.boolean "enabled", default: true, null: false
+    t.index ["enabled"], name: "index_latest_test_date_snapshots_on_enabled"
     t.index ["mom_id", "test_date_id"], name: "index_latest_test_date_snapshots_on_mom_id_and_test_date_id", unique: true
     t.index ["mom_id"], name: "index_latest_test_date_snapshots_on_mom_id"
     t.index ["test_date_id"], name: "index_latest_test_date_snapshots_on_test_date_id"
@@ -45,6 +47,8 @@ ActiveRecord::Schema.define(version: 2021_01_25_111417) do
     t.bigint "vaccination_date_snapshot_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "enabled", default: true, null: false
+    t.index ["enabled"], name: "index_latest_vaccination_date_snapshots_on_enabled"
     t.index ["vacc_id", "vaccination_date_id"], name: "idx_latest_vaccination_date_snapshots__unique_vacc_id_vdate_id", unique: true
     t.index ["vacc_id"], name: "index_latest_vaccination_date_snapshots__vacc_id"
     t.index ["vaccination_date_id"], name: "index_latest_vaccination_date_snapshots__date_id"

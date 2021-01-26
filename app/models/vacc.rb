@@ -11,12 +11,13 @@ class Vacc < ApplicationRecord
   end
 
   def latest_snapshot_at(vaccination_date)
-    latest_vaccination_date_snapshots
-      .map(&:vaccination_date_snapshot)
-      .compact
-      .select do |vaccination_date_snapshot|
+    latest_vaccination_date_snapshot = latest_vaccination_date_snapshots.find do |vaccination_date_snapshot|
       vaccination_date_snapshot.vaccination_date == vaccination_date
-    end.first
+    end
+    [
+      latest_vaccination_date_snapshot,
+      latest_vaccination_date_snapshot&.vaccination_date_snapshot
+    ]
   end
 
   def total_free_capacity(vaccination_dates = nil)

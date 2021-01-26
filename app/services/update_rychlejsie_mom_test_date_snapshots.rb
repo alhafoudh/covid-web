@@ -11,7 +11,8 @@ class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     logger.info "Updating Rychlejsie test date snapshots for mom #{mom.inspect}"
 
     ActiveRecord::Base.transaction do
-      test_date_snapshots = create_test_date_snapshots!(fetch_test_date_snapshots)
+      snapshots = fetch_test_date_snapshots
+      test_date_snapshots = create_test_date_snapshots!(snapshots)
       update_latest_test_date_snapshots!(test_date_snapshots)
     end
   end
@@ -40,7 +41,7 @@ class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
         test_date.date == date
       end
       unless test_date.present?
-        test_date = TestDate.create!(
+        test_date = TestDate.find_or_create_by!(
           date: date,
         )
       end

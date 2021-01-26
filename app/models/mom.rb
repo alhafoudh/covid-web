@@ -13,12 +13,13 @@ class Mom < ApplicationRecord
   end
 
   def latest_snapshot_at(test_date)
-    latest_test_date_snapshots
-      .map(&:test_date_snapshot)
-      .compact
-      .select do |test_date_snapshot|
+    latest_test_date_snapshot = latest_test_date_snapshots.find do |test_date_snapshot|
       test_date_snapshot.test_date == test_date
-    end.first
+    end
+    [
+      latest_test_date_snapshot,
+      latest_test_date_snapshot&.test_date_snapshot
+    ]
   end
 
   def total_free_capacity(test_dates = nil)

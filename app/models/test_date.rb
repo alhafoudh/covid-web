@@ -1,3 +1,3 @@
 class TestDate < PlanDate
-  self.table_name = 'vaccination_dates'
+  self.table_name = 'test_dates'
 end

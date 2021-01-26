@@ -1,4 +1,4 @@
-class UpdateNcziVaccVaccinationDateSnapshots < ApplicationService
+class UpdateNcziVaccVaccinationDateSnapshots < UpdateVaccVaccinationDateSnapshotsBase
   include NcziClient
 
   attr_reader :vacc
@@ -11,45 +11,19 @@ class UpdateNcziVaccVaccinationDateSnapshots < ApplicationService
     logger.info "Updating NCZI vaccination date snapshots for vacc #{vacc.inspect}"
 
     ActiveRecord::Base.transaction do
-      vaccination_date_snapshots = create_vacc_vaccination_date_snapshots!
+      snapshots = fetch_vaccination_date_snapshots
+      vaccination_date_snapshots = create_vaccination_date_snapshots!(snapshots)
       update_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
+      disable_latest_vaccination_date_snapshots!(snapshots)
+
+      logger.info "Done updating NCZI vaccination date snapshots. Currently we have #{vacc.latest_vaccination_date_snapshots.enabled.count} enabled latest vaccination date snapshots."
     end
   end
 
   private
 
-  def create_vacc_vaccination_date_snapshots!
-    latest_vaccination_date_snapshots_map = vacc.latest_vaccination_date_snapshots.group_by(&:vaccination_date)
-    fetch_nczi_vacc_vaccination_date_snapshots.map do |vaccination_date_snapshot|
-      latest_vaccination_date_snapshot = latest_vaccination_date_snapshots_map.fetch(vaccination_date_snapshot.vaccination_date, []).first
-
-      if vaccination_date_snapshot.different?(latest_vaccination_date_snapshot&.vaccination_date_snapshot)
-        vaccination_date_snapshot.save!
-        logger.debug "Created vaccination date snapshot #{vaccination_date_snapshot.inspect}"
-
-        vaccination_date_snapshot
-      else
-        logger.debug "Vaccination date snapshot did not change since latest #{vaccination_date_snapshot.inspect}"
-        nil
-      end
-    end.compact
-  end
-
-  def update_latest_vaccination_date_snapshots!(vaccination_date_snapshots)
-    vaccination_date_snapshots.map do |vaccination_date_snapshot|
-      latest_vaccination_date_snapshot = LatestVaccinationDateSnapshot.find_or_initialize_by(
-        vacc_id: vaccination_date_snapshot.vacc_id,
-        vaccination_date_id: vaccination_date_snapshot.vaccination_date_id,
-      )
-      latest_vaccination_date_snapshot.vaccination_date_snapshot = vaccination_date_snapshot
-      latest_vaccination_date_snapshot.save!
-      logger.debug "Created latest vaccination date snapshot #{latest_vaccination_date_snapshot.inspect}"
-      latest_vaccination_date_snapshot
-    end
-  end
-
-  def fetch_nczi_vacc_vaccination_date_snapshots
-    data = fetch_nczi_snapshots
+  def fetch_vaccination_date_snapshots
+    data = fetch_snapshots
     vaccination_dates_status = data.fetch('payload', [])
 
     vaccination_dates_status.map do |vaccination_date_status|
@@ -77,7 +51,7 @@ class UpdateNcziVaccVaccinationDateSnapshots < ApplicationService
     @vaccination_dates ||= VaccinationDate.all.to_a
   end
 
-  def fetch_nczi_snapshots
+  def fetch_snapshots
     response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times_vacc', { drivein_id: vacc.external_id.to_s })
     response.body
   end

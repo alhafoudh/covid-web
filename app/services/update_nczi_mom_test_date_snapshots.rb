@@ -29,7 +29,7 @@ class UpdateNcziMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
       end
 
       unless test_date.present?
-        test_date = TestDate.create!(
+        test_date = TestDate.find_or_create_by!(
           date: parsed_date,
         )
       end

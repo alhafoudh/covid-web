@@ -86,6 +86,7 @@ class UpdateRychlejsieMoms < ApplicationService
 
   def disable_missing_moms!(moms)
     RychlejsieMom
+      .enabled
       .where(external_endpoint: base_url)
       .where.not(external_id: moms.pluck(:external_id))
       .update_all(enabled: false).tap do |num_disabled_moms|

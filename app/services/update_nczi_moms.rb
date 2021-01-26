@@ -86,6 +86,7 @@ class UpdateNcziMoms < ApplicationService
 
   def disable_missing_moms!(moms)
     NcziMom
+      .enabled
       .where.not(external_id: moms.pluck(:external_id))
       .update_all(enabled: false).tap do |num_disabled_moms|
       logger.info "Disabled #{num_disabled_moms} NCZI moms"

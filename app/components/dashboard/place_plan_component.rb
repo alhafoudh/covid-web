@@ -19,4 +19,15 @@ class Dashboard::PlacePlanComponent < ViewComponent::Base
   def free_capacity
     place.total_free_capacity(plan_dates)
   end
+
+  def cell_classes(place, latest_snapshot, snapshot, plan_date)
+    return unless latest_snapshot.present?
+    return unless snapshot.present?
+
+    class_names(
+      'bg-red-100': latest_snapshot.enabled && !snapshot.available?,
+      'bg-green-200': latest_snapshot.enabled && snapshot.available?,
+      'bg-yellow-200': !latest_snapshot.enabled || !place.supports_reservation && plan_date.date == Date.today,
+    )
+  end
 end
