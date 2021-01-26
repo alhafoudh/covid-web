@@ -9,5 +9,5 @@
   <%= render Dashboard::JumpToRegionComponent.new(regions: @regions) %>
   <%= render Dashboard::EmptySwitcherComponent.new %>
   <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
-  <%#= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+  <%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>
 </div>
