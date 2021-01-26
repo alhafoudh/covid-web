@@ -7,7 +7,7 @@ module Testing
         @test_dates = TestDate.order(date: :asc)
 
         fresh_when(@test_dates, public: true)
-        expires_in(cached_content_expires_in, public: true, stale_while_revalidate: cached_content_allowed_stale)
+        expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
       end
     end
   end

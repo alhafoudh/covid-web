@@ -3,8 +3,6 @@ module Vaccination
     def index
       request.session_options[:skip] = true
 
-      @update_interval = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_INTERVAL', 15).to_i
-
       @plan_dates = VaccinationDate
                       .where('date >= ? AND date <= ?', Date.today, Date.today + num_vaccination_days)
                       .order(date: :asc)
@@ -23,12 +21,10 @@ module Vaccination
                  )
                  .order(title: :asc)
 
-      @default_make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
-
       if stale?(places, public: true)
         @places_by_county = places.group_by(&:county)
       end
-      expires_in(cached_content_expires_in, public: true, stale_while_revalidate: cached_content_allowed_stale)
+      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
     end
 
     private

@@ -3,8 +3,6 @@ module Testing
     def index
       request.session_options[:skip] = true
 
-      @update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
-
       @plan_dates = TestDate
                       .where('date >= ? AND date <= ?', Date.today, Date.today + num_test_days)
                       .order(date: :asc)
@@ -23,12 +21,10 @@ module Testing
                    latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
                  .order(title: :asc)
 
-      @default_make_reservation_url = ENV.fetch('MAKE_RESERVATION_URL', '#')
-
       if stale?(places, public: true)
         @places_by_county = places.group_by(&:county)
       end
-      expires_in(cached_content_expires_in, public: true, stale_while_revalidate: cached_content_allowed_stale)
+      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
     end
 
     private

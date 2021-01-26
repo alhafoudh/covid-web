@@ -4,7 +4,7 @@
     <%= t(:'vaccination.dashboard_info_html') %>
   </div>
   <div class="lg:text-right">
-    <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: VaccinationDateSnapshot, update_interval: @update_interval) %>
+    <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: VaccinationDateSnapshot, update_interval: Rails.application.config.x.vaccination.update_interval) %>
   </div>
   <%= render Dashboard::JumpToRegionComponent.new(regions: @regions) %>
   <%= render Dashboard::EmptySwitcherComponent.new %>

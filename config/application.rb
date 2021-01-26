@@ -43,5 +43,12 @@ module SkCovidTesting
     config.log_level = ENV.fetch('LOG_LEVEL', :info).to_sym
 
     config.middleware.use Rack::Deflater
+
+    config.x.testing.update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
+    config.x.testing.rate_limit = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
+    config.x.vaccination.update_interval = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_INTERVAL', 15).to_i
+    config.x.vaccination.rate_limit = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
+    config.x.cache.content_expiration_minutes = ENV.fetch('CACHED_CONTENT_EXPIRATION_MINUTES', 15).to_i.minutes
+    config.x.cache.content_stale_minutes = ENV.fetch('CACHED_CONTENT_STALE_MINUTES', 1).to_i.minutes
   end
 end
