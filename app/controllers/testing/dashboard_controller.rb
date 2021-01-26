@@ -18,7 +18,11 @@ module Testing
                  .enabled
                  .includes(
                    :region, :county,
-                   latest_test_date_snapshots: { test_date_snapshot: [:test_date] })
+                   latest_test_date_snapshots: [
+                     :test_date,
+                     { test_date_snapshot: [:test_date] }
+                   ]
+                 )
                  .order(title: :asc)
 
       if stale?(places, public: true)

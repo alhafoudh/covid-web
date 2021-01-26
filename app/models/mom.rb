@@ -12,6 +12,14 @@ class Mom < ApplicationRecord
     false
   end
 
+  def visible?
+    true
+  end
+
+  def available?(test_dates = nil)
+    total_free_capacity(test_dates) > 0
+  end
+
   def latest_snapshot_at(test_date)
     latest_test_date_snapshot = latest_test_date_snapshots.find do |test_date_snapshot|
       test_date_snapshot.test_date == test_date
@@ -37,10 +45,6 @@ class Mom < ApplicationRecord
 
       acc + (free_capacity > 0 ? free_capacity : 0)
     end
-  end
-
-  def any_free_capacity?(test_dates = nil)
-    !supports_reservation || total_free_capacity(test_dates) > 0
   end
 
   def final_reservations_url

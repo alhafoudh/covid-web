@@ -10,14 +10,18 @@ class Dashboard::PlacePlanComponent < ViewComponent::Base
     @plan_dates = plan_dates
   end
 
+  def render?
+    place.visible?
+  end
+
   def classes
     class_names(
-      'opacity-40 no-free-capacity': place.supports_reservation && free_capacity.zero?
+      'opacity-40 no-free-capacity': !available?
     )
   end
 
-  def free_capacity
-    place.total_free_capacity(plan_dates)
+  def available?
+    place.available?(plan_dates)
   end
 
   def cell_classes(place, latest_snapshot, snapshot, plan_date)

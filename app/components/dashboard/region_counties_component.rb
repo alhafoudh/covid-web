@@ -13,9 +13,12 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
   end
 
   def render?
-    !counties.all? do |county|
-      places_for(county).empty?
+    counties
+      .map do |county|
+      places_for(county)
     end
+      .flatten
+      .any?(&:visible?)
   end
 
   def region_dom_id
@@ -23,23 +26,22 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
   end
 
   def counties
-    region.present? ? region.counties : [nil]
+    region.counties
   end
 
   def classes
     class_names(
-      'no-free-capacity': free_capacity_in_region.zero?
+      'no-free-capacity': !any_available_in_region?
     )
   end
 
-  def free_capacity_in_region
-    places_by_county.reduce(0) do |acc, (_, places)|
-      acc + places.select do |place|
-        place.region == region
-      end.map do |place|
-        place.total_free_capacity(plan_dates)
-      end.sum
+  def any_available_in_region?
+    counties
+      .map do |county|
+      places_for(county)
     end
+      .flatten
+      .any?(&:available?)
   end
 
   def title

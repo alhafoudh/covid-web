@@ -13,23 +13,17 @@ class Dashboard::CountyPlacesComponent < ViewComponent::Base
   end
 
   def render?
-    places.any?
+    places.any?(&:visible?)
   end
 
   def classes
     class_names(
-      'no-free-capacity': county && free_capacity_in_county.zero?
+      'no-free-capacity': !any_available_in_county?
     )
   end
 
-  def free_capacity_in_county
-    places_by_county.reduce(0) do |acc, (_, places)|
-      acc + places.select do |place|
-        place.county == county
-      end.map do |place|
-        place.total_free_capacity(plan_dates)
-      end.sum
-    end
+  def any_available_in_county?
+    places.any?(&:available?)
   end
 
   def title

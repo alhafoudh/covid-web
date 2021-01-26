@@ -10,6 +10,14 @@ class Vacc < ApplicationRecord
     false
   end
 
+  def visible?
+    true
+  end
+
+  def available?(vaccination_dates = nil)
+    total_free_capacity(vaccination_dates) > 0
+  end
+
   def latest_snapshot_at(vaccination_date)
     latest_vaccination_date_snapshot = latest_vaccination_date_snapshots.find do |vaccination_date_snapshot|
       vaccination_date_snapshot.vaccination_date == vaccination_date
