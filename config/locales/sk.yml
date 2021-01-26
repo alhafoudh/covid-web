@@ -32,7 +32,7 @@ sk:
     title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
     dashboard_info_html: |
       <p>
-        Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje každých 15 minút.<br/>
+        Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje.<br/>
         <br/>
         <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba odberné miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
         Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.<br/>
@@ -43,7 +43,7 @@ sk:
     title: "Zoznam očkovacích miest s objednávaním na COVID-19"
     dashboard_info_html: |
       <p>
-        Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje každých 15 minút.<br/>
+        Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje.<br/>
         <br/>
         <span class="text-yellow-600 bg-yellow-100 block px-4 py-2 border-l-4 border-yellow-600 rounded-r-xl">Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie. V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.</span>
         <br/>
