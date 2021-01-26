@@ -27,7 +27,7 @@ class Vacc < ApplicationRecord
       next acc unless snapshot.present?
       next acc if vaccination_dates.present? && !vaccination_dates.include?(snapshot.vaccination_date)
 
-      free_capacity = if snapshot.is_closed
+      free_capacity = if !latest_vaccination_date_snapshot.enabled || snapshot.is_closed
                         0
                       else
                         snapshot.free_capacity.to_i

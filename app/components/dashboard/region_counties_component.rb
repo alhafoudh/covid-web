@@ -13,9 +13,17 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
   end
 
   def render?
-    !region.counties.all? do |county|
+    !counties.all? do |county|
       places_for(county).empty?
     end
+  end
+
+  def region_dom_id
+    dom_id(region)
+  end
+
+  def counties
+    region.present? ? region.counties : [nil]
   end
 
   def classes

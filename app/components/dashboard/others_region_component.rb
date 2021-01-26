@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
-class Dashboard::OthersRegionComponent < ViewComponent::Base
+class Dashboard::OthersRegionComponent < Dashboard::RegionCountiesComponent
 
   attr_reader :places_by_county, :plan_dates
 
   def initialize(places_by_county:, plan_dates:)
-    @places_by_county = places_by_county
-    @plan_dates = plan_dates
+    super(region: nil, places_by_county: places_by_county, plan_dates: plan_dates)
   end
 
-  def places
-    @places ||= places_by_county.fetch(nil, [])
+  def region_dom_id
+    :other_region
   end
 
-  def render?
-    places.any?
+  def counties
+    [nil]
+  end
+
+  def title
+    t(:other_region)
   end
 end

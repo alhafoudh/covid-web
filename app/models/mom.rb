@@ -29,7 +29,7 @@ class Mom < ApplicationRecord
       next acc unless snapshot.present?
       next acc if test_dates.present? && !test_dates.include?(snapshot.test_date)
 
-      free_capacity = if snapshot.is_closed
+      free_capacity = if !latest_test_date_snapshot.enabled || snapshot.is_closed
                         0
                       else
                         snapshot.free_capacity.to_i
