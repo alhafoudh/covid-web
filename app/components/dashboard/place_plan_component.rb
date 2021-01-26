@@ -24,10 +24,14 @@ class Dashboard::PlacePlanComponent < ViewComponent::Base
     return unless latest_snapshot.present?
     return unless snapshot.present?
 
-    class_names(
-      'bg-red-100': latest_snapshot.enabled && !snapshot.available?,
-      'bg-green-200': latest_snapshot.enabled && snapshot.available?,
-      'bg-yellow-200': !latest_snapshot.enabled || !place.supports_reservation && plan_date.date == Date.today,
-    )
+    if place.supports_reservation
+      if !latest_snapshot.enabled || snapshot.is_closed || !snapshot.available?
+        'bg-red-100'
+      else
+        'bg-green-200'
+      end
+    elsif plan_date.date == Date.today
+      'bg-yellow-200'
+    end
   end
 end
