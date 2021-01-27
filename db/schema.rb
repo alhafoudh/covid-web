@@ -18,11 +18,9 @@ ActiveRecord::Schema.define(version: 2021_01_27_211418) do
   create_table "counties", force: :cascade do |t|
     t.bigint "region_id"
     t.string "name"
-    t.integer "moms_count", default: 0, null: false
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.string "external_id"
-    t.integer "vaccs_count", default: 0, null: false
     t.index ["external_id"], name: "index_counties_on_external_id", unique: true
     t.index ["region_id"], name: "index_counties_on_region_id"
   end
