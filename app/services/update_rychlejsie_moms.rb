@@ -64,10 +64,6 @@ class UpdateRychlejsieMoms < ApplicationService
     end.compact.uniq
 
     County.upsert_all(counties, unique_by: :external_id)
-
-    County.find_each do |county|
-      County.reset_counters(county.id, :moms)
-    end
   end
 
   def update_moms!(moms)

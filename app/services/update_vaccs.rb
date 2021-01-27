@@ -39,10 +39,6 @@ class UpdateVaccs < ApplicationService
     end.compact.uniq
 
     Region.upsert_all(regions, unique_by: :external_id)
-
-    Region.find_each do |region|
-      Region.reset_counters(region.id, :vaccs)
-    end
   end
 
   def update_counties!(vaccs)
@@ -59,10 +55,6 @@ class UpdateVaccs < ApplicationService
     end.compact.uniq
 
     County.upsert_all(counties, unique_by: :external_id)
-
-    County.find_each do |county|
-      County.reset_counters(county.id, :vaccs)
-    end
   end
 
   def update_vaccs!(vaccs)

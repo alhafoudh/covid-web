@@ -4,8 +4,8 @@ class Place < ApplicationRecord
 
   self.abstract_class = true
 
-  belongs_to :region, counter_cache: true
-  belongs_to :county, counter_cache: true, touch: true
+  belongs_to :region
+  belongs_to :county, touch: true
 
   scope :enabled, -> { where(enabled: true) }
 

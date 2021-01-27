@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_120134) do
+ActiveRecord::Schema.define(version: 2021_01_27_211418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +98,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_120134) do
     t.string "name"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
-    t.integer "moms_count", default: 0, null: false
     t.string "external_id"
-    t.integer "vaccs_count", default: 0, null: false
     t.index ["external_id"], name: "index_regions_on_external_id", unique: true
   end
 

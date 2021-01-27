@@ -43,10 +43,6 @@ class UpdateNcziMoms < ApplicationService
     end.compact.uniq
 
     Region.upsert_all(regions, unique_by: :external_id)
-
-    Region.find_each do |region|
-      Region.reset_counters(region.id, :moms)
-    end
   end
 
   def update_counties!(moms)
@@ -63,10 +59,6 @@ class UpdateNcziMoms < ApplicationService
     end.compact.uniq
 
     County.upsert_all(counties, unique_by: :external_id)
-
-    County.find_each do |county|
-      County.reset_counters(county.id, :moms)
-    end
   end
 
   def update_moms!(moms)
