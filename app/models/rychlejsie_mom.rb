@@ -23,8 +23,8 @@ class RychlejsieMom < Mom
     supports_reservation || queue_wait_time.present?
   end
 
-  def available?(test_dates = nil)
-    supports_reservation && total_free_capacity(test_dates) || !supports_reservation && queue_wait_time
+  def available?(plan_dates = nil)
+    supports_reservation && total_free_capacity(plan_dates) || !supports_reservation && queue_wait_time
   end
 
   def queue_wait_time

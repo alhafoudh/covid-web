@@ -1,4 +1,4 @@
-class UpdateAllVaccVaccinationDateSnapshots < ApplicationService
+class UpdateAllVaccinationSnapshots < ApplicationService
   attr_reader :rate_limit
 
   def initialize(rate_limit: 1)
@@ -11,7 +11,7 @@ class UpdateAllVaccVaccinationDateSnapshots < ApplicationService
       limiter = get_limiter
 
       NcziVacc.find_each(batch_size: 50) do |vacc|
-        all_jobs << UpdateNcziVaccVaccinationDateSnapshots.new(vacc: vacc)
+        all_jobs << UpdateNcziVaccinationSnapshots.new(vacc: vacc)
       end
 
       jobs = job_queue_for(all_jobs.size)

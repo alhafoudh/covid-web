@@ -9,7 +9,7 @@ namespace :vaccination do
   namespace :snapshots do
     desc 'Update vaccination snapshots'
     task update: [:environment]  do
-      UpdateAllVaccVaccinationDateSnapshots.new(rate_limit: Rails.application.config.x.vaccination.rate_limit).perform
+      UpdateAllVaccinationSnapshots.new(rate_limit: Rails.application.config.x.vaccination.rate_limit).perform
     end
   end
 end

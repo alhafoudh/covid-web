@@ -1,4 +1,4 @@
-class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
+class UpdateRychlejsieMomSnapshots < TestingSnapshotsBase
   include RychlejsieClient
 
   attr_reader :mom
@@ -11,15 +11,15 @@ class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     logger.info "Updating Rychlejsie test date snapshots for mom #{mom.inspect}"
 
     ActiveRecord::Base.transaction do
-      snapshots = fetch_test_date_snapshots
-      test_date_snapshots = create_test_date_snapshots!(snapshots)
-      update_latest_test_date_snapshots!(test_date_snapshots)
+      snapshots = fetch_snapshots
+      created_snapshots = create_snapshots!(snapshots)
+      update_latest_snapshots!(created_snapshots)
     end
   end
 
   private
 
-  def fetch_test_date_snapshots
+  def fetch_snapshots
     slots = fetch_slots
 
     hours = slots.map do |slot|
@@ -37,11 +37,11 @@ class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     end
 
     free_capacity_by_date.map do |date, free_capacity|
-      test_date = test_dates.find do |test_date|
-        test_date.date == date
+      plan_date = plan_dates.find do |plan_date|
+        plan_date.date == date
       end
-      unless test_date.present?
-        test_date = TestDate.find_or_create_by!(
+      unless plan_date.present?
+        plan_date = TestDate.find_or_create_by!(
           date: date,
         )
       end
@@ -50,7 +50,7 @@ class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
       free_capacity = free_capacity
 
       TestDateSnapshot.new(
-        test_date: test_date,
+        plan_date: plan_date,
         mom_id: mom.id,
         is_closed: is_closed,
         free_capacity: free_capacity,
@@ -58,8 +58,8 @@ class UpdateRychlejsieMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     end
   end
 
-  def test_dates
-    @test_dates ||= TestDate.all.to_a
+  def plan_dates
+    @plan_dates ||= TestDate.all.to_a
   end
 
   def fetch_slots

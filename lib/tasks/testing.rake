@@ -12,7 +12,7 @@ namespace :testing do
   namespace :snapshots do
     desc 'Update testing snapshots'
     task update: [:environment]  do
-      UpdateAllMomTestDateSnapshots.new(rate_limit: Rails.application.config.x.testing.rate_limit).perform
+      UpdateAllTestingSnapshots.new(rate_limit: Rails.application.config.x.testing.rate_limit).perform
     end
   end
 end

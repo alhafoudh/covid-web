@@ -1,23 +1,4 @@
-class TestDateSnapshot < ApplicationRecord
-  belongs_to :mom
-  belongs_to :test_date
-
-  def available?
-    !is_closed && free_capacity > 0
-  end
-
-  def different?(other)
-    other.nil? ||
-      other.test_date.id != self.test_date.id ||
-      other.is_closed != self.is_closed ||
-      other.free_capacity != self.free_capacity
-  end
-
-  def self.last_updated
-    order(created_at: :desc).first
-  end
-
-  def self.last_updated_at
-    last_updated&.created_at
-  end
+class TestDateSnapshot < Snapshot
+  belongs_to :place, class_name: 'Mom', foreign_key: 'mom_id'
+  belongs_to :plan_date, class_name: 'TestDate', foreign_key: 'test_date_id'
 end

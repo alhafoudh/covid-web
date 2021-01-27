@@ -1,4 +1,4 @@
-class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
+class UpdateVacuumlabsTestingSnapshots < TestingSnapshotsBase
   attr_reader :mom
 
   def initialize(mom:)
@@ -9,15 +9,15 @@ class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     logger.info "Updating Vacuumlabs test date snapshots for mom #{mom.inspect}"
 
     ActiveRecord::Base.transaction do
-      test_date_snapshots = create_test_date_snapshots!(fetch_test_date_snapshots)
-      update_latest_test_date_snapshots!(test_date_snapshots)
+      snapshots = create_snapshots!(fetch_snapshots)
+      update_latest_snapshots!(snapshots)
     end
   end
 
   private
 
-  def fetch_test_date_snapshots
-    data = fetch_snapshots
+  def fetch_snapshots
+    data = fetch_raw_snapshots
     timeslots = data
                   .fetch('timeslots', [])
                   .map(&:symbolize_keys)
@@ -28,11 +28,11 @@ class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     end
 
     timeslots_by_date.map do |date, date_timeslots|
-      test_date = test_dates.find do |test_date|
-        test_date.date == date
+      plan_date = plan_dates.find do |plan_date|
+        plan_date.date == date
       end
-      unless test_date.present?
-        test_date = TestDate.find_or_create_by!(
+      unless plan_date.present?
+        plan_date = TestDate.find_or_create_by!(
           date: date,
         )
       end
@@ -42,7 +42,7 @@ class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
       free_capacity = date_timeslots.pluck(:remainingCapacity).sum
 
       TestDateSnapshot.new(
-        test_date: test_date,
+        plan_date: plan_date,
         mom_id: mom.id,
         is_closed: is_closed,
         free_capacity: free_capacity,
@@ -50,11 +50,11 @@ class UpdateVacuumlabsMomTestDateSnapshots < UpdateMomTestDateSnapshotsBase
     end
   end
 
-  def test_dates
-    @test_dates ||= TestDate.all.to_a
+  def plan_dates
+    @plan_dates ||= TestDate.all.to_a
   end
 
-  def fetch_snapshots
+  def fetch_raw_snapshots
     response = vacuumlabs_client.get("https://rychlotest-covid.sk/api/public/collection_sites/#{mom.external_id}")
     response.body
   end

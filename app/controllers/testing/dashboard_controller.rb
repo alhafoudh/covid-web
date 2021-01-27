@@ -18,9 +18,9 @@ module Testing
                  .enabled
                  .includes(
                    :region, :county,
-                   latest_test_date_snapshots: [
-                     :test_date,
-                     { test_date_snapshot: [:test_date] }
+                   latest_snapshots: [
+                     :plan_date,
+                     { snapshot: [:plan_date] }
                    ]
                  )
                  .order(title: :asc)

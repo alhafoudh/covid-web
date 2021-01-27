@@ -28,5 +28,4 @@ module Locatable
   def map_url
     "https://maps.google.com/?q=#{CGI.escape(address_full)}"
   end
-
 end

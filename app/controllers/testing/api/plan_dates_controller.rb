@@ -1,12 +1,12 @@
 module Testing
   module Api
-    class TestDatesController < ApplicationController
+    class PlanDatesController < ApplicationController
       def index
         request.session_options[:skip] = true
 
-        @test_dates = TestDate.order(date: :asc)
+        @plan_dates = TestDate.order(date: :asc)
 
-        fresh_when(@test_dates, public: true)
+        fresh_when(@plan_dates, public: true)
         expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
       end
     end

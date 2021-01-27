@@ -1,19 +1,4 @@
 sk:
-  activerecord:
-    models:
-      mom:
-        one: "Mobilné odberné miesto"
-        few: "Mobilné odberné miesta"
-        other: "Mobilné odberné miesta"
-      test_date: "Dátum testovania"
-    attributes:
-      mom:
-        title: "Názov"
-        address: "Adresa"
-      test_date_snapshot:
-        is_closed: "Zatvorené"
-        free_capacity: "Voľná kapacita"
-
   regions: "Regióny"
   for_region_county: "pre %{region} kraj, %{county}"
   closed: "Zatvorené"

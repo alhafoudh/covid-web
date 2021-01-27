@@ -1,4 +1,4 @@
-class UpdateAllMomTestDateSnapshots < ApplicationService
+class UpdateAllTestingSnapshots < ApplicationService
   attr_reader :rate_limit
 
   def initialize(rate_limit: 1)
@@ -11,15 +11,15 @@ class UpdateAllMomTestDateSnapshots < ApplicationService
       limiter = get_limiter
 
       VacuumlabsMom.find_each(batch_size: 50) do |mom|
-        all_jobs << UpdateVacuumlabsMomTestDateSnapshots.new(mom: mom)
+        all_jobs << UpdateVacuumlabsTestingSnapshots.new(mom: mom)
       end
       RychlejsieMom
         .where(supports_reservation: true)
         .find_each(batch_size: 50) do |mom|
-        all_jobs << UpdateRychlejsieMomTestDateSnapshots.new(mom: mom)
+        all_jobs << UpdateRychlejsieMomSnapshots.new(mom: mom)
       end
       NcziMom.find_each(batch_size: 50) do |mom|
-        all_jobs << UpdateNcziMomTestDateSnapshots.new(mom: mom)
+        all_jobs << UpdateNcziTestingSnapshots.new(mom: mom)
       end
 
       jobs = job_queue_for(all_jobs.size)

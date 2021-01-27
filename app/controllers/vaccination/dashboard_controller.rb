@@ -18,9 +18,9 @@ module Vaccination
                  .enabled
                  .includes(
                    :region, :county,
-                   latest_vaccination_date_snapshots: [
-                     :vaccination_date,
-                     { vaccination_date_snapshot: [:vaccination_date] }
+                   latest_snapshots: [
+                     :plan_date,
+                     { snapshot: [:plan_date] }
                    ]
                  )
                  .order(title: :asc)

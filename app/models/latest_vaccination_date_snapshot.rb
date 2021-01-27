@@ -1,11 +1,6 @@
-class LatestVaccinationDateSnapshot < ApplicationRecord
-  belongs_to :vacc
-  belongs_to :vaccination_date
-  belongs_to :vaccination_date_snapshot
+class LatestVaccinationDateSnapshot < LatestSnapshot
+  belongs_to :place, class_name: 'Vacc', foreign_key: 'vacc_id', touch: true
 
-  scope :enabled, -> { where(enabled: true) }
-
-  def snapshot
-    vaccination_date_snapshot
-  end
+  belongs_to :plan_date, class_name: 'VaccinationDate', foreign_key: 'vaccination_date_id'
+  belongs_to :snapshot, class_name: 'VaccinationDateSnapshot', foreign_key: 'vaccination_date_snapshot_id'
 end

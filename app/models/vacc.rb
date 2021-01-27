@@ -1,51 +1,6 @@
-class Vacc < ApplicationRecord
-  include Locatable
-
-  belongs_to :region, counter_cache: true
-  belongs_to :county, counter_cache: true, touch: true
-  has_many :vaccination_date_snapshots
-  has_many :latest_vaccination_date_snapshots
-
-  scope :enabled, -> { where(enabled: true) }
-
-  def commercial?
-    false
-  end
-
-  def visible?
-    true
-  end
-
-  def available?(vaccination_dates = nil)
-    total_free_capacity(vaccination_dates) > 0
-  end
-
-  def latest_snapshot_at(vaccination_date)
-    latest_vaccination_date_snapshots.find do |vaccination_date_snapshot|
-      vaccination_date_snapshot.vaccination_date == vaccination_date
-    end
-  end
-
-  def total_free_capacity(vaccination_dates = nil)
-    latest_vaccination_date_snapshots.reduce(0) do |acc, latest_vaccination_date_snapshot|
-      snapshot = latest_vaccination_date_snapshot&.vaccination_date_snapshot
-
-      next acc unless snapshot.present?
-      next acc if vaccination_dates.present? && !vaccination_dates.include?(snapshot.vaccination_date)
-
-      free_capacity = if !latest_vaccination_date_snapshot.enabled || snapshot.is_closed
-                        0
-                      else
-                        snapshot.free_capacity.to_i
-                      end
-
-      acc + (free_capacity > 0 ? free_capacity : 0)
-    end
-  end
-
-  def final_reservations_url
-    reservations_url.to_s % attributes.symbolize_keys
-  end
+class Vacc < Place
+  has_many :snapshots, class_name: 'VaccinationDateSnapshot'
+  has_many :latest_snapshots, class_name: 'LatestVaccinationDateSnapshot'
 
   def supports_reservation
     false
