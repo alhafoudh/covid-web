@@ -50,5 +50,7 @@ module SkCovidTesting
     config.x.vaccination.rate_limit = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
     config.x.cache.content_expiration_minutes = ENV.fetch('CACHED_CONTENT_EXPIRATION_MINUTES', 15).to_i.minutes
     config.x.cache.content_stale_minutes = ENV.fetch('CACHED_CONTENT_STALE_MINUTES', 1).to_i.minutes
+
+    config.i18n.available_locales = [:sk]
   end
 end
