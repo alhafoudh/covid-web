@@ -15,6 +15,7 @@ module Vaccination
                    .order(name: :asc)
 
       places = Vacc
+                 .enabled
                  .includes(
                    :region, :county,
                    latest_vaccination_date_snapshots: [

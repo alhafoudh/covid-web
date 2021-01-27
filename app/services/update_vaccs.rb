@@ -9,6 +9,7 @@ class UpdateVaccs < ApplicationService
       update_regions!(vaccs)
       update_counties!(vaccs)
       update_vaccs!(vaccs)
+      disable_missing_vaccs!(vaccs)
     end
   end
 
@@ -18,6 +19,7 @@ class UpdateVaccs < ApplicationService
     fetch_nczi_data.map do |vacc|
       vacc
         .merge(
+          enabled: true,
           external_id: vacc[:id],
           reservations_url: 'https://www.old.korona.gov.sk/covid-19-vaccination-form.php',
           updated_at: Time.zone.now,
@@ -75,6 +77,15 @@ class UpdateVaccs < ApplicationService
     end
 
     Vacc.upsert_all(updated_vaccs, unique_by: :external_id)
+  end
+
+  def disable_missing_vaccs!(moms)
+    NcziVacc
+      .enabled
+      .where.not(external_id: moms.pluck(:external_id))
+      .update_all(enabled: false).tap do |num_disabled_moms|
+      logger.info "Disabled #{num_disabled_moms} NCZI vaccs"
+    end
   end
 
   def all_regions

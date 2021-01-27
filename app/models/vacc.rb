@@ -6,6 +6,8 @@ class Vacc < ApplicationRecord
   has_many :vaccination_date_snapshots
   has_many :latest_vaccination_date_snapshots
 
+  scope :enabled, -> { where(enabled: true) }
+
   def commercial?
     false
   end
