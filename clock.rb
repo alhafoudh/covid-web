@@ -13,7 +13,7 @@ module Clockwork
 
   every(Rails.application.config.x.vaccination.update_interval.minutes, 'update_all_vaccination_date_snapshots') do
     SkCovidTesting::Application.load_tasks
-    Rake::Task['vaccination:moms:update'].invoke
+    Rake::Task['vaccination:vaccs:update'].invoke
     Rake::Task['vaccination:snapshots:update'].invoke
   end
 
