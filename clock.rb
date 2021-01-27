@@ -7,14 +7,19 @@ Thread.report_on_exception = true
 module Clockwork
   every(Rails.application.config.x.testing.update_interval.minutes, 'update_all_test_date_snapshots') do
     SkCovidTesting::Application.load_tasks
-    Rake::Task['testing:moms:update'].invoke
-    Rake::Task['testing:snapshots:update'].invoke
+
+    UpdateNcziMoms.new.perform
+    RychlejsieMom.instances.map do |config|
+      UpdateRychlejsieMoms.new(config).perform
+    end
+    UpdateAllMomTestDateSnapshots.new(rate_limit: Rails.application.config.x.testing.rate_limit).perform
   end
 
   every(Rails.application.config.x.vaccination.update_interval.minutes, 'update_all_vaccination_date_snapshots') do
     SkCovidTesting::Application.load_tasks
-    Rake::Task['vaccination:vaccs:update'].invoke
-    Rake::Task['vaccination:snapshots:update'].invoke
+
+    UpdateVaccs.new.perform
+    UpdateAllVaccVaccinationDateSnapshots.new(rate_limit: Rails.application.config.x.vaccination.rate_limit).perform
   end
 
   error_handler do |error|
