@@ -3,7 +3,7 @@ sk:
   for_region_county: "pre %{region} kraj, %{county}"
   closed: "Zatvorené"
   unknown: "Bez aktualizácie"
-  last_updated_at: "Naposledny aktualizované"
+  last_updated_at: "Aktualizované %{time}."
   make_reservation: "Objednať"
   more_info: "Zistiť viac"
   every_minutes:
@@ -13,8 +13,7 @@ sk:
     other: "každých %{count} minút"
   update_period_info_html: |
     <p>
-      Zoznam a obsadenosť sa aktualizuje %{every_minutes}.<br/>
-      Vytvorené <a href="https://www.freevision.sk" target="_blank">www.freevision.sk</a>
+      Aktualizuje sa %{every_minutes}.
     </p>
   meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."

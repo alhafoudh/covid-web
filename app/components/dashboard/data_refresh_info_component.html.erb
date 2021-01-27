@@ -1,6 +1,11 @@
-<div class="flex flex-col text-sm italic lg:mb-0 mb-2 mt-4">
-  <div class="flex flex-col lg:flex-row lg:justify-end">
-    <span class="lg:mr-1"><%= t(:last_updated_at) %> <%= l last_updated_at, format: :long %></span>
+<div class="flex items-center">
+<!--  <span class="text-green-400 text-2xl animate-pulse mx-2">&ofcir;</span>-->
+  <div class="flex flex-col text-base md:text-xs">
+    <span>
+      <%= t(:last_updated_at, time: l(last_updated_at, format: :long)) %>
+    </span>
+    <span>
+    <%= t(:update_period_info_html, every_minutes: t(:every_minutes, count: update_interval)) %>
+    </span>
   </div>
-  <%= t(:update_period_info_html, every_minutes: t(:every_minutes, count: update_interval)) %>
 </div>

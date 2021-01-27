@@ -1,10 +1,10 @@
 <% content_for :title do t(:'testing.title') end %>
+<% content_for :menu_info do %>
+  <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
+<% end %>
 <div>
   <div class="max-w-7xl mx-auto">
     <%= t(:'testing.dashboard_info_html') %>
-  </div>
-  <div class="lg:text-right">
-    <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
   </div>
   <%= render Dashboard::JumpToRegionComponent.new(regions: @regions) %>
   <%= render Dashboard::EmptySwitcherComponent.new %>
