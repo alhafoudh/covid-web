@@ -2,7 +2,7 @@
 @import 'tailwindcss/components';
 
 body {
-  @apply antialiased;
+  @apply subpixel-antialiased;
   @apply text-gray-900;
 }
 
