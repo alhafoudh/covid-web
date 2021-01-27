@@ -11,7 +11,7 @@ json.array! @moms do |mom|
   json.street_number mom.street_number
   json.postal_code mom.postal_code
   json.region_id mom.region_id
-  json.region_name mom.region_name
+  json.region_name mom.region&.name
   json.county_id mom.county_id
-  json.county_name mom.county_name
+  json.county_name mom.county&.name
 end
