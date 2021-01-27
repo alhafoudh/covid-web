@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_211418) do
+ActiveRecord::Schema.define(version: 2021_01_27_212520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,9 +62,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_211418) do
     t.string "street_number"
     t.string "postal_code"
     t.bigint "region_id"
-    t.string "region_name"
     t.bigint "county_id"
-    t.string "county_name"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.bigint "latest_test_date_snapshot_id"
@@ -77,7 +75,6 @@ ActiveRecord::Schema.define(version: 2021_01_27_211418) do
     t.boolean "enabled", default: true, null: false
     t.index ["city"], name: "index_moms_on_city"
     t.index ["county_id"], name: "index_moms_on_county_id"
-    t.index ["county_name"], name: "index_moms_on_county_name"
     t.index ["enabled"], name: "index_moms_on_enabled"
     t.index ["external_endpoint"], name: "index_moms_on_external_endpoint"
     t.index ["external_id"], name: "index_moms_on_external_id", unique: true
@@ -86,7 +83,6 @@ ActiveRecord::Schema.define(version: 2021_01_27_211418) do
     t.index ["longitude"], name: "index_moms_on_longitude"
     t.index ["postal_code"], name: "index_moms_on_postal_code"
     t.index ["region_id"], name: "index_moms_on_region_id"
-    t.index ["region_name"], name: "index_moms_on_region_name"
     t.index ["supports_reservation"], name: "index_moms_on_supports_reservation"
     t.index ["title"], name: "index_moms_on_title"
     t.index ["type"], name: "index_moms_on_type"

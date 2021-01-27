@@ -70,7 +70,7 @@ class UpdateNcziMoms < ApplicationService
       mom[:county_id] = county&.id
       mom[:type] = 'NcziMom'
 
-      mom
+      mom.except(:region_name, :county_name)
     end
 
     Mom.upsert_all(updated_moms, unique_by: :external_id)
