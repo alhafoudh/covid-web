@@ -24,7 +24,7 @@ class RychlejsieMom < Mom
   end
 
   def available?(plan_dates = nil)
-    supports_reservation && total_free_capacity(plan_dates) || !supports_reservation && queue_wait_time
+    supports_reservation && total_free_capacity(plan_dates) > 0 || !supports_reservation && queue_wait_time
   end
 
   def queue_wait_time
