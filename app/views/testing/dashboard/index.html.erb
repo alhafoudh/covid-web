@@ -3,9 +3,7 @@
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
 <% end %>
 <div>
-  <div class="max-w-7xl mx-auto">
-    <%= t(:'testing.dashboard_info_html') %>
-  </div>
+  <%= render Dashboard::InfoComponent.new(content: t(:'testing.dashboard_info_html')) %>
   <%= render Dashboard::JumpToRegionComponent.new(regions: @regions) %>
   <%= render Dashboard::EmptySwitcherComponent.new %>
   <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>

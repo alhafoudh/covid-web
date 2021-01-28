@@ -1,0 +1,11 @@
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row">
+  <div>
+    <%= content %>
+  </div>
+  <div class="text-center p-8 flex flex-col items-center">
+    <%= t(:promo_html) %>
+    <%= link_to 'https://www.freevision.sk', target: '_blank' do %>
+      <%= image_tag 'freevision_logo.png', title: 'freevision.sk logo', width: 200 %>
+    <% end %>
+  </div>
+</div>
