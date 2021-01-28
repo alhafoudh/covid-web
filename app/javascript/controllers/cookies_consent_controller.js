@@ -41,8 +41,9 @@ export default class extends Controller {
   }
 
   initializeScripts(configuration) {
-    if (configuration.analytic) {
+    if (configuration.analytic && !document.documentElement.hasAttribute("data-analytics-installed")) {
       window.dataLayer.push({event: 'consentAnalyticCookies'})
+      document.documentElement.setAttribute("data-analytics-installed", "");
     }
   }
 
