@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_212520) do
+ActiveRecord::Schema.define(version: 2021_01_30_185503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(version: 2021_01_27_212520) do
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.boolean "enabled", default: true, null: false
+    t.bigint "previous_snapshot_id"
     t.index ["enabled"], name: "index_latest_test_date_snapshots_on_enabled"
     t.index ["mom_id", "test_date_id"], name: "index_latest_test_date_snapshots_on_mom_id_and_test_date_id", unique: true
     t.index ["mom_id"], name: "index_latest_test_date_snapshots_on_mom_id"
+    t.index ["previous_snapshot_id"], name: "index_latest_test_date_snapshots_on_previous_snapshot_id"
     t.index ["test_date_id"], name: "index_latest_test_date_snapshots_on_test_date_id"
     t.index ["test_date_snapshot_id"], name: "index_latest_test_date_snapshots_on_test_date_snapshot_id"
   end
@@ -46,7 +48,9 @@ ActiveRecord::Schema.define(version: 2021_01_27_212520) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "enabled", default: true, null: false
+    t.bigint "previous_snapshot_id"
     t.index ["enabled"], name: "index_latest_vaccination_date_snapshots_on_enabled"
+    t.index ["previous_snapshot_id"], name: "index_latest_vaccination_date_snapshots_on_previous_snapshot_id"
     t.index ["vacc_id", "vaccination_date_id"], name: "idx_latest_vaccination_date_snapshots__unique_vacc_id_vdate_id", unique: true
     t.index ["vacc_id"], name: "index_latest_vaccination_date_snapshots__vacc_id"
     t.index ["vaccination_date_id"], name: "index_latest_vaccination_date_snapshots__date_id"
@@ -167,8 +171,10 @@ ActiveRecord::Schema.define(version: 2021_01_27_212520) do
 
   add_foreign_key "counties", "regions", on_delete: :restrict
   add_foreign_key "latest_test_date_snapshots", "moms", on_delete: :restrict
+  add_foreign_key "latest_test_date_snapshots", "test_date_snapshots", column: "previous_snapshot_id", on_delete: :nullify
   add_foreign_key "latest_test_date_snapshots", "test_date_snapshots", on_delete: :nullify
   add_foreign_key "latest_test_date_snapshots", "test_dates", on_delete: :restrict
+  add_foreign_key "latest_vaccination_date_snapshots", "vaccination_date_snapshots", column: "previous_snapshot_id", on_delete: :nullify
   add_foreign_key "latest_vaccination_date_snapshots", "vaccination_date_snapshots", on_delete: :nullify
   add_foreign_key "latest_vaccination_date_snapshots", "vaccination_dates", on_delete: :restrict
   add_foreign_key "latest_vaccination_date_snapshots", "vaccs", on_delete: :restrict

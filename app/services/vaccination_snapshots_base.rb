@@ -25,6 +25,7 @@ class VaccinationSnapshotsBase < ApplicationService
         vaccination_date_id: snapshot.vaccination_date_id,
       )
       latest_snapshot.enabled = true
+      latest_snapshot.previous_snapshot = latest_snapshot.snapshot
       latest_snapshot.snapshot = snapshot
       latest_snapshot.save!
       logger.debug "Created latest test date snapshot #{latest_snapshot.inspect}"
