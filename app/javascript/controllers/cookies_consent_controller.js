@@ -1,5 +1,7 @@
 import {Controller} from "stimulus"
 
+const DEFAULT_CONFIGURATION = {analytic: true}
+
 export default class extends Controller {
   static configurationLocalStorageKey = "cookies";
   static targets = ["container", "info", "configPanel", "analyticsCheckbox", "acceptAllButton", "saveConfigurationButton"];
@@ -17,8 +19,7 @@ export default class extends Controller {
   }
 
   acceptAll() {
-    const configuration = {}
-    this.saveConfiguration(configuration)
+    this.saveConfiguration(DEFAULT_CONFIGURATION)
   }
 
   toggleConfigurationForm() {

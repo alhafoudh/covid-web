@@ -51,7 +51,7 @@ sk:
       Pre viac informácií o cookies kliknite <a href="/cookies">tu</a>.
     configure: Vlastné nastavenie
     accept: Súhlasím
-    accept_all: Súhlasím
+    accept_all: Akceptovať všetko
     required:
       title: Nevyhnutné cookies
       description: Nevyhnutné súbory cookies umožňujú základné funkcie, ako je navigácia na webovej stránke a prístup do jednotlivých jej častí. Webová stránka bez týchto súborov cookies nemôže správne fungovať a je možné ich deaktivovať iba zmenou predvolieb vášho internetového prehliadača. Tieto nevyhnutné cookies neslúžia na zber informácií o vás.
