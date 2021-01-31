@@ -21,7 +21,7 @@ class UpdateAllVaccinationSnapshots < ApplicationService
 
       jobs.close
 
-      jobs.each do |req|
+      jobs.map do |req|
         ~limiter
 
         req.perform

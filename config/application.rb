@@ -55,6 +55,7 @@ module SkCovidTesting
     config.x.messenger.access_token = ENV.fetch('MESSENGER_ACCESS_TOKEN')
     config.x.messenger.verify_token = ENV.fetch('MESSENGER_VERIFY_TOKEN')
     config.x.messenger.app_secret = ENV.fetch('MESSENGER_APP_SECRET')
+    config.x.messenger.link_host = ENV.fetch('MESSENGER_LINK_HOST')
 
     config.i18n.available_locales = [:sk]
   end

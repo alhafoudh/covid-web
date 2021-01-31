@@ -89,3 +89,7 @@ sk:
     cancelled: "V poriadku. Upozornenia boli zrušené. Keby ste si to rozmysleli, môžeme to skúsiť znova."
     start_again: "🔄 Skúsiť znova"
     confirmed: "Výborne! Od teraz Vás vždy upozorníme keď sa zverejnia nové termíny na očkovanie v regióne: %{region}."
+    vaccination_notification:
+      header: "%{region} región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
+      plan_date: "%{date}: %{delta}"
+      footer: "Prehľad aktuálnych kapacít pre %{region} región najdete na %{region_url}"
