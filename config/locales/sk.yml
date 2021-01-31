@@ -75,3 +75,16 @@ sk:
   wait_time: "Doba čakania"
   promo_html: |
     Túto webstránku vytvorilo a prevádzkuje
+
+  bot:
+    greeting: "Vitajte! Môžem Vás upozorniť keď sa zverejnia nové termíny na očkovanie 💉. Stačí zvoliť región alebo mesto."
+    dont_understand: "Prepáčte, nerozumiem. Skúsme to znova."
+    ask_region: "V ktorom regióne sa chcete dať očkovať?"
+    ask_county: "V ktorom meste sa chcete dať očkovať?"
+    any_county: "Nezáleží"
+    ask_confirm: "Prosím potvrďte, že Vás mám upozorniť keď sa zverejnia nové termíny na očkovanie v regióne: %{region}"
+    confirm: "✅ Potvrdzujem"
+    cancel: "⛔ Zrušiť upozornenia"
+    cancelled: "V poriadku. Upozornenia boli zrušené. Keby ste si to rozmysleli, môžeme to skúsiť znova."
+    start_again: "🔄 Skúsiť znova"
+    confirmed: "Výborne! Od teraz Vás vždy upozorníme keď sa zverejnia nové termíny na očkovanie v regióne: %{region}."

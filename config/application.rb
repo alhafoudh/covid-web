@@ -51,6 +51,11 @@ module SkCovidTesting
     config.x.cache.content_expiration_minutes = ENV.fetch('CACHED_CONTENT_EXPIRATION_MINUTES', 15).to_i.minutes
     config.x.cache.content_stale_minutes = ENV.fetch('CACHED_CONTENT_STALE_MINUTES', 1).to_i.minutes
 
+    config.x.messenger.page_id = ENV.fetch('MESSENGER_PAGE_ID')
+    config.x.messenger.access_token = ENV.fetch('MESSENGER_ACCESS_TOKEN')
+    config.x.messenger.verify_token = ENV.fetch('MESSENGER_VERIFY_TOKEN')
+    config.x.messenger.app_secret = ENV.fetch('MESSENGER_APP_SECRET')
+
     config.i18n.available_locales = [:sk]
   end
 end
