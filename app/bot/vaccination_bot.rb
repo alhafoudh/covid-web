@@ -60,7 +60,13 @@ class VaccinationBot
         title: region.name,
         payload: payload.with(action: 'ask_confirm', region_id: region.signed_id).to_json
       }
-    end
+    end + [
+      {
+        content_type: 'text',
+        title: t('bot.cancel'),
+        payload: payload.with(action: 'cancel').to_json
+      }
+    ]
     reply t('bot.ask_region'), quick_replies: quick_replies
   end
 
@@ -81,10 +87,15 @@ class VaccinationBot
   end
 
   def confirm
+    VaccinationSubscription.find_or_create_by!(
+      user_id: payload.user_id,
+      region: payload.region,
+    )
+
     quick_replies = [
       {
         content_type: 'text',
-        title: t('bot.cancel'),
+        title: t('bot.cancel_notifications'),
         payload: payload.with(action: 'cancel').to_json
       },
     ]
@@ -92,6 +103,11 @@ class VaccinationBot
   end
 
   def cancel
+    VaccinationSubscription.destroy_by(
+      user_id: payload.user_id,
+      region: payload.region,
+    )
+
     quick_replies = [
       {
         content_type: 'text',

@@ -30,4 +30,8 @@ class UserVaccinationFlow
   def with(**attributes)
     self.class.new(as_json.merge(attributes).stringify_keys)
   end
+
+  def as_json(options = {})
+    super(options.reverse_merge(except: 'region'))
+  end
 end

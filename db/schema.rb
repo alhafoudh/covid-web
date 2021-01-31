@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_185503) do
+ActiveRecord::Schema.define(version: 2021_01_31_193130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 2021_01_30_185503) do
     t.index ["external_id"], name: "index_regions_on_external_id", unique: true
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "type", null: false
+    t.string "user_id", null: false
+    t.bigint "region_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["region_id"], name: "index_subscriptions_on_region_id"
+    t.index ["type"], name: "index_subscriptions_on_type"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "test_date_snapshots", force: :cascade do |t|
     t.bigint "mom_id", null: false
     t.bigint "test_date_id", null: false
@@ -179,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_185503) do
   add_foreign_key "latest_vaccination_date_snapshots", "vaccination_dates", on_delete: :restrict
   add_foreign_key "latest_vaccination_date_snapshots", "vaccs", on_delete: :restrict
   add_foreign_key "moms", "latest_test_date_snapshots", on_delete: :nullify
+  add_foreign_key "subscriptions", "regions", on_delete: :restrict
   add_foreign_key "test_date_snapshots", "moms", on_delete: :restrict
   add_foreign_key "test_date_snapshots", "test_dates", on_delete: :restrict
   add_foreign_key "vaccination_date_snapshots", "vaccination_dates", on_delete: :restrict
