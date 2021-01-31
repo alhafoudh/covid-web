@@ -5,7 +5,7 @@ include Facebook::Messenger
 Bot.on :message do |message|
   Rails.logger.debug message.inspect
 
-  payload = UserVaccinationNotificationPayload.from_message(message)
+  payload = UserVaccinationFlow.from_message(message)
   bot = VaccinationBot.new(message, payload)
   bot.process
 end
@@ -13,7 +13,7 @@ end
 Bot.on :postback do |message|
   Rails.logger.debug message.inspect
 
-  payload = UserVaccinationNotificationPayload.from_message(message)
+  payload = UserVaccinationFlow.from_message(message)
   bot = VaccinationBot.new(message, payload)
   bot.process
 end

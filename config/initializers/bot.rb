@@ -17,7 +17,7 @@ Rails.application.config.after_initialize do
   Facebook::Messenger::Profile.set(
     {
       get_started: {
-        payload: UserVaccinationNotificationPayload.new(action: 'start').to_json
+        payload: UserVaccinationFlow.new(action: 'start').to_json
       },
       greeting: [
         {

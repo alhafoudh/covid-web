@@ -1,4 +1,4 @@
-class UserVaccinationNotificationPayload
+class UserVaccinationFlow
   include ActiveModel::Model
 
   attr_accessor :action
@@ -15,15 +15,12 @@ class UserVaccinationNotificationPayload
                    else
                      nil
                    end || '{}'
-    default_json = {
-      action: message.text
-    }
-    json = default_json.merge(JSON
-                                .parse(json_payload)
-                                .symbolize_keys
-                                .merge(user_id: message.sender['id']))
+    json = JSON
+             .parse(json_payload)
+             .symbolize_keys
+             .merge(user_id: message.sender['id'])
 
-    UserVaccinationNotificationPayload.new(json)
+    UserVaccinationFlow.new(json)
   end
 
   def region
