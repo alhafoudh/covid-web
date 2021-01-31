@@ -88,6 +88,7 @@ class VaccinationBot
 
   def confirm
     VaccinationSubscription.find_or_create_by!(
+      channel: VaccinationSubscription.channels[:messenger],
       user_id: payload.user_id,
       region: payload.region,
     )
@@ -104,6 +105,7 @@ class VaccinationBot
 
   def cancel
     VaccinationSubscription.destroy_by(
+      channel: VaccinationSubscription.channels[:messenger],
       user_id: payload.user_id,
       region: payload.region,
     )

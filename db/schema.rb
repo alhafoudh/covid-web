@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_193130) do
+ActiveRecord::Schema.define(version: 2021_01_31_194427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,8 @@ ActiveRecord::Schema.define(version: 2021_01_31_193130) do
     t.bigint "region_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "channel", null: false
+    t.index ["channel"], name: "index_subscriptions_on_channel"
     t.index ["region_id"], name: "index_subscriptions_on_region_id"
     t.index ["type"], name: "index_subscriptions_on_type"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
