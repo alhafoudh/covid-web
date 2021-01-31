@@ -13,10 +13,12 @@ class UpdateNcziVaccinationSnapshots < VaccinationSnapshotsBase
     ActiveRecord::Base.transaction do
       snapshots = fetch_snapshots
       created_snapshots = create_snapshots!(snapshots)
-      update_latest_snapshots!(created_snapshots)
+      latest_snapshots = update_latest_snapshots!(created_snapshots)
       disable_latest_snapshots!(snapshots)
 
       logger.info "Done updating NCZI vaccination date snapshots. Currently we have #{vacc.latest_snapshots.enabled.count} enabled latest snapshots."
+
+      latest_snapshots
     end
   end
 

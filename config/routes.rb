@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   get 'cookies', to: 'pages#cookies', as: 'cookies_page'
 
+  mount Facebook::Messenger::Server, at: 'bot'
+
   root to: 'testing/dashboard#index'
 end

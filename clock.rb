@@ -19,7 +19,11 @@ module Clockwork
     SkCovidTesting::Application.load_tasks
 
     UpdateVaccs.new.perform
-    UpdateAllVaccinationSnapshots.new(rate_limit: Rails.application.config.x.vaccination.rate_limit).perform
+    update_result = UpdateAllVaccinationSnapshots
+                      .new(rate_limit: Rails.application.config.x.vaccination.rate_limit)
+                      .perform
+    latest_snapshots = update_result.flatten
+    NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
   end
 
   error_handler do |error|

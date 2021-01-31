@@ -44,5 +44,4 @@ class VaccinationSnapshotsBase < ApplicationService
       logger.info "Disabled #{num_disabled_latest_snapshots} Vacc latest snapshots"
     end
   end
-
 end

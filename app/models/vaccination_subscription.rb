@@ -1,0 +1,2 @@
+class VaccinationSubscription < Subscription
+end
