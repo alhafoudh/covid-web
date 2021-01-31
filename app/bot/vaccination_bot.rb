@@ -57,7 +57,7 @@ class VaccinationBot
     quick_replies = Region.all.map do |region|
       {
         content_type: 'text',
-        title: region.name,
+        title: "📍 #{region.name}",
         payload: payload.with(action: 'ask_confirm', region_id: region.signed_id).to_json
       }
     end + [
