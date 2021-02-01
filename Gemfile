@@ -38,6 +38,7 @@ gem 'active_link_to'
 gem 'dotenv-rails'
 gem 'view_component', require: 'view_component/engine'
 gem 'facebook-messenger'
+gem 'rack-host-redirect'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
