@@ -135,4 +135,12 @@ a {
   }
 }
 
+.refresh-info--indicator-fresh {
+  @apply text-green-400 animate-pulse;
+}
+
+.refresh-info--indicator-old {
+  @apply text-yellow-400 animate-none;
+}
+
 @import 'tailwindcss/utilities';
