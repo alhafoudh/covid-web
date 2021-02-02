@@ -162,4 +162,8 @@ a {
   }
 }
 
+.anchor {
+  @apply block relative invisible -top-16;
+}
+
 @import 'tailwindcss/utilities';
