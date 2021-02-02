@@ -52,12 +52,11 @@ sk:
     info_html: |
       Táto webová stránka používa súbory cookies na ukladanie informácií do vášho počítača alebo mobilného zariadenia.<br />
       <br />
-      Niektoré z týchto súborov cookies sú nevyhnutné pre správne fungovanie našej webovej stránky, zatiaľ čo iné nám pomáhajú zlepšovať váš užívateľský komfort tým, že nám poskytnete niektoré informácie a dáta o tom, ako našu webovú stránku používate. Súhlasíte so spracúvaním nevyhnutných cookies?
+      Niektoré z týchto súborov cookies sú nevyhnutné pre správne fungovanie našej webovej stránky, zatiaľ čo iné nám pomáhajú zlepšovať váš užívateľský komfort tým, že nám poskytnete niektoré informácie a dáta o tom, ako našu webovú stránku používate. Súhlasite so spracúvaním všetkých druhov cookies?
     more_info_html: |
       Pre viac informácií o cookies kliknite <a href="/cookies">tu</a>.
     configure: Vlastné nastavenie
     accept: Súhlasím
-    accept_all: Akceptovať všetko
     required:
       title: Nevyhnutné cookies
       description: Nevyhnutné súbory cookies umožňujú základné funkcie, ako je navigácia na webovej stránke a prístup do jednotlivých jej častí. Webová stránka bez týchto súborov cookies nemôže správne fungovať a je možné ich deaktivovať iba zmenou predvolieb vášho internetového prehliadača. Tieto nevyhnutné cookies neslúžia na zber informácií o vás.
