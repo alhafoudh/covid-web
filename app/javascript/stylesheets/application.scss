@@ -127,10 +127,10 @@ a {
 
 #menu {
   .link {
-    @apply text-gray-300 hover:bg-gray-700 hover:text-white hover:no-underline px-3 py-2 rounded-md text-sm font-medium;
+    @apply text-black hover:text-blue-500 border-transparent md:border-t-4 md:border-l-0 border-t-0 border-l-4 hover:no-underline px-3 py-2 text-sm font-medium;
 
     &-active {
-      @apply bg-gray-900 text-white;
+      @apply text-blue-500 border-blue-500;
     }
   }
 }
@@ -141,6 +141,25 @@ a {
 
 .refresh-info--indicator-old {
   @apply text-yellow-400 animate-none;
+}
+
+.jump-region {
+  a {
+    @apply text-sm font-medium text-black hover:text-blue-600 hover:no-underline md:mr-0 md:mb-0 mr-4 mb-2 px-4 py-2;
+
+    &:active {
+      @apply bg-blue-100 text-blue-600 rounded-full;
+    }
+  }
+}
+
+.address-link {
+  @apply text-sm text-gray-500;
+
+  &:after {
+    @apply ml-1;
+    content: '➡';
+  }
 }
 
 @import 'tailwindcss/utilities';

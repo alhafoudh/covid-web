@@ -22,35 +22,35 @@ sk:
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
   announcement_title: "Oznam"
   announcement_html: ""
-#  announcement_html: |
-#    Aktuálne je aktualizácia termínov <span class="text-red-600 font-bold">pozastavená</span>.<br/>
-#    Je to z dôvodu veľkej záťaže na strane serverov NCZI.
-#    Aktívne s NCZI komunikujeme o možnosti opätovného spustenia aktualizácie termínov.<br/>
-#    Ďakujeme za pochopenie a o zmene Vás budeme informovať.
+  #  announcement_html: |
+  #    Aktuálne je aktualizácia termínov <span class="text-red-600 font-bold">pozastavená</span>.<br/>
+  #    Je to z dôvodu veľkej záťaže na strane serverov NCZI.
+  #    Aktívne s NCZI komunikujeme o možnosti opätovného spustenia aktualizácie termínov.<br/>
+  #    Ďakujeme za pochopenie a o zmene Vás budeme informovať.
   testing:
     title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
-    dashboard_info_html: |
-      <p>
-        Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje.<br/>
-        <br/>
-        <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba odberné miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
-        Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.<br/>
+    dashboard:
+      header_html: |
+        <p>
+          Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje.<br/>
+        </p>
+      warning_html: |
+        Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.
         Sledujte aj stránku svojej mestskej časti alebo obce pre ďalšie informácie ohľadom testovacích miest, prípadne využite komerčné testovanie.<br/>
         Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
-      </p>
+      action_title: "Zobraziť očkovacie miesta"
   vaccination:
     title: "Zoznam očkovacích miest s objednávaním na COVID-19"
-    dashboard_info_html: |
-      <p>
-        Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje.<br/>
-        <br/>
-        <span class="text-yellow-600 bg-yellow-100 block px-4 py-2 border-l-4 border-yellow-600 rounded-r-xl">
-          Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie. V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.<br/>
-          Viac informácií nájdete na <a class="font-bold" href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a>
-        </span>
-        <br/>
-        <strong class="text-red-600">Upozornenie!</strong> Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong>
-      </p>
+    dashboard:
+      header_html: |
+        <p>
+          Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje.
+        </p>
+      warning_html: |
+        Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
+        Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie. V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.<br/>
+        Viac informácií nájdete na <a class="font-bold" href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a>
+      action_title: "Zobraziť odberné miesta"
   cookies:
     title: "Cookies"
     info_html: |
@@ -67,7 +67,7 @@ sk:
     analytics:
       title: Analytické a marketingové cookies
       description: Analytické cookies (napr. Google Analytics) nám pomáhajú zlepšovať webovú stránku zhromažďovaním a hlásením informácií o jej použití. Umožňujú nám najmä zostaviť anonymné štatistiky o využívaní našej webovej stránky. Zároveň používame aj marketingové cookies (napr. Google Tag Manager, Google AdWords, Facebook Pixel), ktoré nám umožňujú ponúknuť reklamu podľa záujmu používateľa.
-  jump_to_region: "Prejsť na región"
+  jump_to_region: "Vyberte región"
   footer_html: |
     &copy; 2021 Vytvorené a prevádzkované <a href="https://www.freevision.sk">freevision.sk</a>. Informácie zverejnené na stránke majú informatívny charakter.
   footer_menu:
@@ -81,9 +81,10 @@ sk:
     vaccination: "Očkovanie"
   open_main_menu: "Otvoriť hlavné menu"
   app_title: "SK COVID-19 Info"
+  app_title_html: "<strong>SK COVID-19</strong> Info"
   wait_time: "Doba čakania"
   promo_html: |
-    Túto webstránku vytvorilo a prevádzkuje
+    vytvorilo a prevádzkuje túto stránku
 
   bot:
     greeting: "Vitajte! Môžem Vás upozorniť keď sa zverejnia nové termíny na očkovanie 💉. Stačí zvoliť región alebo mesto."

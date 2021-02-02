@@ -1,11 +1,18 @@
-<% content_for :title do t(:'testing.title') end %>
 <% content_for :menu_info do %>
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
 <% end %>
 <div>
+  <%= render Dashboard::PromotionComponent.new %>
   <%= render Dashboard::AnnouncementComponent.new(content: t(:announcement_html)) %>
-  <%= render Dashboard::InfoComponent.new(content: t(:'testing.dashboard_info_html')) %>
-  <%= render Dashboard::JumpToRegionComponent.new(regions: @regions) %>
+  <%= render Dashboard::InfoComponent.new(
+      title: t(:'testing.title'),
+      header: t(:'testing.dashboard.header_html'),
+      image: 'testing_header_image.png',
+      warning: t(:'testing.dashboard.warning_html'),
+      action_title: t(:'testing.dashboard.action_title'),
+      action_link: "#{testing_root_path}#list",
+  ) %>
+  <%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county) %>
   <%= render Dashboard::EmptySwitcherComponent.new %>
   <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
   <%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>

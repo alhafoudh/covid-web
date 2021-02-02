@@ -12,7 +12,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ['Roboto', 'sans-serif'],
+      sans: ['Work Sans', 'sans-serif'],
     },
     colors: {
       transparent: 'transparent',

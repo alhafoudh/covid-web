@@ -1,13 +1,13 @@
 <div class="flex lg:flex-row flex-col bg-gray-100 rounded-2xl mb-1 overflow-hidden items-stretch <%= classes %>">
   <div class="flex flex-row md:items-center justify-between lg:max-w-sm w-full">
     <div class="flex-1 flex flex-col items-start justify-between py-2 md:pb-2 pb-0 pl-4 pl md:pr-1">
-        <span>
+        <span class="text-sm font-medium">
           <% if place.commercial? %>
           <span class="uppercase text-xs px-2 py-1 rounded bg-yellow-500 font-bold text-white"><%= t(:commercial) %></span>
           <% end %>
           <%= place.title %>
         </span>
-      <%= link_to place.address, place.map_url, target: '_blank', class: 'text-sm' %>
+      <%= link_to place.address, place.map_url, target: '_blank', class: 'address-link' %>
     </div>
     <div class="flex-0 w-32 flex justify-center items-center">
       <% if place.supports_reservation %>

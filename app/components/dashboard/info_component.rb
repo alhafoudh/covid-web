@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 class Dashboard::InfoComponent < ViewComponent::Base
-  def initialize(content:)
-    @content = content
+  attr_reader :title, :header, :image, :warning, :action_title, :action_link
+
+  def initialize(title:, header:, image:, warning:, action_title:, action_link:)
+    @title = title
+    @header = header
+    @image = image
+    @warning = warning
+    @action_title = action_title
+    @action_link = action_link
   end
 end
