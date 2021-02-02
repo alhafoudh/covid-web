@@ -13,7 +13,12 @@ module NcziClient
       faraday.use Faraday::Response::RaiseError
       faraday.request :json
       faraday.response :json
-      faraday.adapter Faraday.default_adapter
+
+      if Rails.application.config.x.proxy.present?
+        faraday.adapter :net_http_socks
+      else
+        faraday.adapter Faraday.default_adapter
+      end
     end
   end
 end
