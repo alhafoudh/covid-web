@@ -38,7 +38,7 @@ sk:
         Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.
         Sledujte aj stránku svojej mestskej časti alebo obce pre ďalšie informácie ohľadom testovacích miest, prípadne využite komerčné testovanie.<br/>
         Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
-      action_title: "Zobraziť očkovacie miesta"
+      action_title: "Zobraziť odberné miesta"
   vaccination:
     title: "Zoznam očkovacích miest s objednávaním na COVID-19"
     dashboard:
@@ -50,7 +50,7 @@ sk:
         Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
         Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie. V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.<br/>
         Viac informácií nájdete na <a class="font-bold" href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a>
-      action_title: "Zobraziť odberné miesta"
+      action_title: "Zobraziť očkovacie miesta"
   cookies:
     title: "Cookies"
     info_html: |
