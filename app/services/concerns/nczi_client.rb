@@ -8,17 +8,13 @@ module NcziClient
   end
 
   def nczi_client
-    @nczi_client ||= Faraday.new do |faraday|
+    @nczi_client ||= Faraday.new(proxy: Rails.application.config.x.http_proxy) do |faraday|
       faraday.use :instrumentation
       faraday.use Faraday::Response::RaiseError
       faraday.request :json
       faraday.response :json
-
-      if Rails.application.config.x.proxy.present?
-        faraday.adapter :net_http_socks
-      else
-        faraday.adapter Faraday.default_adapter
-      end
+      faraday.request :retry
+      faraday.adapter Faraday.default_adapter
     end
   end
 end

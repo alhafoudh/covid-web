@@ -44,6 +44,8 @@ module SkCovidTesting
 
     config.middleware.use Rack::Deflater
 
+    config.x.http_proxy = ENV.fetch('http_proxy', nil)
+
     config.x.testing.update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
     config.x.testing.rate_limit = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_i
     config.x.vaccination.update_interval = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_INTERVAL', 15).to_i
