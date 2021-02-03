@@ -1,19 +1,17 @@
 <% content_for :menu_info do %>
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: VaccinationDateSnapshot, update_interval: Rails.application.config.x.vaccination.update_interval) %>
 <% end %>
-<div>
-  <%= render Dashboard::PromotionComponent.new %>
-  <%= render Dashboard::AnnouncementComponent.new(content: t(:announcement_html)) %>
-  <%= render Dashboard::InfoComponent.new(
-      title: t(:'vaccination.title'),
-      header: t(:'vaccination.dashboard.header_html'),
-      image: 'vaccination_header_image.png',
-      warning: t(:'vaccination.dashboard.warning_html'),
-      action_title: t(:'vaccination.dashboard.action_title'),
-      action_link: "#{vaccination_root_path}#list",
-  ) %>
-  <%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county) %>
-  <%= render Dashboard::EmptySwitcherComponent.new %>
-  <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
-  <%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>
-</div>
+<%= render Dashboard::PromotionComponent.new %>
+<%= render Dashboard::AnnouncementComponent.new(content: t(:announcement_html)) %>
+<%= render Dashboard::InfoComponent.new(
+    title: t(:'vaccination.title'),
+    header: t(:'vaccination.dashboard.header_html'),
+    image: 'vaccination_header_image.png',
+    warning: t(:'vaccination.dashboard.warning_html'),
+    action_title: t(:'vaccination.dashboard.action_title'),
+    action_link: "#{vaccination_root_path}#list",
+) %>
+<%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county) %>
+<%= render Dashboard::EmptySwitcherComponent.new %>
+<%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+<%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>
