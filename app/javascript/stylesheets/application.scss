@@ -155,11 +155,6 @@ a {
 
 .address-link {
   @apply text-sm text-gray-500;
-
-  &:after {
-    @apply ml-1;
-    content: '➡';
-  }
 }
 
 .anchor {

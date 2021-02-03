@@ -7,7 +7,12 @@
           <% end %>
           <%= place.title %>
         </span>
-      <%= link_to place.address, place.map_url, target: '_blank', class: 'address-link' %>
+      <%= link_to place.map_url, target: '_blank', class: 'address-link' do %>
+        <%= place.address %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="12.467" height="9.496" viewBox="0 0 12.467 9.496" class="ml-0.5 inline align-middle">
+          <path d="M285.188,5948.062h5.046a.3.3,0,0,0,.3-.3v-2.078a1.192,1.192,0,0,1,2.027-.843l3.562,3.562a1.2,1.2,0,0,1,0,1.686l-3.562,3.562a1.192,1.192,0,0,1-2.027-.843v-2.078a.3.3,0,0,0-.3-.3h-5.046a1.187,1.187,0,1,1,0-2.375Z" transform="translate(-284.001 -5944.501)" fill="#838383"/>
+        </svg>
+      <% end %>
     </div>
     <div class="flex-0 w-32 flex justify-center items-center">
       <% if place.supports_reservation %>
