@@ -9,7 +9,7 @@
     image: 'testing_header_image.png',
     warning: t(:'testing.dashboard.warning_html'),
     action_title: t(:'testing.dashboard.action_title'),
-    action_link: "#{testing_root_path}#list",
+    action_link: "#{root_path}#list",
 ) %>
 <%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county) %>
 <%= render Dashboard::EmptySwitcherComponent.new %>
