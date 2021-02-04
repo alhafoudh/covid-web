@@ -1,7 +1,7 @@
 <h2 class="mt-8 text-3xl font-normal"><%= t(:jump_to_region) %></h2>
 <div class="jump-region flex lg:flex-nowrap lg:justify-between flex-wrap items-start mb-2 py-2 bg-white sticky top-16">
   <% regions.map do |region| %>
-    <%= link_to region.name, "##{dom_id(region)}", class: class_names('opacity-50': !any_available_in_region?(region)), data: { turbolinks: false } %>
+    <%= link_to region.name, "##{dom_id(region)}", class: class_names('opacity-50': !any_available_in_region?(region)) %>
   <% end %>
-  <%= link_to t(:other_region), '#other', class: class_names('opacity-50': !any_available_in_region?(nil)), data: { turbolinks: false } %>
+  <%= link_to t(:other_region), '#other', class: class_names('opacity-50': !any_available_in_region?(nil)) %>
 </div>
