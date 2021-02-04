@@ -1,11 +1,20 @@
+SENTRY_IGNORED_EXCEPTIONS = [
+  ActiveRecord::RecordInvalid,
+  ActiveRecord::RecordNotFound,
+  ActionController::ParameterMissing,
+].freeze
+
 Sentry.init do |config|
-  config.breadcrumbs_logger = [:active_support_logger]
-
-  config.traces_sample_rate = 1.0
-
   filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
-  config.before_send = lambda do |event, hint|
-    event.request.data = filter.filter(event.request.data)
+  config.before_send = lambda do |event, _hint|
+    request_data = event.request&.data&.is_a?(String) ? JSON.parse(event.request.data) : event.request&.data
+    event.request.data = filter.filter(request_data) unless request_data.nil?
     event
   end
+  config.send_default_pii = false
+  config.excluded_exceptions += SENTRY_IGNORED_EXCEPTIONS.map(&:to_s)
+  config.breadcrumbs_logger = [:active_support_logger]
+  config.rails.report_rescued_exceptions = false
+
+  config.traces_sample_rate = 1.0
 end
