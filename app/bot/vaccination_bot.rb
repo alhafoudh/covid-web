@@ -50,7 +50,23 @@ class VaccinationBot
   end
 
   def main_menu
-    ask_region
+    if has_schedule?
+      quick_replies = [
+        {
+          content_type: 'text',
+          title: t('bot.change'),
+          payload: payload.with(action: 'ask_region').to_json,
+        },
+        {
+          content_type: 'text',
+          title: t('bot.cancel_notifications'),
+          payload: payload.with(action: 'cancel').to_json,
+        },
+      ]
+      reply t('bot.has_schedule', region: current_schedule.region.name), quick_replies: quick_replies
+    else
+      ask_region
+    end
   end
 
   def ask_region
@@ -87,13 +103,15 @@ class VaccinationBot
   end
 
   def confirm
-    VaccinationSubscription.find_or_create_by!(
-      channel: VaccinationSubscription.channels[:messenger],
-      user_id: payload.user_id,
-      region: payload.region,
-    )
+    unsubscribe!
+    subscribe!(payload.region)
 
     quick_replies = [
+      {
+        content_type: 'text',
+        title: t('bot.change'),
+        payload: payload.with(action: 'start').to_json,
+      },
       {
         content_type: 'text',
         title: t('bot.cancel_notifications'),
@@ -104,17 +122,13 @@ class VaccinationBot
   end
 
   def cancel
-    VaccinationSubscription.destroy_by(
-      channel: VaccinationSubscription.channels[:messenger],
-      user_id: payload.user_id,
-      region: payload.region,
-    )
+    unsubscribe!
 
     quick_replies = [
       {
         content_type: 'text',
         title: t('bot.start_again'),
-        payload: payload.with(action: 'start').to_json
+        payload: payload.with(action: 'start').to_json,
       },
     ]
     reply t('bot.cancelled'), quick_replies: quick_replies
@@ -130,6 +144,37 @@ class VaccinationBot
   end
 
   private
+
+  def subscribe!(region)
+    subscription = VaccinationSubscription.find_or_initialize_by(
+      channel: VaccinationSubscription.channels[:messenger],
+      user_id: payload.user_id,
+      region: region,
+    )
+    subscription.region = region
+    subscription.save!
+    subscription
+  end
+
+  def unsubscribe!
+    VaccinationSubscription.destroy_by(
+      channel: VaccinationSubscription.channels[:messenger],
+      user_id: payload.user_id,
+    )
+  end
+
+  def current_schedule
+    VaccinationSubscription
+      .includes(:region)
+      .where(
+        channel: VaccinationSubscription.channels[:messenger],
+        user_id: payload.user_id,
+      ).first
+  end
+
+  def has_schedule?
+    current_schedule.present?
+  end
 
   def t(key, **options)
     I18n.t(key, **options)

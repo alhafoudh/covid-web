@@ -22,11 +22,10 @@ sk:
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
   announcement_title: "Oznam"
   announcement_html: ""
-  #  announcement_html: |
-  #    Aktuálne je aktualizácia termínov <span class="text-red-600 font-bold">pozastavená</span>.<br/>
-  #    Je to z dôvodu veľkej záťaže na strane serverov NCZI.
-  #    Aktívne s NCZI komunikujeme o možnosti opätovného spustenia aktualizácie termínov.<br/>
-  #    Ďakujeme za pochopenie a o zmene Vás budeme informovať.
+#  announcement_html: |
+#    <strong class="text-red-600">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
+#    Dôsledkom toho, môžu byť niektoré údaje na našej stránke dočasne neaktuálne napriek tomu, že uvádzame, že boli nedávno aktualizované. Vopred sa ospravedlňujeme, chyba nie je na našej strane a veríme že po vyladení API napojenia na NCZI budú údaje v čo najkratšej dobe opäť aktuálne.
+
   testing:
     title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
     dashboard:
@@ -88,7 +87,7 @@ sk:
 
   bot:
     greeting: "Ahoj! Môžem ťa upozorniť keď sa zverejnia nové termíny na očkovanie 💉. Stačí zvoliť región."
-    dont_understand: "Prepáč, nerozumiem. Skúsme to znova."
+    dont_understand: "Prepáč, nerozumiem."
     ask_region: "V ktorom regióne sa chceš dať očkovať?"
     ask_county: "V ktorom meste sa chceš dať očkovať?"
     any_county: "Nezáleží"
@@ -103,3 +102,5 @@ sk:
       header: "%{region} Región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
       plan_date: "%{date}: %{delta}"
       footer: "Prehľad aktuálnych kapacít pre %{region} región nájdeš na %{region_url}"
+    has_schedule: "Momentálne máš nastavené upozornenia na nové zverejnené termíny očkovania v regióne: %{region}."
+    change: "✏️ Zmeniť"

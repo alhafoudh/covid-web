@@ -1,22 +1,13 @@
 namespace :vaccination do
-  namespace :all do
-    desc 'Update all vaccination data'
-    task update: [:environment]  do
-      UpdateAllNcziVaccinationData.new.perform
-    end
+  desc 'Update all vaccination'
+  task update: [:environment] do
+    UpdateAllNcziVaccinationData.new.perform
   end
 
-  namespace :vaccs do
-    desc 'Update VACCs'
-    task update: [:environment]  do
-      UpdateNcziVaccs.new.perform
-    end
-  end
-
-  namespace :snapshots do
-    desc 'Update vaccination snapshots'
-    task update: [:environment]  do
-      UpdateAllVaccinationSnapshots.new(rate_limit: Rails.application.config.x.vaccination.rate_limit).perform
-    end
+  desc 'Update all vaccination and notify'
+  task update_and_notify: [:environment] do
+    update_result = UpdateAllNcziVaccinationData.new.perform
+    latest_snapshots = update_result.flatten
+    NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
   end
 end
