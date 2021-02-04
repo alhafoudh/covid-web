@@ -4,6 +4,8 @@ import * as dateFnsLocales from "date-fns/locale"
 
 export default class extends Controller {
   static values = {
+    prefix: String,
+    suffix: String,
     lastUpdated: String,
     updateInterval: Number,
     tickInterval: Number,
@@ -41,9 +43,10 @@ export default class extends Controller {
       this.oldIndicatorTarget.classList.add(this.freshClass);
       this.oldIndicatorTarget.classList.remove(this.oldClass);
     }
-    this.outputTarget.innerHTML = formatDistanceToNow(this.lastUpdated, {
+    const distance = formatDistanceToNow(this.lastUpdated, {
       addSuffix: true,
       locale: this.locale,
     });
+    this.outputTarget.innerHTML = `${this.prefixValue}${distance}${this.suffixValue}`;
   }
 }

@@ -5,7 +5,7 @@ sk:
   unknown: "Bez aktualizácie"
   last_updated_at: "Aktualizované %{time}."
   last_updated_ago:
-    prefix: "Aktualizované"
+    prefix: "Aktualizované "
     suffix: "."
   make_reservation: "Objednať"
   more_info: "Zistiť viac"

@@ -1,6 +1,8 @@
 <div
   class="flex items-center"
   data-controller="refresh-info"
+  data-refresh-info-prefix-value="<%= t(:'last_updated_ago.prefix') %>"
+  data-refresh-info-suffix-value="<%= t(:'last_updated_ago.suffix') %>"
   data-refresh-info-last-updated-value="<%= last_updated_at.iso8601 %>"
   data-refresh-info-update-interval-value="<%= update_interval %>"
   data-refresh-info-tick-interval-value="1000"
@@ -9,10 +11,7 @@
 >
   <span class="text-2xl mx-2" data-refresh-info-target="oldIndicator">&ofcir;</span>
   <div class="flex flex-col text-base md:text-xs">
-    <span title="<%= l last_updated_at, format: :long %>">
-      <%= t(:'last_updated_ago.prefix') %>
-      <span data-refresh-info-target="output"></span><%= t(:'last_updated_ago.suffix') %>
-    </span>
+    <span data-refresh-info-target="output" title="<%= l last_updated_at, format: :long %>"></span>
     <span>
     <%= t(:update_period_info_html, every_minutes: t(:every_minutes, count: update_interval)) %>
     </span>
