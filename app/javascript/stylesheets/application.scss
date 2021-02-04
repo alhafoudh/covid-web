@@ -147,7 +147,7 @@ a {
   a {
     @apply text-sm font-medium text-black hover:text-blue-600 hover:no-underline md:mr-0 md:mb-0 mr-4 mb-2 px-4 py-2;
 
-    &:active {
+    &.active {
       @apply bg-blue-100 text-blue-600 rounded-full;
     }
   }
