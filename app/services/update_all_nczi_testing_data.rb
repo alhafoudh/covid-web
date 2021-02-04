@@ -1,8 +1,8 @@
-class UpdateAllNcziVaccinationData < ApplicationService
+class UpdateAllNcziTestingData < ApplicationService
   include NcziClient
 
   def perform
-    logger.info "Updating all NCZI vaccination data"
+    logger.info "Updating all NCZI testing data"
 
     ActiveRecord::Base.transaction do
       fetch_all_data!
@@ -30,11 +30,11 @@ class UpdateAllNcziVaccinationData < ApplicationService
   end
 
   def update_places!
-    UpdateNcziVaccs.new(data: places_data).perform
+    UpdateNcziMoms.new(data: places_data).perform
   end
 
   def update_snapshots!
-    NcziVacc
+    NcziMom
       .includes(
         latest_snapshots: [
           :plan_date,
@@ -43,12 +43,12 @@ class UpdateAllNcziVaccinationData < ApplicationService
       )
       .find_each(batch_size: 50).map do |place|
       place_snapshots_data = snapshots_data.fetch(place.external_id, [])
-      UpdateNcziVaccinationSnapshots.new(vacc: place, data: place_snapshots_data).perform
+      UpdateNcziTestingSnapshots.new(mom: place, data: place_snapshots_data).perform
     end.flatten
   end
 
   def fetch_all_data_raw
-    response = nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_all_drivein_times_vacc')
+    response = nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_all_drivein_times')
     response.body
   end
 end

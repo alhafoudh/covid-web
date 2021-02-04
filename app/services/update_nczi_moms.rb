@@ -1,6 +1,12 @@
 class UpdateNcziMoms < ApplicationService
   include NcziClient
 
+  attr_reader :data
+
+  def initialize(data: nil)
+    @data = data
+  end
+
   def perform
     logger.info "Updating NCZI moms"
 
@@ -110,7 +116,12 @@ class UpdateNcziMoms < ApplicationService
   end
 
   def fetch_nczi_data
-    response = nczi_client.get("#{base_url}/mom_ag.json")
-    response.body.map(&:symbolize_keys)
+    if data.present?
+      data
+    else
+      response = nczi_client.get("#{base_url}/mom_ag.json")
+      response.body
+    end
+      .map(&:symbolize_keys)
   end
 end
