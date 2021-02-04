@@ -15,10 +15,5 @@
   </div>
 </div>
 <div class="max-w-7xl mx-auto">
-  <span class="text-red-600 bg-red-100 block pl-2 pr-4 py-4 rounded-xl flex items-center">
-    <span class="text-4xl md:px-4 px-2 py-2">❗️</span>
-    <span class="text-xs leading-relaxed">
-      <%= warning %>
-    </span>
-  </span>
+  <%= render Dashboard::NoticeComponent.new(type: :warning, content: warning) %>
 </div>

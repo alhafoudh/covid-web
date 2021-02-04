@@ -2,7 +2,7 @@
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: VaccinationDateSnapshot, update_interval: Rails.application.config.x.vaccination.update_interval) %>
 <% end %>
 <%= render Dashboard::PromotionComponent.new %>
-<%= render Dashboard::AnnouncementComponent.new(content: t(:announcement_html)) %>
+<%= render Dashboard::NoticeComponent.new(type: :announcement, content: t(:announcement_html)) %>
 <%= render Dashboard::InfoComponent.new(
     title: t(:'vaccination.title'),
     header: t(:'vaccination.dashboard.header_html'),

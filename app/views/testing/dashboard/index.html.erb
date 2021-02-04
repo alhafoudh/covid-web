@@ -2,7 +2,7 @@
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
 <% end %>
 <%= render Dashboard::PromotionComponent.new %>
-<%= render Dashboard::AnnouncementComponent.new(content: t(:announcement_html)) %>
+<%= render Dashboard::NoticeComponent.new(type: :announcement, content: t(:announcement_html)) %>
 <%= render Dashboard::InfoComponent.new(
     title: t(:'testing.title'),
     header: t(:'testing.dashboard.header_html'),

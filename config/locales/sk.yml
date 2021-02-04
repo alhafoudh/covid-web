@@ -20,7 +20,6 @@ sk:
     </p>
   meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
-  announcement_title: "Oznam"
   announcement_html: ""
 #  announcement_html: |
 #    <strong class="text-red-600">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
