@@ -17,15 +17,11 @@
     <div class="flex-0 w-32 flex justify-center items-center">
       <% if place.supports_reservation %>
         <div class="px-2 md:py-4 py-2 flex items-end justify-end">
-          <div class="inline-flex rounded-md shadow">
-            <%= link_to t(:make_reservation), place.final_reservations_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white' %>
-          </div>
+          <%= link_to t(:make_reservation), place.final_reservations_url, target: '_blank', class: 'button-small' %>
         </div>
       <% else %>
         <div class="px-2 md:py-4 py-2 flex items-end justify-end">
-          <div class="inline-flex rounded-md shadow">
-            <%= link_to t(:more_info), place.final_reservations_url, target: '_blank', class: 'inline-flex items-center justify-center px-3 py-2 text-sm border border-transparent text-base text-center font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 hover:text-white' %>
-          </div>
+          <%= link_to t(:more_info), place.final_reservations_url, target: '_blank', class: 'button-small' %>
         </div>
       <% end %>
     </div>
