@@ -1,10 +1,11 @@
 class UpdateNcziTestingSnapshots < TestingSnapshotsBase
   include NcziClient
 
-  attr_reader :mom
+  attr_reader :mom, :data
 
-  def initialize(mom:)
+  def initialize(mom:, data: nil)
     @mom = mom
+    @data = data
   end
 
   def perform
@@ -19,8 +20,7 @@ class UpdateNcziTestingSnapshots < TestingSnapshotsBase
   private
 
   def fetch_snapshots
-    data = fetch_raw_snapshots
-    plan_dates_statuses = data.fetch('payload', [])
+    plan_dates_statuses = fetch_raw_snapshots
 
     plan_dates_statuses.map do |plan_date_status|
       parsed_date = Date.parse(plan_date_status['c_date'])
@@ -48,7 +48,11 @@ class UpdateNcziTestingSnapshots < TestingSnapshotsBase
   end
 
   def fetch_raw_snapshots
-    response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.external_id.to_s })
-    response.body
+    if data.present?
+      data
+    else
+      response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.external_id.to_s })
+      response.body.fetch('payload', [])
+    end
   end
 end

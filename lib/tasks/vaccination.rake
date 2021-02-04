@@ -1,8 +1,15 @@
 namespace :vaccination do
+  namespace :all do
+    desc 'Update all vaccination data'
+    task update: [:environment]  do
+      UpdateAllNcziVaccinationData.new.perform
+    end
+  end
+
   namespace :vaccs do
     desc 'Update VACCs'
     task update: [:environment]  do
-      UpdateVaccs.new.perform
+      UpdateNcziVaccs.new.perform
     end
   end
 
