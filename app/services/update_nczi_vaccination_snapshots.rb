@@ -1,10 +1,11 @@
 class UpdateNcziVaccinationSnapshots < VaccinationSnapshotsBase
   include NcziClient
 
-  attr_reader :vacc
+  attr_reader :vacc, :data
 
-  def initialize(vacc:)
+  def initialize(vacc:, data: nil)
     @vacc = vacc
+    @data = data
   end
 
   def perform
@@ -25,8 +26,7 @@ class UpdateNcziVaccinationSnapshots < VaccinationSnapshotsBase
   private
 
   def fetch_snapshots
-    data = fetch_raw_snapshots
-    plan_date_statuses = data.fetch('payload', [])
+    plan_date_statuses = fetch_raw_snapshots
 
     plan_date_statuses.map do |plan_date_status|
       parsed_date = Date.parse(plan_date_status['c_date'])
@@ -54,7 +54,11 @@ class UpdateNcziVaccinationSnapshots < VaccinationSnapshotsBase
   end
 
   def fetch_raw_snapshots
-    response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times_vacc', { drivein_id: vacc.external_id.to_s })
-    response.body
+    if data.present?
+      data
+    else
+      response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times_vacc', { drivein_id: vacc.external_id.to_s })
+      response.body.fetch('payload', [])
+    end
   end
 end

@@ -1,22 +1,30 @@
-class UpdateVaccs < ApplicationService
+class UpdateNcziVaccs < ApplicationService
   include NcziClient
 
+  attr_reader :data
+
+  def initialize(data: nil)
+    @data = data
+  end
+
   def perform
-    logger.info "Updating vaccs"
+    logger.info "Updating NCZI vaccs"
 
     ActiveRecord::Base.transaction do
-      vaccs = fetch_vaccs
-      update_regions!(vaccs)
-      update_counties!(vaccs)
-      update_vaccs!(vaccs)
-      disable_missing_vaccs!(vaccs)
+      fetch_vaccs!
+      update_regions!
+      update_counties!
+      update_vaccs!
+      disable_missing_vaccs!
     end
   end
 
   private
 
-  def fetch_vaccs
-    fetch_nczi_data.map do |vacc|
+  attr_reader :vaccs
+
+  def fetch_vaccs!
+    @vaccs = fetch_nczi_data.map do |vacc|
       vacc
         .merge(
           enabled: true,
@@ -28,7 +36,7 @@ class UpdateVaccs < ApplicationService
     end
   end
 
-  def update_regions!(vaccs)
+  def update_regions!
     regions = vaccs.map do |vacc|
       next unless vacc[:region_id].present?
 
@@ -41,7 +49,7 @@ class UpdateVaccs < ApplicationService
     Region.upsert_all(regions, unique_by: :external_id)
   end
 
-  def update_counties!(vaccs)
+  def update_counties!
     counties = vaccs.map do |vacc|
       next unless vacc[:county_id].present?
 
@@ -57,7 +65,7 @@ class UpdateVaccs < ApplicationService
     County.upsert_all(counties, unique_by: :external_id)
   end
 
-  def update_vaccs!(vaccs)
+  def update_vaccs!
     updated_vaccs = vaccs.map do |vacc|
       region = region_by_external_id(vacc[:region_id])
       county = county_by_external_id(vacc[:county_id])
@@ -71,10 +79,10 @@ class UpdateVaccs < ApplicationService
     Vacc.upsert_all(updated_vaccs, unique_by: :external_id)
   end
 
-  def disable_missing_vaccs!(moms)
+  def disable_missing_vaccs!
     NcziVacc
       .enabled
-      .where.not(external_id: moms.pluck(:external_id))
+      .where.not(external_id: vaccs.pluck(:external_id))
       .update_all(enabled: false).tap do |num_disabled_moms|
       logger.info "Disabled #{num_disabled_moms} NCZI vaccs"
     end
@@ -105,7 +113,12 @@ class UpdateVaccs < ApplicationService
   end
 
   def fetch_nczi_data
-    response = nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_driveins_vacc')
-    response.body.fetch('payload', []).map(&:symbolize_keys)
+    if data.present?
+      data
+    else
+      response = nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_driveins_vacc')
+      response.body.fetch('payload', [])
+    end
+      .map(&:symbolize_keys)
   end
 end
