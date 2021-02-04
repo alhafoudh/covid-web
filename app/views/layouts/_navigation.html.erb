@@ -2,10 +2,10 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
-        <div class="flex-shrink-0 flex">
+        <%= link_to root_path, class: 'flex-shrink-0 flex hover:no-underline' do %>
           <%= image_srcset_tag 'logo.png', title: t(:app_title) %>
           <span class="ml-2 text-black"><%= t(:app_title_html) %></span>
-        </div>
+        <% end %>
         <div class="hidden md:block">
           <div class="ml-10 flex items-center space-x-2">
             <%= render 'layouts/menu_items' %>
