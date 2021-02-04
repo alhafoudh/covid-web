@@ -4,7 +4,11 @@ module NcziClient
   protected
 
   def base_url
-    'https://www.old.korona.gov.sk'
+    if Rails.application.config.x.nczi.use_proxy
+      'https://data.korona.gov.sk/ncziapi'
+    else
+      'https://www.old.korona.gov.sk'
+    end
   end
 
   def nczi_client

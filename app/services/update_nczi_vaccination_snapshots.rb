@@ -57,7 +57,11 @@ class UpdateNcziVaccinationSnapshots < VaccinationSnapshotsBase
     if data.present?
       data
     else
-      response = nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times_vacc', { drivein_id: vacc.external_id.to_s })
+      response = if Rails.application.config.x.nczi.use_proxy
+                   nczi_client.get("https://data.korona.gov.sk/ncziapi/validate_drivein_times_vacc?drivein_id=#{vacc.external_id.to_s}")
+                 else
+                   nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times_vacc', { drivein_id: vacc.external_id.to_s })
+                 end
       response.body.fetch('payload', [])
     end
   end

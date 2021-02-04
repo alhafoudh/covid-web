@@ -10,15 +10,35 @@ class UpdateAllTestingSnapshots < ApplicationService
       all_jobs = []
       limiter = get_limiter
 
-      VacuumlabsMom.find_each(batch_size: 50) do |mom|
+      VacuumlabsMom
+        .includes(
+          latest_snapshots: [
+            :plan_date,
+            { snapshot: [:plan_date] }
+          ]
+        )
+        .find_each(batch_size: 50) do |mom|
         all_jobs << UpdateVacuumlabsTestingSnapshots.new(mom: mom)
       end
       RychlejsieMom
+        .includes(
+          latest_snapshots: [
+            :plan_date,
+            { snapshot: [:plan_date] }
+          ]
+        )
         .where(supports_reservation: true)
         .find_each(batch_size: 50) do |mom|
         all_jobs << UpdateRychlejsieMomSnapshots.new(mom: mom)
       end
-      NcziMom.find_each(batch_size: 50) do |mom|
+      NcziMom
+        .includes(
+          latest_snapshots: [
+            :plan_date,
+            { snapshot: [:plan_date] }
+          ]
+        )
+        .find_each(batch_size: 50) do |mom|
         all_jobs << UpdateNcziTestingSnapshots.new(mom: mom)
       end
 

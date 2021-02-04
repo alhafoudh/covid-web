@@ -116,7 +116,11 @@ class UpdateNcziVaccs < ApplicationService
     if data.present?
       data
     else
-      response = nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_driveins_vacc')
+      response = if Rails.application.config.x.nczi.use_proxy
+                   nczi_client.get('https://data.korona.gov.sk/ncziapi/get_driveins_vacc')
+                 else
+                   nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_driveins_vacc')
+                 end
       response.body.fetch('payload', [])
     end
       .map(&:symbolize_keys)
