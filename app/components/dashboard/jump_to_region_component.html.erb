@@ -1,6 +1,6 @@
 <a id="list" class="anchor"></a>
 <h2 class="mt-8 text-3xl font-normal"><%= t(:jump_to_region) %></h2>
-<div class="jump-region flex flex-nowrap overflow-x-auto lg:justify-between flex-wrap items-start mb-2 py-2 bg-white sticky top-16 z-50">
+<div class="jump-region flex flex-nowrap overflow-x-auto lg:justify-between flex-wrap items-start mb-2 py-2 bg-white sticky top-16 z-40">
   <% regions.map do |region| %>
     <%= link_to region.name, "##{dom_id(region)}", class: class_names('opacity-30': !any_available_in_region?(region)), data: { controller: 'hash-observer', hash_observer_hash_value: "##{dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } %>
   <% end %>
