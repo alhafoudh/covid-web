@@ -12,14 +12,6 @@ class Dashboard::NoticeComponent < ViewComponent::Base
     content.present? && !content.empty?
   end
 
-  def icon
-    case type
-    when :warning then '❗️'
-    else
-      'ℹ️'
-    end
-  end
-
   def classes
     case type
     when :warning then 'text-red-600 bg-red-100'
