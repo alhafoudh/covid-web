@@ -1,16 +1,12 @@
 <a id="list" class="anchor"></a>
 <h2 class="mt-8 text-3xl font-normal"><%= t(:jump_to_region) %></h2>
-<div class="jump-region flex flex-nowrap overflow-x-auto lg:justify-between flex-wrap items-start mb-2 py-2 bg-white sticky top-16 z-40">
-  <% regions.map do |region| %>
-    <%= link_to "##{dom_id(region)}", class: classes_for_region(region), data: { controller: 'hash-observer', hash_observer_hash_value: "##{dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
-      <%= region.name %>
+<div class="jump-region flex overflow-x-auto justify-start items-start mb-2 py-2 bg-white sticky top-16 z-40">
+  <% (regions + [nil]).map do |region| %>
+    <%= link_to "##{region_dom_id(region)}", class: classes_for_region(region), data: { controller: 'hash-observer', hash_observer_hash_value: "##{region_dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
+      <%= region_label(region) %>
       <span class="ml-1">
         <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(region), size: :small) %>
       </span>
     <% end %>
-  <% end %>
-  <%= link_to '#other_region', class: class_names('opacity-50': !any_available_in_region?(nil)), data: { controller: 'hash-observer', hash_observer_hash_value: '#other', hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
-    <%= t(:other_region) %>
-    <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(nil), size: :small) %>
   <% end %>
 </div>
