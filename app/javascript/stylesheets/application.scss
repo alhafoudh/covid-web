@@ -3,7 +3,7 @@
 
 body {
   @apply subpixel-antialiased;
-  @apply text-gray-900;
+  @apply text-gray-dark;
 }
 
 a {
@@ -14,7 +14,7 @@ h1,
 h2,
 h3,
 h4 {
-  @apply font-semibold text-gray-900;
+  @apply font-light text-black;
 }
 
 h1 {
@@ -59,7 +59,7 @@ form {
 }
 
 label {
-  @apply block text-sm font-medium text-gray-700;
+  @apply block text-sm font-medium text-gray-dark;
 }
 
 [type='text'],
@@ -78,7 +78,7 @@ label {
 textarea,
 select {
   @apply mt-1;
-  @apply focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-sm border-gray-300 rounded-md;
+  @apply focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-sm border-gray rounded-md;
 }
 
 [type="checkbox"] {
@@ -86,7 +86,7 @@ select {
 }
 
 .actions {
-  @apply px-6 py-3 bg-gray-50;
+  @apply px-6 py-3 bg-gray-light;
 
   input[type='submit'] {
     @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
@@ -105,20 +105,20 @@ select {
 
 table {
   @apply my-5;
-  @apply shadow overflow-hidden border-b border-gray-200 sm:rounded-lg;
-  @apply min-w-full divide-y divide-gray-200;
+  @apply shadow overflow-hidden border-b border-gray-light sm:rounded-lg;
+  @apply min-w-full divide-y divide-gray-light;
 }
 
 thead {
-  @apply bg-gray-50;
+  @apply bg-gray-light;
 
   th {
-    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+    @apply px-6 py-3 text-left text-xs font-medium text-gray uppercase tracking-wider;
   }
 }
 
 tbody {
-  @apply bg-white divide-y divide-gray-200;
+  @apply bg-white divide-y divide-gray-light;
 
   td {
     @apply px-6 py-4 whitespace-nowrap;
@@ -163,7 +163,7 @@ a {
   }
 }
 .address-link {
-  @apply text-sm text-gray-500;
+  @apply text-sm text-gray;
 }
 
 .anchor {

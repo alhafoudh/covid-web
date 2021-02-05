@@ -1,7 +1,7 @@
 <div class="mb-8 <%= classes %>">
   <a id="<%= region_dom_id %>" class="anchor -top-30"></a>
   <h2>
-    <span class="text-lg font-bold uppercase text-gray-500"><%= title %></span>
+    <span class="text-lg font-bold uppercase text-gray"><%= title %></span>
     <span class="ml-2">
       <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity, show_label: true) %>
     </span>

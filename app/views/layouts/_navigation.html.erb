@@ -23,7 +23,7 @@
       </div>
       <div class="-mr-2 flex md:hidden">
         <!-- Mobile menu button -->
-        <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 focus:text-black focus:outline-none" data-action="toggle#toggle" data-toggle-target="menu-list,icon-burger,icon-check">
+        <button class="inline-flex items-center justify-center p-2 rounded-md text-gray focus:text-black focus:outline-none" data-action="toggle#toggle" data-toggle-target="menu-list,icon-burger,icon-check">
           <span class="sr-only"><%= t(:open_main_menu) %></span>
 
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-toggle-name="icon-burger">
@@ -47,7 +47,7 @@
     <div class="flex flex-col px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <%= render 'layouts/menu_items' %>
     </div>
-    <div class="pt-4 pb-3 border-t border-b border-gray-700">
+    <div class="pt-4 pb-3 border-t border-b border-gray">
       <div class="flex flex-col px-2 md:pb-3 space-y-1 sm:px-3">
         <% if content_for?(:menu_info) %>
           <div class="text-black">

@@ -25,11 +25,11 @@ sk:
 #    Dôsledkom toho, môžu byť niektoré údaje na našej stránke dočasne neaktuálne napriek tomu, že uvádzame, že boli nedávno aktualizované. Vopred sa ospravedlňujeme, chyba nie je na našej strane a veríme že po vyladení API napojenia na NCZI budú údaje v čo najkratšej dobe opäť aktuálne.
 
   testing:
-    title: "Zoznam odberných miest s objednávaním na antigénové testovanie na COVID-19"
+    title_html: "Zoznam odberných miest s&nbsp;objednávaním na antigénové testovanie na COVID-19"
     dashboard:
       header_html: |
         <p>
-          Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje.<br/>
+          Nájdite voľné antigénové testovacie miesto. Vyberte si podľa vášho kraja a&nbsp;mesta, kde chcete byť testovaní. Zoznam sa priebežne aktualizuje.<br/>
         </p>
       warning_html: |
         Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.
@@ -37,11 +37,11 @@ sk:
         Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
       action_title: "Zobraziť odberné miesta"
   vaccination:
-    title: "Zoznam očkovacích miest s objednávaním na COVID-19"
+    title_html: "Zoznam očkovacích miest s&nbsp;objednávaním na COVID-19"
     dashboard:
       header_html: |
         <p>
-          Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje.
+          Nájdite voľné očkovacie miesto. Vyberte si podľa vášho kraja a&nbsp;mesta, kde chcete byť očkovaní. Zoznam sa priebežne aktualizuje.
         </p>
       warning_html: |
         Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
