@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_194427) do
+ActiveRecord::Schema.define(version: 2021_02_05_145122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,21 @@ ActiveRecord::Schema.define(version: 2021_01_31_194427) do
     t.string "external_id"
     t.index ["external_id"], name: "index_counties_on_external_id", unique: true
     t.index ["region_id"], name: "index_counties_on_region_id"
+  end
+
+  create_table "job_results", force: :cascade do |t|
+    t.string "type", null: false
+    t.boolean "success", null: false
+    t.jsonb "result", default: {}, null: false
+    t.text "error"
+    t.datetime "started_at", null: false
+    t.datetime "finished_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["finished_at"], name: "index_job_results_on_finished_at"
+    t.index ["started_at"], name: "index_job_results_on_started_at"
+    t.index ["success"], name: "index_job_results_on_success"
+    t.index ["type"], name: "index_job_results_on_type"
   end
 
   create_table "latest_test_date_snapshots", force: :cascade do |t|
