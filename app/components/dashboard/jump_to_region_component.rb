@@ -31,23 +31,6 @@ class Dashboard::JumpToRegionComponent < ViewComponent::Base
       .sum
   end
 
-  def region_label(region, label: nil)
-    label.present? ? label : region.name
-  end
-
-  def badge(region)
-    number_with_delimiter(total_free_capacity(region))
-  end
-
-  def badge_classes(region)
-    capacity = total_free_capacity(region)
-    class_names(
-      'bg-green-100 text-green-600': capacity >= 200,
-      'bg-yellow-100 text-yellow-600': capacity >= 100 && capacity < 200,
-      'bg-red-100 text-red-600': capacity < 100,
-    )
-  end
-
   def places_for(county)
     places_by_county.fetch(county, [])
   end

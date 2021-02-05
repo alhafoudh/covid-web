@@ -3,12 +3,14 @@
 <div class="jump-region flex flex-nowrap overflow-x-auto lg:justify-between flex-wrap items-start mb-2 py-2 bg-white sticky top-16 z-40">
   <% regions.map do |region| %>
     <%= link_to "##{dom_id(region)}", class: classes_for_region(region), data: { controller: 'hash-observer', hash_observer_hash_value: "##{dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
-      <%= region_label(region) %>
-      <span class="ml-1 text-xs px-2 py-1 rounded-full <%= badge_classes(region) %>"><%= badge(region) %></span>
+      <%= region.name %>
+      <span class="ml-1">
+        <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(region), size: :small) %>
+      </span>
     <% end %>
   <% end %>
   <%= link_to '#other_region', class: class_names('opacity-50': !any_available_in_region?(nil)), data: { controller: 'hash-observer', hash_observer_hash_value: '#other', hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
-    <%= region_label(nil, label: t(:other_region)) %>
-    <span class="ml-1 text-xs px-2 py-1 rounded-full <%= badge_classes(nil) %>"><%= badge(nil) %></span>
+    <%= t(:other_region) %>
+    <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(nil), size: :small) %>
   <% end %>
 </div>

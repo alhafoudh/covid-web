@@ -52,16 +52,16 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
     t(:free_capacity, count: total_free_capacity(region), formatted_count: number_with_delimiter(total_free_capacity(region)))
   end
 
-  def total_free_capacity(region)
-    (region.nil? ? [nil] : region.counties)
-      .map do |county|
+  def total_free_capacity
+    @total_free_capacity ||= (region.nil? ? [nil] : region.counties)
+                               .map do |county|
       places_for(county)
     end
-      .flatten
-      .map do |place|
+                               .flatten
+                               .map do |place|
       place.total_free_capacity(plan_dates)
     end
-      .sum
+                               .sum
   end
 
   def places_for(county)
