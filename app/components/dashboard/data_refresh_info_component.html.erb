@@ -10,7 +10,7 @@
   data-refresh-info-old-class="refresh-info--indicator-old"
 >
   <span class="text-2xl mx-2" data-refresh-info-target="oldIndicator">&ofcir;</span>
-  <div class="flex flex-col text-base md:text-xs">
+  <div class="flex flex-col text-sm font-medium md:text-xs">
     <span data-refresh-info-target="output" title="<%= l last_updated_at, format: :long %>"></span>
     <span>
     <%= t(:update_period_info_html, every_minutes: t(:every_minutes, count: update_interval)) %>
