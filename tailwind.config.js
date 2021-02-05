@@ -17,7 +17,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ['Work Sans', 'sans-serif'],
+      sans: ['Roboto', 'sans-serif'],
     },
     colors: {
       transparent: 'transparent',

@@ -4,6 +4,7 @@
 body {
   @apply subpixel-antialiased;
   @apply text-gray-dark;
+  letter-spacing: 0.5px;
 }
 
 a {
