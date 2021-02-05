@@ -27,7 +27,11 @@ module.exports = {
       green: colors.green,
       orange: colors.orange,
     },
-    extend: {},
+    extend: {
+      spacing: {
+        30: '7.5rem'
+      }
+    },
   },
   variants: {
     extend: {
