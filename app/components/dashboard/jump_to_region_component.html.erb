@@ -10,9 +10,8 @@
     <% (regions + [nil]).map do |region| %>
       <%= link_to "##{region_dom_id(region)}", class: classes_for_region(region), data: { controller: 'hash-observer', hash_observer_hash_value: "##{region_dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
         <%= region_label(region) %>
-        <span class="ml-1">
+        <br />
         <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(region), size: :small) %>
-      </span>
       <% end %>
     <% end %>
   </div>

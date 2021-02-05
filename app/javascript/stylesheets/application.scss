@@ -154,8 +154,11 @@ a {
 }
 
 .jump-region {
+  scroll-snap-type: x mandatory;
+
   a {
-    @apply text-sm font-medium text-black hover:text-blue hover:no-underline md:mr-0 md:mb-0 mr-4 mb-2 px-4 py-2;
+    scroll-snap-align: start;
+    @apply text-sm font-medium text-black hover:text-blue hover:no-underline md:mr-0 md:mb-0 mr-4 mb-2 px-4 py-1 text-center leading-5;
 
     &.active {
       @apply bg-blue-light text-blue rounded-full;

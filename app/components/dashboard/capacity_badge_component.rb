@@ -12,17 +12,17 @@ class Dashboard::CapacityBadgeComponent < ViewComponent::Base
   def classes
     class_names(
       color_classes,
-      'text-xs px-1 py-0.5': size == :small,
+      'text-xs px-2 py-0.5': size == :small,
       'text-sm px-2 py-1': size != :small,
     )
   end
 
   def color_classes
-    class_names(
-      'bg-green-light text-green': count >= 200,
-      'bg-yellow-100 text-yellow-600': count >= 100 && count < 200,
-      'bg-red-light text-red': count < 100,
-    )
+      class_names(
+        'bg-green-light text-green': count >= 200,
+        'bg-yellow-100 text-yellow-600': count >= 100 && count < 200,
+        'bg-red-light text-red': count < 100,
+      )
   end
 
   def value

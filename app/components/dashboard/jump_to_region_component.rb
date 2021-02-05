@@ -37,7 +37,6 @@ class Dashboard::JumpToRegionComponent < ViewComponent::Base
 
   def classes_for_region(region)
     class_names(
-      'flex flex-nowrap',
       'opacity-30 no-free-capacity': !any_available_in_region?(region)
     )
   end
