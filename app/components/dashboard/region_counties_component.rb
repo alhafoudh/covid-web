@@ -48,6 +48,22 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
     region.name
   end
 
+  def badge
+    t(:free_capacity, count: total_free_capacity(region))
+  end
+
+  def total_free_capacity(region)
+    (region.nil? ? [nil] : region.counties)
+      .map do |county|
+      places_for(county)
+    end
+      .flatten
+      .map do |place|
+      place.total_free_capacity(plan_dates)
+    end
+      .sum
+  end
+
   def places_for(county)
     places_by_county.fetch(county, [])
   end

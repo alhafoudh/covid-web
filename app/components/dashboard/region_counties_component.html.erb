@@ -1,6 +1,9 @@
 <div class="mb-8 <%= classes %>">
   <a id="<%= region_dom_id %>" class="anchor -top-30"></a>
-  <h2 class="text-lg font-bold uppercase text-gray-500"><%= title %></h2>
+  <h2>
+    <span class="text-lg font-bold uppercase text-gray-500"><%= title %></span>
+    <span class="ml-2 text-sm px-2 py-1 rounded-full bg-green-100 text-green-600"><%= badge %></span>
+  </h2>
   <div class="mt-2">
     <%= render Dashboard::CountyPlacesComponent.with_collection(counties, places_by_county: places_by_county, plan_dates: plan_dates) %>
   </div>

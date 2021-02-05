@@ -102,3 +102,8 @@ sk:
       footer: "Prehľad aktuálnych kapacít pre %{region} región nájdeš na %{region_url}"
     has_schedule: "Momentálne máš nastavené upozornenia na nové zverejnené termíny očkovania v regióne: %{region}."
     change: "✏️ Zmeniť"
+  free_capacity:
+    one: "1 voľné miesto"
+    few: "%{count} voľné miesta"
+    many: "%{count} voľných miest"
+    other: "%{count} voľných miest"
