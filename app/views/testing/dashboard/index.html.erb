@@ -11,7 +11,7 @@
     action_title: t(:'testing.dashboard.action_title'),
     action_link: "#{root_path}#list",
 ) %>
-<%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county) %>
+<%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
 <%= render Dashboard::EmptySwitcherComponent.new %>
 <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
 <%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>

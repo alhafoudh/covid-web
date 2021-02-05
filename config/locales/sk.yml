@@ -104,6 +104,6 @@ sk:
     change: "✏️ Zmeniť"
   free_capacity:
     one: "1 voľné miesto"
-    few: "%{count} voľné miesta"
-    many: "%{count} voľných miest"
-    other: "%{count} voľných miest"
+    few: "%{formatted_count} voľné miesta"
+    many: "%{formatted_count} voľných miest"
+    other: "%{formatted_count} voľných miest"

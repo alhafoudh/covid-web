@@ -2,7 +2,13 @@
 <h2 class="mt-8 text-3xl font-normal"><%= t(:jump_to_region) %></h2>
 <div class="jump-region flex flex-nowrap overflow-x-auto lg:justify-between flex-wrap items-start mb-2 py-2 bg-white sticky top-16 z-40">
   <% regions.map do |region| %>
-    <%= link_to region.name, "##{dom_id(region)}", class: class_names('opacity-30': !any_available_in_region?(region)), data: { controller: 'hash-observer', hash_observer_hash_value: "##{dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } %>
+    <%= link_to "##{dom_id(region)}", class: classes_for_region(region), data: { controller: 'hash-observer', hash_observer_hash_value: "##{dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
+      <%= region_label(region) %>
+      <span class="ml-1 text-xs px-2 py-1 rounded-full <%= badge_classes(region) %>"><%= badge(region) %></span>
+    <% end %>
   <% end %>
-  <%= link_to t(:other_region), '#other_region', class: class_names('opacity-50': !any_available_in_region?(nil)), data: { controller: 'hash-observer', hash_observer_hash_value: '#other', hash_observer_target: 'element', hash_observer_active_class: 'active' } %>
+  <%= link_to '#other_region', class: class_names('opacity-50': !any_available_in_region?(nil)), data: { controller: 'hash-observer', hash_observer_hash_value: '#other', hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
+    <%= region_label(nil, label: t(:other_region)) %>
+    <span class="ml-1 text-xs px-2 py-1 rounded-full <%= badge_classes(nil) %>"><%= badge(nil) %></span>
+  <% end %>
 </div>

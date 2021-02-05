@@ -49,7 +49,7 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
   end
 
   def badge
-    t(:free_capacity, count: total_free_capacity(region))
+    t(:free_capacity, count: total_free_capacity(region), formatted_count: number_with_delimiter(total_free_capacity(region)))
   end
 
   def total_free_capacity(region)
