@@ -8,11 +8,11 @@ module Clockwork
   every(Rails.application.config.x.update_interval.minutes, 'update_all') do
     SkCovidTesting::Application.load_tasks
 
-    update_result = UpdateAllNcziVaccinationData.new.perform
+    update_result = UpdateAllVaccinationData.new.perform
     latest_snapshots = update_result.flatten
     NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
 
-    UpdateAllNcziTestingData.new.perform
+    UpdateAllTestingData.new.perform
   end
 
   error_handler do |error|

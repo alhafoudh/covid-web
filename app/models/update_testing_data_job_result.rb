@@ -1,0 +1,2 @@
+class UpdateTestingDataJobResult < JobResult
+end

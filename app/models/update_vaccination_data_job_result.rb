@@ -1,0 +1,2 @@
+class UpdateVaccinationDataJobResult < JobResult
+end

@@ -1,6 +1,6 @@
 namespace :testing do
   desc 'Update all testing data'
   task update: [:environment] do
-    UpdateAllNcziTestingData.new.perform
+    UpdateAllTestingData.new.perform
   end
 end

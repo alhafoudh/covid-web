@@ -1,4 +1,4 @@
-class UpdateAllTestingSnapshots < ApplicationService
+class UpdateAllVacuumlabsTestingSnapshotsEach < ApplicationService
   attr_reader :rate_limit
 
   def initialize(rate_limit: 1)
@@ -19,27 +19,6 @@ class UpdateAllTestingSnapshots < ApplicationService
         )
         .find_each(batch_size: 50) do |mom|
         all_jobs << UpdateVacuumlabsTestingSnapshots.new(mom: mom)
-      end
-      RychlejsieMom
-        .includes(
-          latest_snapshots: [
-            :plan_date,
-            { snapshot: [:plan_date] }
-          ]
-        )
-        .where(supports_reservation: true)
-        .find_each(batch_size: 50) do |mom|
-        all_jobs << UpdateRychlejsieMomSnapshots.new(mom: mom)
-      end
-      NcziMom
-        .includes(
-          latest_snapshots: [
-            :plan_date,
-            { snapshot: [:plan_date] }
-          ]
-        )
-        .find_each(batch_size: 50) do |mom|
-        all_jobs << UpdateNcziTestingSnapshots.new(mom: mom)
       end
 
       jobs = job_queue_for(all_jobs.size)

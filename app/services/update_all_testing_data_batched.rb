@@ -1,4 +1,4 @@
-class UpdateAllNcziTestingDataBatched < ApplicationService
+class UpdateAllTestingDataBatched < ApplicationService
   include NcziClient
 
   def perform
@@ -30,21 +30,28 @@ class UpdateAllNcziTestingDataBatched < ApplicationService
   end
 
   def update_places!
+    RychlejsieMom.instances.map do |config|
+      UpdateRychlejsieMoms.new(config).perform
+    end
     UpdateNcziMoms.new(data: places_data).perform
   end
 
   def update_snapshots!
-    NcziMom
-      .includes(
-        latest_snapshots: [
-          :plan_date,
-          { snapshot: [:plan_date] }
-        ]
-      )
-      .find_each(batch_size: 50).map do |place|
-      place_snapshots_data = snapshots_data.fetch(place.external_id, [])
-      UpdateNcziTestingSnapshots.new(mom: place, data: place_snapshots_data).perform
-    end.flatten
+    [
+      NcziMom
+        .includes(
+          latest_snapshots: [
+            :plan_date,
+            { snapshot: [:plan_date] }
+          ]
+        )
+        .find_each(batch_size: 50).map do |place|
+        place_snapshots_data = snapshots_data.fetch(place.external_id, [])
+        UpdateNcziTestingSnapshots.new(mom: place, data: place_snapshots_data).perform
+      end.flatten,
+      UpdateAllVacuumlabsTestingSnapshotsEach.new(rate_limit: Rails.application.config.x.testing.rate_limit).perform,
+      UpdateAllRychlejsieTestingSnapshotsEach.new(rate_limit: Rails.application.config.x.testing.rate_limit).perform,
+    ].flatten
   end
 
   def fetch_all_data_raw
