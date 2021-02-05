@@ -2,10 +2,9 @@ sk:
   regions: "Regióny"
   for_region_county: "pre %{region} kraj, %{county}"
   closed: "Zatvorené"
-  unknown: "Bez aktualizácie"
-  last_updated_at: "Aktualizované %{time}."
+  last_updated_at: "Posledná zmena %{time}."
   last_updated_ago:
-    prefix: "Aktualizované "
+    prefix: "Posledná zmena "
     suffix: "."
   make_reservation: "Objednať"
   more_info: "Zistiť viac"

@@ -9,7 +9,8 @@
   data-refresh-info-fresh-class="refresh-info--indicator-fresh"
   data-refresh-info-old-class="refresh-info--indicator-old"
 >
-  <span class="text-2xl mx-2" data-refresh-info-target="oldIndicator">&ofcir;</span>
+  <span class="text-2xl mx-2 refresh-info--indicator-fresh">&ofcir;</span>
+  <!--  <span class="text-2xl mx-2" data-refresh-info-target="oldIndicator">&ofcir;</span>-->
   <div class="flex flex-col text-sm font-medium md:text-xs">
     <span data-refresh-info-target="output" title="<%= l last_updated_at, format: :long %>"></span>
     <span>

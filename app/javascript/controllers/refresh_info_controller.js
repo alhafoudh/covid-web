@@ -1,5 +1,5 @@
 import {Controller} from "stimulus"
-import {formatDistanceToNow, parseISO, differenceInMinutes} from "date-fns"
+import {differenceInMinutes, formatDistanceToNow, parseISO} from "date-fns"
 import * as dateFnsLocales from "date-fns/locale"
 
 export default class extends Controller {
@@ -36,13 +36,14 @@ export default class extends Controller {
   }
 
   tick() {
-    if (this.isOld()) {
-      this.oldIndicatorTarget.classList.add(this.oldClass);
-      this.oldIndicatorTarget.classList.remove(this.freshClass);
-    } else {
-      this.oldIndicatorTarget.classList.add(this.freshClass);
-      this.oldIndicatorTarget.classList.remove(this.oldClass);
-    }
+    if (this.hasOldIndicatorTarget)
+      if (this.isOld()) {
+        this.oldIndicatorTarget.classList.add(this.oldClass);
+        this.oldIndicatorTarget.classList.remove(this.freshClass);
+      } else {
+        this.oldIndicatorTarget.classList.add(this.freshClass);
+        this.oldIndicatorTarget.classList.remove(this.oldClass);
+      }
     const distance = formatDistanceToNow(this.lastUpdated, {
       addSuffix: true,
       locale: this.locale,
