@@ -9,6 +9,10 @@ module.exports = {
     './app/**/*.scss',
     './config/locales/*.yml'
   ],
+  corePlugins: {
+    backgroundOpacity: false,
+    textOpacity: false,
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
@@ -21,10 +25,21 @@ module.exports = {
       white: colors.white,
       gray: colors.trueGray,
       indigo: colors.indigo,
-      red: colors.rose,
+      red: {
+        DEFAULT: '#e00000',
+        light: '#fff0f0',
+      },
       yellow: colors.amber,
-      blue: colors.blue,
-      green: colors.green,
+      blue: {
+        dark: "#266eb6",
+        DEFAULT: "#368ede",
+        light: "#ddefff",
+      },
+      green: {
+        dark: '#065F46',
+        DEFAULT: '#059669',
+        light: '#d2f5df',
+      },
       orange: colors.orange,
     },
     extend: {

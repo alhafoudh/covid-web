@@ -21,7 +21,7 @@ sk:
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
   announcement_html: ""
 #  announcement_html: |
-#    <strong class="text-red-600">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
+#    <strong class="text-red">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
 #    Dôsledkom toho, môžu byť niektoré údaje na našej stránke dočasne neaktuálne napriek tomu, že uvádzame, že boli nedávno aktualizované. Vopred sa ospravedlňujeme, chyba nie je na našej strane a veríme že po vyladení API napojenia na NCZI budú údaje v čo najkratšej dobe opäť aktuálne.
 
   testing:
@@ -46,7 +46,7 @@ sk:
       warning_html: |
         Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
         Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie. V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.<br/>
-        Viac informácií nájdete na <a class="font-bold" href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a>
+        Viac informácií nájdete na <a href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a>
       action_title: "Zobraziť očkovacie miesta"
   cookies:
     title: "Cookies"

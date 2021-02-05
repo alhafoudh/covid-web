@@ -14,9 +14,9 @@ class Dashboard::NoticeComponent < ViewComponent::Base
 
   def classes
     case type
-    when :warning then 'text-red-600 bg-red-100'
+    when :warning then 'text-red bg-red-light'
     else
-      'text-blue-600 bg-blue-100'
+      'text-blue bg-blue-light'
     end
   end
 end

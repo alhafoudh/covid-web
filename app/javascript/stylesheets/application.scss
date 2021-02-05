@@ -7,7 +7,7 @@ body {
 }
 
 a {
-  @apply text-indigo-600 hover:text-indigo-900;
+  @apply text-blue hover:text-blue-dark;
 }
 
 h1,
@@ -31,7 +31,7 @@ h3 {
 
 #notice {
   @apply rounded-md overflow-hidden mb-5;
-  @apply px-6 py-3 text-blue-800 bg-gradient-to-r from-blue-50 to-blue-100;
+  @apply px-6 py-3 text-blue bg-blue-light;
 
   &:empty {
     @apply hidden;
@@ -43,7 +43,7 @@ form {
 }
 
 #error_explanation {
-  @apply px-6 py-6 text-red-800 bg-gradient-to-r from-red-50 to-red-100;
+  @apply px-6 py-6 text-red bg-red-light;
 
   ul {
     @apply list-disc list-inside;
@@ -81,6 +81,10 @@ select {
   @apply focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-sm border-gray-300 rounded-md;
 }
 
+[type="checkbox"] {
+  @apply rounded text-blue border-blue focus:outline-none focus:ring-0
+}
+
 .actions {
   @apply px-6 py-3 bg-gray-50;
 
@@ -91,11 +95,11 @@ select {
 
 .field_with_errors {
   label {
-    @apply text-red-800;
+    @apply text-red;
   }
 
   input {
-    @apply border-red-800 text-red-800;
+    @apply border-red text-red;
   }
 }
 
@@ -127,28 +131,34 @@ a {
 
 #menu {
   .link {
-    @apply text-black hover:text-blue-500 border-transparent md:border-t-4 md:border-l-0 border-t-0 border-l-4 hover:no-underline px-3 py-2 text-sm font-medium;
+    @apply text-blue hover:text-blue-dark border-transparent md:border-t-4 md:border-l-0 border-t-0 border-l-4 hover:no-underline px-3 py-2 text-sm font-medium;
 
     &-active {
-      @apply text-blue-500 border-blue-500;
+      @apply text-blue border-blue;
     }
   }
 }
 
 .refresh-info--indicator-fresh {
-  @apply text-green-400 animate-pulse;
+  @apply text-green animate-pulse;
 }
 
 .refresh-info--indicator-old {
   @apply text-yellow-400 animate-none;
 }
 
+.warning {
+  a {
+    @apply underline text-red hover:text-red;
+  }
+}
+
 .jump-region {
   a {
-    @apply text-sm font-medium text-black hover:text-blue-600 hover:no-underline md:mr-0 md:mb-0 mr-4 mb-2 px-4 py-2;
+    @apply text-sm font-medium text-black hover:text-blue hover:no-underline md:mr-0 md:mb-0 mr-4 mb-2 px-4 py-2;
 
     &.active {
-      @apply bg-blue-100 text-blue-600 rounded-full;
+      @apply bg-blue-light text-blue rounded-full;
     }
   }
 }
@@ -161,11 +171,11 @@ a {
 }
 
 .button {
-  @apply bg-blue-600 px-8 py-4 rounded-full text-sm text-white hover:text-white hover:bg-blue-500 hover:no-underline;
+  @apply bg-blue px-8 py-4 rounded-full text-sm text-white hover:text-white hover:bg-blue-dark hover:no-underline;
 }
 
 .button-small {
-  @apply bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:text-white hover:bg-blue-500 hover:no-underline;
+  @apply bg-blue px-4 py-2 rounded-full text-sm text-white hover:text-white hover:bg-blue-dark hover:no-underline;
 }
 
 @import 'tailwindcss/utilities';

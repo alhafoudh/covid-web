@@ -1,15 +1,15 @@
-<div data-controller="cookies-consent" class="pointer-events-none fixed left-0 bottom-0 w-full transition duration-300 ease-in-out transform translate-y-1/2 opacity-0" data-cookies-consent-target="container">
+<div data-controller="cookies-consent" class="pointer-events-none fixed z-50 left-0 bottom-0 w-full transition duration-300 ease-in-out transform translate-y-1/2 opacity-0" data-cookies-consent-target="container">
   <div class="pointer-events-auto items-center bg-gray-100 border-t border-gray-200 md:max-w-md md:transform md:translate-x-2 md:-translate-y-2 md:border md:rounded">
     <div class="hidden px-4 py-4 space-y-4 border-b border-gray-200" data-cookies-consent-target="configPanel">
       <label for="functional_checkbox" class="flex items-top">
-        <input type="checkbox" id="functional_checkbox" name="functional_checkbox" class="rounded mr-1 focus:outline-none mt-0.5 opacity-50" disabled checked readonly>
+        <input type="checkbox" id="functional_checkbox" name="functional_checkbox" class="mr-1 mt-0.5 opacity-50" disabled checked readonly>
         <p>
           <span class="font-bold"><%= t('cookies.required.title') %></span><br />
           <span class="mt-2"><%= t('cookies.required.description') %></span>
         </p>
       </label>
-      <label for="analytics_checkbox" class="flex items-top cursor-pointer hover:text-indigo-600">
-        <input type="checkbox" id="analytics_checkbox" name="analytics_checkbox" class="rounded mr-1 focus:outline-none mt-0.5" data-cookies-consent-target="analyticsCheckbox">
+      <label for="analytics_checkbox" class="flex items-top cursor-pointer">
+        <input type="checkbox" id="analytics_checkbox" name="analytics_checkbox" class="mr-1 mt-0.5" data-cookies-consent-target="analyticsCheckbox">
         <p>
           <span class="font-bold"><%= t('cookies.analytics.title') %></span><br />
           <span class="mt-2"><%= t('cookies.analytics.description') %></span>
@@ -28,11 +28,11 @@
           class="flex-1 px-3 py-2 mr-2 text-sm border-0 whitespace-nowrap text-center rounded-md text-gray-600 bg-transparent hover:text-black"
           data-action="cookies-consent#toggleConfigurationForm"><%= t('cookies.configure') %></button>
         <button
-          class="flex-1 px-3 py-2 text-sm border-0 whitespace-nowrap text-center rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white"
+          class="flex-1 px-3 py-2 text-sm border-0 whitespace-nowrap text-center rounded-md text-white bg-green hover:bg-green-dark hover:text-white"
           data-cookies-consent-target="acceptAllButton"
           data-action="cookies-consent#acceptAll"><%= t('cookies.accept') %></button>
         <button
-          class="hidden flex-1 px-3 py-2 text-sm border-0 whitespace-nowrap text-center rounded-md text-white bg-green-600 hover:bg-green-700 hover:text-white"
+          class="hidden flex-1 px-3 py-2 text-sm border-0 whitespace-nowrap text-center rounded-md text-white bg-green hover:bg-green-dark hover:text-white"
           data-cookies-consent-target="saveConfigurationButton"
           data-action="cookies-consent#saveConfigurationForm"><%= t('cookies.accept') %></button>
       </div>
