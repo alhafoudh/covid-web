@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'status', to: 'status#index'
+
   namespace :testing do
     namespace :api do
       resources :plan_dates, only: [:index]
