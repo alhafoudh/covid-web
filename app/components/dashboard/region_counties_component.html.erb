@@ -1,10 +1,8 @@
 <div class="mb-8 <%= classes %>">
   <a id="<%= region_dom_id %>" class="anchor -top-30"></a>
-  <h2>
+  <h2 class="flex flex-wrap items-center justify-start space-x-2">
     <span class="text-lg font-bold uppercase text-gray"><%= title %></span>
-    <span class="ml-2">
-      <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity, show_label: true) %>
-    </span>
+    <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity) %>
   </h2>
   <div class="mt-2">
     <%= render Dashboard::CountyPlacesComponent.with_collection(counties, places_by_county: places_by_county, plan_dates: plan_dates) %>
