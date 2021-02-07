@@ -48,6 +48,8 @@ module SkCovidTesting
     config.x.http_proxy = ENV.fetch('http_proxy', nil)
     config.x.update_interval = ENV.fetch('UPDATE_INTERVAL', 15).to_i
 
+    config.x.analytics.gtm_code = ENV.fetch('ANALYTICS_GTM_CODE')
+
     config.x.status.content_expiration = ENV.fetch('STATUS_CONTENT_EXPIRATION_SECONDS', 5).to_i
 
     config.x.nczi.use_proxy = ENV.fetch('NCZI_USE_PROXY', 'false') == 'true'
