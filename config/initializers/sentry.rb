@@ -14,7 +14,7 @@ Sentry.init do |config|
   config.send_default_pii = false
   config.excluded_exceptions += SENTRY_IGNORED_EXCEPTIONS.map(&:to_s)
   config.breadcrumbs_logger = [:active_support_logger]
-  config.rails.report_rescued_exceptions = false
+  config.rails.report_rescued_exceptions = true
 
   config.traces_sample_rate = 1.0
 end
