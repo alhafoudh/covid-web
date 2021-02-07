@@ -182,4 +182,24 @@ a {
   @apply bg-blue px-4 py-2 rounded-full text-sm text-white hover:text-white hover:bg-blue-dark hover:no-underline;
 }
 
+.notifications-button {
+  @apply rounded-full whitespace-nowrap py-1 px-3 inline-flex items-center space-x-1;
+
+  &.enabled {
+    @apply inline-flex;
+  }
+
+  &.disabled {
+    @apply hidden;
+  }
+
+  &__icon {
+    @apply inline h-4 fill-current;
+  }
+
+  &__label {
+    @apply text-sm;
+  }
+}
+
 @import 'tailwindcss/utilities';

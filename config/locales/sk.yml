@@ -107,3 +107,6 @@ sk:
     few: "%{formatted_count} voľné miesta"
     many: "%{formatted_count} voľných miest"
     other: "%{formatted_count} voľných miest"
+  notifications:
+    enable: "Zapnúť upozornenia"
+    disable: "Vypnúť upozornenia"

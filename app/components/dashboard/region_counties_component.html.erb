@@ -3,6 +3,7 @@
   <h2 class="flex flex-wrap items-center justify-start space-x-2">
     <span class="text-lg font-bold uppercase text-gray"><%= title %></span>
     <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity) %>
+    <%= render Dashboard::RegionNotificationComponent.new(region: region) %>
   </h2>
   <div class="mt-2">
     <%= render Dashboard::CountyPlacesComponent.with_collection(counties, places_by_county: places_by_county, plan_dates: plan_dates) %>
