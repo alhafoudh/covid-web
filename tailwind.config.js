@@ -34,7 +34,11 @@ module.exports = {
         DEFAULT: '#e00000',
         light: '#fff0f0',
       },
-      yellow: colors.amber,
+      yellow: {
+        dark: colors.amber[800],
+        DEFAULT: colors.amber[500],
+        light: colors.amber[100],
+      },
       blue: {
         dark: "#266eb6",
         DEFAULT: "#368ede",

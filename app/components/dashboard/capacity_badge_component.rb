@@ -20,7 +20,7 @@ class Dashboard::CapacityBadgeComponent < ViewComponent::Base
   def color_classes
       class_names(
         'bg-green-light text-green': count >= 200,
-        'bg-yellow-100 text-yellow-600': count >= 100 && count < 200,
+        'bg-yellow-light text-yellow': count >= 100 && count < 200,
         'bg-red-light text-red': count < 100,
       )
   end

@@ -14,7 +14,7 @@
       <% end %>
     <% else %>
       <% if plan_date.date == Date.today %>
-        <span class="text-yellow-600 text-xs text-center">
+        <span class="text-yellow text-xs text-center">
           <%= t(:wait_time) %>
           <%= place.queue_wait_time %>
         </span>

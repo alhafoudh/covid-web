@@ -18,7 +18,7 @@ class Dashboard::PlacePlanCellComponent < ViewComponent::Base
         'bg-green-light'
       end
     elsif plan_date.date == Date.today
-      'bg-yellow-200'
+      'bg-yellow-light'
     end
   end
 
