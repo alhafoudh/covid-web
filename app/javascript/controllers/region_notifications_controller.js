@@ -32,77 +32,7 @@ export default class extends Controller {
 
     this.messaging = firebase.messaging();
 
-    this.updateAll = this.updateAll.bind(this);
-    this.processSubscriptions = this.processSubscriptions.bind(this);
-
     this.updateAll();
-  }
-
-  updateAll() {
-    this.updateInfoBox();
-
-    if (!this.allowed)
-      return;
-
-    return Promise.resolve()
-      .then(() => this.updateUserId())
-      .then(() => this.updateSubscriptions());
-  }
-
-  updateSubscriptions() {
-    return fetch(`${this.subscriptionsUrlValue}?channel=webpush&user_id=${this.userId}`)
-      .then(this.processSubscriptions);
-  }
-
-  processSubscriptions(response) {
-    return Promise.resolve()
-      .then(() => response.json())
-      .then((data) => this.subscriptions = data)
-      .then(() => this.updateButtons());
-  }
-
-  updateInfoBox() {
-    this.infoBoxTarget.classList.toggle(this.hideClass, this.allowed);
-  }
-
-  updateUserId() {
-    return this.messaging
-      .getToken({vapidKey: window.firebaseVapidKey})
-      .then((currentToken) => {
-        if (currentToken) {
-          console.log(currentToken);
-          return currentToken;
-        } else {
-          console.log('No registration token available. Request permission to generate one.');
-          return null;
-        }
-      })
-      .then((userId) => {
-        this.userId = userId;
-        return userId;
-      })
-      .catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-        return null;
-      });
-  }
-
-  updateButtons() {
-    this.enableButtonTargets.forEach((element) => {
-      const region_id = element.dataset.region;
-      const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
-
-      element.classList.toggle(this.enabledClass, !!!subscription);
-      element.classList.toggle(this.disabledClass, !!subscription);
-    });
-
-    this.disableButtonTargets.forEach((element) => {
-      const region_id = element.dataset.region;
-      const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
-
-      element.classList.toggle(this.enabledClass, !!subscription);
-      element.classList.toggle(this.disabledClass, !!!subscription);
-    });
   }
 
   get allowed() {
@@ -113,6 +43,72 @@ export default class extends Controller {
     localStorage.setItem(this.constructor.allowedNotificationsLocalStorageKey, value ? 'yes' : 'no');
   }
 
+  updateAll() {
+    this.updateInfoBox();
+
+    if (!this.allowed)
+      return;
+
+    return Promise.resolve()
+      .then(() => this.loadUserId())
+      .then(() => this._fetchSubscriptions())
+      .then(res => this.processSubscriptionsResponse(res))
+      .catch(err => this.processError(err));
+  }
+
+  processError(error) {
+    // ignore if user declined messaging permission
+    if (error.code === 'messaging/permission-blocked') return;
+
+    console.log('[RegionNotificationsController]', error);
+  }
+
+  processSubscriptionsResponse(response) {
+    return Promise.resolve()
+      .then(() => response.json())
+      .then(data => this.subscriptions = data)
+      .then(() => this.updateButtons());
+  }
+
+  updateInfoBox() {
+    this.infoBoxTarget.classList.toggle(this.hideClass, this.allowed);
+  }
+
+  updateButtons() {
+    this.enableButtonTargets.forEach((element) => {
+      const region_id = element.dataset.region;
+      const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
+
+      element.classList.toggle(this.enabledClass, !subscription);
+      element.classList.toggle(this.disabledClass, !!subscription);
+    });
+
+    this.disableButtonTargets.forEach((element) => {
+      const region_id = element.dataset.region;
+      const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
+
+      element.classList.toggle(this.enabledClass, !!subscription);
+      element.classList.toggle(this.disabledClass, !subscription);
+    });
+  }
+
+  loadUserId() {
+    return this.messaging
+      .getToken({vapidKey: window.firebaseVapidKey})
+      .then(currentToken => {
+        if (currentToken) {
+          console.log('[RegionNotificationsController] currentToken', currentToken);
+          this.userId = currentToken;
+          return currentToken;
+        } else {
+          throw new Error('getToken did not return token, this should not happen');
+        }
+      });
+  }
+
+  /**
+   * CONTROLLER ACTIONS
+   */
   allow() {
     this.allowed = true;
     this.updateAll();
@@ -121,8 +117,36 @@ export default class extends Controller {
   subscribe(event) {
     const region_id = event.currentTarget.dataset.region;
 
+    return Promise.resolve()
+      .then(() => this._subscribeRegion(region_id))
+      .then(res => this.processSubscriptionsResponse(res))
+      .catch(err => this.processError(err));
+  }
+
+  unsubscribe(event) {
+    const region_id = event.currentTarget.dataset.region;
+
     Promise.resolve()
-      .then(() => fetch(this.subscriptionsUrlValue, {
+      .then(() => this._unsubscribeRegion(region_id))
+      .then(res => this.processSubscriptionsResponse(res))
+      .catch(err => this.processError(err));
+  }
+
+  /**
+   * API HELPERS
+   */
+  // get subscriptions
+  _fetchSubscriptions() {
+    if (!this.userId) throw new Error('UserId missing');
+
+    return fetch(`${this.subscriptionsUrlValue}?channel=webpush&user_id=${this.userId}`)
+  }
+
+  // create subscription
+  _subscribeRegion(region_id) {
+    if (!this.userId) throw new Error('UserId missing');
+
+    return fetch(this.subscriptionsUrlValue, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,19 +154,16 @@ export default class extends Controller {
         body: JSON.stringify({
           channel: 'webpush',
           user_id: this.userId,
-          region_id: region_id,
+          region_id,
         }),
-      }))
-      .then(this.processSubscriptions);
-
+      });
   }
 
-  unsubscribe(event) {
-    const region_id = event.currentTarget.dataset.region;
-    const subscription = this.subscriptions.find((subscription) => subscription.region_id.toString() === region_id);
+  // delete subscription
+  _unsubscribeRegion(region_id) {
+    if (!this.userId) throw new Error('UserId missing');
 
-    Promise.resolve()
-      .then(() => fetch(`${this.subscriptionsUrlValue}/${subscription.id}.json?user_id=${this.userId}&channel=webpush`, {method: 'DELETE'}))
-      .then(this.processSubscriptions);
+    const subscription = this.subscriptions.find((subscription) => subscription.region_id.toString() === region_id);
+    return fetch(`${this.subscriptionsUrlValue}/${subscription.id}.json?user_id=${this.userId}&channel=webpush`, {method: 'DELETE'});
   }
 }
