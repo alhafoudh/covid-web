@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 class Dashboard::NoticeComponent < ViewComponent::Base
-  attr_reader :type, :content, :classes, :class_name
+  attr_reader :type, :message, :classes, :class_name
 
-  def initialize(type: :info, icon: nil, content:, class_name: '')
+  with_content_areas :actions
+
+  def initialize(type: :info, icon: nil, message:, class_name: '')
     @type = type
     @icon = icon
-    @content = content
+    @message = message
     @class_name = class_name
   end
 
   def render?
-    content.present? && !content.empty?
+    message.present? && !message.empty?
   end
 
   def classes

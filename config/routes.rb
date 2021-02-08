@@ -14,12 +14,15 @@ Rails.application.routes.draw do
   end
 
   namespace :vaccination do
+    resources :subscriptions, only: [:index, :create, :destroy]
+
     root to: 'dashboard#index'
   end
 
   get 'cookies', to: 'pages#cookies', as: 'cookies_page'
 
   mount Facebook::Messenger::Server, at: 'bot'
+  get 'firebase-messaging-sw', to: 'firebase#service_worker'
 
   root to: 'testing/dashboard#index'
 end

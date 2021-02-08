@@ -1,11 +1,13 @@
 <div class="mb-8 <%= classes %>">
   <a id="<%= region_dom_id %>" class="anchor -top-30"></a>
   <h2 class="flex flex-wrap items-center justify-start space-x-2">
-    <span class="text-lg font-bold uppercase text-gray"><%= title %></span>
-    <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity) %>
+    <div class="flex-1">
+      <span class="text-lg font-bold uppercase text-gray"><%= title %></span>
+      <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity) %>
+    </div>
     <%= render Dashboard::RegionNotificationComponent.new(region: region) %>
   </h2>
-  <div class="mt-2">
+  <div class="mt-8">
     <%= render Dashboard::CountyPlacesComponent.with_collection(counties, places_by_county: places_by_county, plan_dates: plan_dates) %>
   </div>
 </div>

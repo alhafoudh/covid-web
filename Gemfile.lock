@@ -106,6 +106,8 @@ GEM
     faraday-net_http (1.0.1)
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
+    fcm (0.0.6)
+      httparty (~> 0.10, >= 0.10.0)
     ffi (1.14.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -270,6 +272,7 @@ DEPENDENCIES
   faker
   faraday
   faraday_middleware
+  fcm
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)

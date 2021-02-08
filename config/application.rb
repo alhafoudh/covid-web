@@ -50,6 +50,13 @@ module SkCovidTesting
 
     config.x.analytics.gtm_code = ENV.fetch('ANALYTICS_GTM_CODE')
 
+    config.x.firebase.api_key = ENV.fetch('FIREBASE_API_KEY')
+    config.x.firebase.project_id = ENV.fetch('FIREBASE_PROJECT_ID')
+    config.x.firebase.sender_id = ENV.fetch('FIREBASE_SENDER_ID')
+    config.x.firebase.app_id = ENV.fetch('FIREBASE_APP_ID')
+    config.x.firebase.vapid_key = ENV.fetch('FIREBASE_VAPID_KEY')
+    config.x.firebase.server_key = ENV.fetch('FIREBASE_SERVER_KEY')
+
     config.x.status.content_expiration = ENV.fetch('STATUS_CONTENT_EXPIRATION_SECONDS', 5).to_i
 
     config.x.nczi.use_proxy = ENV.fetch('NCZI_USE_PROXY', 'false') == 'true'

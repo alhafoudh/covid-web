@@ -2,7 +2,7 @@
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: VaccinationDateSnapshot, update_interval: Rails.application.config.x.vaccination.update_interval) %>
 <% end %>
 <%= render Dashboard::PromotionComponent.new %>
-<%= render Dashboard::NoticeComponent.new(type: :announcement, content: t(:announcement_html)) %>
+<%= render Dashboard::NoticeComponent.new(type: :announcement, message: t(:announcement_html)) %>
 <%= render Dashboard::InfoComponent.new(
     title: t(:'vaccination.title_html'),
     header: t(:'vaccination.dashboard.header_html'),
@@ -11,6 +11,24 @@
     action_title: t(:'vaccination.dashboard.action_title'),
     action_link: "#{vaccination_root_path}#list",
 ) %>
-<%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
-<%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+<div
+  data-controller="region-notifications"
+  data-region-notifications-enabled-class="enabled"
+  data-region-notifications-disabled-class="disabled"
+  data-region-notifications-allow-disabled-class="hidden"
+  data-region-notifications-hide-class="hidden"
+  data-region-notifications-subscriptions-url-value="<%= vaccination_subscriptions_path %>"
+>
+  <div data-region-notifications-target="infoBox" class="hidden">
+    <%= render(Dashboard::NoticeComponent.new(type: :success, icon: :bell, message: t(:notifications_html), class_name: 'mt-4')) do |c| %>
+      <%= c.with(:actions) do %>
+        <div class="flex justify-center items-center md:ml-4 md:mt-0 mt-4">
+          <button class="bg-green hover:bg-green-dark text-white button-small" data-action="region-notifications#allow"><%= t('notifications.allow') %></button>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+  <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+</div>
 <%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>

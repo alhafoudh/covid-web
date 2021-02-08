@@ -6,4 +6,8 @@ class Dashboard::RegionNotificationComponent < ViewComponent::Base
   def initialize(region:)
     @region = region
   end
+
+  def render?
+    region.present?
+  end
 end

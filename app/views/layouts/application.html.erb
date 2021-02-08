@@ -35,6 +35,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <script>
+    window.firebaseConfig = {
+      apiKey: '<%= Rails.application.config.x.firebase.api_key %>',
+      authDomain: '<%= Rails.application.config.x.firebase.project_id %>.firebaseapp.com',
+      databaseURL: 'https://<%= Rails.application.config.x.firebase.project_id %>.firebaseio.com',
+      projectId: '<%= Rails.application.config.x.firebase.project_id %>',
+      storageBucket: '<%= Rails.application.config.x.firebase.project_id %>.appspot.com',
+      messagingSenderId: '<%= Rails.application.config.x.firebase.sender_id %>',
+      appId: '<%= Rails.application.config.x.firebase.app_id %>',
+    };
+    window.firebaseVapidKey = '<%= Rails.application.config.x.firebase.vapid_key %>';
+  </script>
+
   <%= stylesheet_pack_tag 'application' %>
   <%= javascript_pack_tag 'application' %>
   <%= favicon_pack_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
