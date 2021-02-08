@@ -15,7 +15,12 @@ class NotifyVaccinationSubscriptions < ApplicationService
 
     capacities.map do |region_capacities|
       text = compose_notification_text(region_capacities)
-      deliver_to_region(region_capacities[:region], text)
+      deliveries = deliver_to_region(region_capacities[:region], text)
+      {
+        region_capacities: region_capacities,
+        text: text,
+        deliveries: deliveries,
+      }
     end
   end
 
@@ -27,7 +32,21 @@ class NotifyVaccinationSubscriptions < ApplicationService
                                    .notifyable
                                    .where(id: latest_snapshots.pluck(:id))
 
-                      by_region = filtered.group_by do |latest_snapshot|
+                      region_ids = filtered.map do |latest_snapshot|
+                        latest_snapshot.place.region_id
+                      end.uniq
+
+                      plan_date_ids = filtered.map do |latest_snapshot|
+                        latest_snapshot.plan_date.id
+                      end.uniq
+
+                      all_relevant_latest_snapshots_base = LatestVaccinationDateSnapshot
+                                                             .joins(:place)
+                      all_relevant_latest_snapshots = all_relevant_latest_snapshots_base
+                                                        .where(plan_date: plan_date_ids)
+                                                        .or(all_relevant_latest_snapshots_base.where(place: { region: region_ids }))
+
+                      by_region = all_relevant_latest_snapshots.group_by do |latest_snapshot|
                         latest_snapshot.place.region
                       end
 
@@ -38,22 +57,30 @@ class NotifyVaccinationSubscriptions < ApplicationService
                           plan_date.date
                         end
                                        .map do |plan_date, latest_snapshots_for_plan_date|
+                          current_free_capacity = latest_snapshots_for_plan_date.map do |latest_snapshot|
+                            latest_snapshot.snapshot.free_capacity
+                          end.sum
+                          previous_free_capacity = latest_snapshots_for_plan_date.map do |latest_snapshot|
+                            latest_snapshot.previous_snapshot&.free_capacity || 0
+                          end.sum
+
                           {
                             plan_date: plan_date,
-                            current_free_capacity: latest_snapshots_for_plan_date.map do |latest_snapshot|
-                              latest_snapshot.snapshot.free_capacity
-                            end.sum,
-                            previous_free_capacity: latest_snapshots_for_plan_date.map do |latest_snapshot|
-                              latest_snapshot.previous_snapshot&.free_capacity || 0
-                            end.sum,
+                            current_free_capacity: current_free_capacity,
+                            previous_free_capacity: previous_free_capacity,
+                            capacity_delta: current_free_capacity - previous_free_capacity,
                           }
                         end
+
+                        total_current_free_capacity = plan_dates.pluck(:current_free_capacity).sum
+                        total_previous_free_capacity = plan_dates.pluck(:previous_free_capacity).sum
 
                         {
                           region: region,
                           plan_dates: plan_dates,
-                          total_current_free_capacity: plan_dates.pluck(:current_free_capacity).sum,
-                          total_previous_free_capacity: plan_dates.pluck(:previous_free_capacity).sum,
+                          total_current_free_capacity: total_current_free_capacity,
+                          total_previous_free_capacity: total_previous_free_capacity,
+                          capacity_delta: total_current_free_capacity - total_previous_free_capacity,
                         }
                       end
                     end
