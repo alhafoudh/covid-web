@@ -32,7 +32,14 @@ export default class extends Controller {
 
     this.messaging = firebase.messaging();
 
-    this.updateAll();
+    this.initialize();
+
+    if (!this.allowed) {
+      // show info box with slight delay
+      setTimeout(() => {
+        this.toggleInfoBox(true);
+      }, 500);
+    }
   }
 
   get allowed() {
@@ -43,9 +50,7 @@ export default class extends Controller {
     localStorage.setItem(this.constructor.allowedNotificationsLocalStorageKey, value ? 'yes' : 'no');
   }
 
-  updateAll() {
-    this.updateInfoBox();
-
+  initialize() {
     if (!this.allowed)
       return;
 
@@ -70,8 +75,16 @@ export default class extends Controller {
       .then(() => this.updateButtons());
   }
 
-  updateInfoBox() {
-    this.infoBoxTarget.classList.toggle(this.hideClass, this.allowed);
+  toggleInfoBox(visible) {
+    if (visible) {
+      this.infoBoxTarget.classList.add('max-h-80')
+      this.infoBoxTarget.classList.add('opacity-100')
+      this.infoBoxTarget.classList.add('scale-y-100')
+    } else {
+      this.infoBoxTarget.classList.remove('max-h-80')
+      this.infoBoxTarget.classList.remove('opacity-100')
+      this.infoBoxTarget.classList.remove('scale-y-100')
+    }
   }
 
   updateButtons() {
@@ -103,7 +116,8 @@ export default class extends Controller {
         } else {
           throw new Error('getToken did not return token, this should not happen');
         }
-      });
+      })
+      .finally(() => this.toggleInfoBox(false));
   }
 
   /**
@@ -111,7 +125,7 @@ export default class extends Controller {
    */
   allow() {
     this.allowed = true;
-    this.updateAll();
+    this.initialize();
   }
 
   subscribe(event) {
