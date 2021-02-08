@@ -48,7 +48,7 @@ module SkCovidTesting
     config.x.http_proxy = ENV.fetch('http_proxy', nil)
     config.x.update_interval = ENV.fetch('UPDATE_INTERVAL', 15).to_i
 
-    config.x.analytics.gtm_code = ENV.fetch('ANALYTICS_GTM_CODE')
+    config.x.analytics.gtm_code = ENV.fetch('ANALYTICS_GTM_CODE', nil)
 
     config.x.firebase.api_key = ENV.fetch('FIREBASE_API_KEY')
     config.x.firebase.project_id = ENV.fetch('FIREBASE_PROJECT_ID')
