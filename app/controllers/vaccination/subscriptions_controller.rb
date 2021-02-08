@@ -22,10 +22,9 @@ class Vaccination::SubscriptionsController < ApplicationController
   end
 
   def destroy
-    @subscription = VaccinationSubscription.find(params[:id])
-    @subscription.destroy
-
     @subscriptions = get_subscriptions
+    @subscription = @subscriptions.find(params[:id])
+    @subscription.destroy
 
     respond_to do |format|
       format.json { render :index, status: :ok }
