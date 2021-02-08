@@ -22,6 +22,11 @@ export default class extends Controller {
   };
 
   connect() {
+    // bail if firebase is not configured
+    if (!window.firebaseConfig)
+      return;
+
+    // bail if messaging is not supported
     if (!firebase.messaging.isSupported())
       return;
 
