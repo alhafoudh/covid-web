@@ -142,7 +142,7 @@ export default class extends Controller {
     const subscription = this.subscriptions.find((subscription) => subscription.region_id.toString() === region_id);
 
     Promise.resolve()
-      .then(() => fetch(`${this.subscriptionsUrlValue}/${subscription.id}.json`, {method: 'DELETE'}))
+      .then(() => fetch(`${this.subscriptionsUrlValue}/${subscription.id}.json?user_id=${this.userId}&channel=webpush`, {method: 'DELETE'}))
       .then(this.processSubscriptions);
   }
 }
