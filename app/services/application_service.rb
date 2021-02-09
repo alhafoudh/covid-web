@@ -16,7 +16,6 @@ class ApplicationService
   rescue => ex
     job_result.error = ex.to_json
     job_result.success = false
-    binding.pry
   ensure
     job_result.finished_at = Time.zone.now
     job_result.save!
