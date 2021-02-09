@@ -9,7 +9,7 @@ class UpdateNcziVaccinationSnapshots < VaccinationSnapshotsBase
   end
 
   def perform
-    logger.info "Updating NCZI vaccination date snapshots for vacc #{vacc.inspect}"
+    logger.info "Updating NCZI vaccination date snapshots for vacc ##{vacc.id}"
 
     ActiveRecord::Base.transaction do
       snapshots = fetch_snapshots

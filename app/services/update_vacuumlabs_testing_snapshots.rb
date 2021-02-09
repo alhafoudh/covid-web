@@ -6,7 +6,7 @@ class UpdateVacuumlabsTestingSnapshots < TestingSnapshotsBase
   end
 
   def perform
-    logger.info "Updating Vacuumlabs test date snapshots for mom #{mom.inspect}"
+    logger.info "Updating Vacuumlabs test date snapshots for mom ##{mom.id}"
 
     ActiveRecord::Base.transaction do
       snapshots = create_snapshots!(fetch_snapshots)
