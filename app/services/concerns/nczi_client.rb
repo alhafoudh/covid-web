@@ -7,7 +7,7 @@ module NcziClient
     if Rails.application.config.x.nczi.use_proxy
       'https://data.korona.gov.sk/ncziapi'
     else
-      'https://www.old.korona.gov.sk'
+      'https://mojeezdravie.nczisk.sk/api/v1/web'
     end
   end
 

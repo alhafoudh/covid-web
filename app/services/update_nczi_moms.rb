@@ -119,8 +119,8 @@ class UpdateNcziMoms < ApplicationService
     if data.present?
       data
     else
-      response = nczi_client.get("#{base_url}/mom_ag.json")
-      response.body
+      response = nczi_client.get("#{base_url}/get_driveins")
+      response.body.fetch('payload', [])
     end
       .map(&:symbolize_keys)
   end

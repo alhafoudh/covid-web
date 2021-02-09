@@ -14,8 +14,9 @@ class ApplicationService
     job_result.result = result.as_json
     result
   rescue => ex
-    job_result.error = ex.to_json
     job_result.success = false
+    job_result.error = ex.to_json
+    raise ex
   ensure
     job_result.finished_at = Time.zone.now
     job_result.save!
