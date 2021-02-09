@@ -9,7 +9,7 @@ class UpdateNcziTestingSnapshots < TestingSnapshotsBase
   end
 
   def perform
-    logger.info "Updating NCZI test date snapshots for mom #{mom.inspect}"
+    logger.info "Updating NCZI test date snapshots for mom ##{mom.id}"
 
     ActiveRecord::Base.transaction do
       snapshots = create_snapshots!(fetch_snapshots)
