@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_145122) do
+ActiveRecord::Schema.define(version: 2021_02_09_122757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_145122) do
   create_table "job_results", force: :cascade do |t|
     t.string "type", null: false
     t.boolean "success", null: false
-    t.jsonb "result", default: {}, null: false
+    t.jsonb "result", default: {}
     t.text "error"
     t.datetime "started_at", null: false
     t.datetime "finished_at", null: false
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_145122) do
     t.string "channel", null: false
     t.index ["channel"], name: "index_subscriptions_on_channel"
     t.index ["region_id"], name: "index_subscriptions_on_region_id"
+    t.index ["type", "channel", "user_id", "region_id"], name: "index_unique_on_subscriptions", unique: true
     t.index ["type"], name: "index_subscriptions_on_type"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
