@@ -103,7 +103,7 @@ class NotifyVaccinationSubscriptions < ApplicationService
         channel: channel,
         user_ids: user_ids,
         text: text,
-        title: nil,
+        title: t('bot.vaccination_notification.title', region: region&.name || t(:other_region)),
       )
     end
   end

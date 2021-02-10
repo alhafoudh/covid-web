@@ -98,6 +98,7 @@ sk:
     start_again: "🔄 Skúsiť znova"
     confirmed: "Výborne! Od teraz ťa vždy upozorním, keď sa zverejnia nové termíny na očkovanie v regióne: %{region}."
     vaccination_notification:
+      title: "%{region} Región: Nové kapacity na očkovanie"
       header: "%{region} Región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
       plan_date: "%{date}: %{delta}"
       footer: "Prehľad aktuálnych kapacít pre %{region} región nájdeš na %{region_url}"
