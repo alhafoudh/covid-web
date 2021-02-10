@@ -32,21 +32,21 @@ class NotifyVaccinationSubscriptions < ApplicationService
                                    .notifyable
                                    .where(id: latest_snapshots.pluck(:id))
 
-                      region_ids = filtered.map do |latest_snapshot|
-                        latest_snapshot.place.region_id
-                      end.uniq
+                      # region_ids = filtered.map do |latest_snapshot|
+                      #   latest_snapshot.place.region_id
+                      # end.uniq
+                      #
+                      # plan_date_ids = filtered.map do |latest_snapshot|
+                      #   latest_snapshot.plan_date.id
+                      # end.uniq
+                      #
+                      # all_relevant_latest_snapshots_base = LatestVaccinationDateSnapshot
+                      #                                        .joins(:place)
+                      # all_relevant_latest_snapshots = all_relevant_latest_snapshots_base
+                      #                                   .where(plan_date: plan_date_ids)
+                      #                                   .or(all_relevant_latest_snapshots_base.where(place: { region: region_ids }))
 
-                      plan_date_ids = filtered.map do |latest_snapshot|
-                        latest_snapshot.plan_date.id
-                      end.uniq
-
-                      all_relevant_latest_snapshots_base = LatestVaccinationDateSnapshot
-                                                             .joins(:place)
-                      all_relevant_latest_snapshots = all_relevant_latest_snapshots_base
-                                                        .where(plan_date: plan_date_ids)
-                                                        .or(all_relevant_latest_snapshots_base.where(place: { region: region_ids }))
-
-                      by_region = all_relevant_latest_snapshots.group_by do |latest_snapshot|
+                      by_region = filtered.group_by do |latest_snapshot|
                         latest_snapshot.place.region
                       end
 
@@ -87,9 +87,11 @@ class NotifyVaccinationSubscriptions < ApplicationService
   end
 
   def compose_notification_text(region_capacities)
-    ApplicationController.render(
-      template: 'vaccination/notification/for_region',
-      assigns: { region_capacities: region_capacities }
+    NotificationsController.new.render_to_string(
+      Notifications::RegionVaccinationsComponent.new(
+        region: region_capacities[:region],
+        plan_date_capacities: region_capacities[:plan_dates],
+      ),
     )
   end
 

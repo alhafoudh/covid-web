@@ -1,0 +1,7 @@
+<%= t('bot.vaccination_notification.header', region: region_title, delta: total_capacity_delta) %>
+
+<% plan_date_capacities.map do |plan_date_capacity| %>
+  <%= l plan_date_capacity[:plan_date].date, format: '%A %d.%m.%Y' %>: <%= plan_date_capacity[:current_free_capacity] %>
+<% end %>
+
+<%= t('bot.vaccination_notification.footer', region: region_title, region_url: region_url) %>
