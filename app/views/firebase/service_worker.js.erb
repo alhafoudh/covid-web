@@ -43,7 +43,15 @@ self.addEventListener('push', function (event) {
       return storeNotifications(notifications);
     })
     .then(function () {
-
+        // Trigger empty message on client to ensure client refreshes list of messages
+        clients
+            .matchAll({includeUncontrolled: true, type: 'window'})
+            .then(function (clientList) {
+                if (clientList.length > 0) {
+                    const channel = new MessageChannel();
+                    clientList[0].postMessage("", [channel.port2]);
+                }
+            });
     });
 });
 

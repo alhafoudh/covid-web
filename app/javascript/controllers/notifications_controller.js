@@ -1,74 +1,61 @@
 import {Controller} from 'stimulus';
-import firebase from 'firebase/app';
 import localforage from 'localforage';
 
 export default class extends Controller {
-  static pendingNotificationsLocalStorageKey = "pendingNotifications";
+  static notificationsDatabaseKey = 'notifications.db';
 
   static targets = [
     'notificationTemplate',
   ];
 
   connect() {
-    window.mockNotification = this.mockNotification.bind(this)
-
-    const messaging = firebase.messaging();
-    messaging.onMessage((payload) => {
-      console.log('Message received on Foreground', payload);
-      const notification = this.addNotification(
-        payload.data.title,
-        payload.data.body,
-      )
-      this.showNotification(notification);
-    });
-
     navigator.serviceWorker.addEventListener('message', event => {
       console.log('Message received on Channel', event);
-      if (event.data.messageType === 'notification-clicked') {
-        const notification = this.addNotification(
-          event.data.data.title,
-          event.data.data.body,
-        )
-        this.showNotification(notification);
-      }
+      this.showNotifications();
     });
 
-    this.loadNotifications().forEach(note => this.showNotification(note));
+    this.showNotifications();
   }
 
   /**
    * STORAGE HELPERS
    */
-
-  storeNotifications(notes) {
-    const notesString = JSON.stringify(notes);
-    localStorage.setItem(this.constructor.pendingNotificationsLocalStorageKey, notesString);
+  storeNotifications(notifications) {
+    const payload = JSON.stringify(notifications);
+    return localforage.setItem(this.constructor.notificationsDatabaseKey, payload);
   }
 
   loadNotifications() {
-    try {
-      return JSON.parse(localStorage.getItem(this.constructor.pendingNotificationsLocalStorageKey)) || [];
-    } catch (e) {
-      console.log('could not load stored notifications', e);
-    }
-    return [];
-  }
-
-  addNotification(title, body) {
-    const note = {title, body, id: new Date().getTime()};
-    const notes = this.loadNotifications();
-    notes.push(note);
-    this.storeNotifications(notes);
-    return note;
+    return localforage.getItem(this.constructor.notificationsDatabaseKey)
+      .then((payload) => {
+        try {
+          return JSON.parse(payload) || [];
+        } catch (e) {
+          console.log('could not load stored notifications', e);
+        }
+        return [];
+      })
   }
 
   removeNotification(id) {
-    this.storeNotifications(this.loadNotifications().filter(note => note.id !== id));
+    return this.loadNotifications()
+      .then(notifications => this.storeNotifications(notifications.filter(note => note.id !== id)))
   }
 
   /**
    * VISUAL HELPERS
    */
+  showNotifications() {
+    return this.loadNotifications()
+      .then(notifications => {
+        notifications.map(note => {
+          if (!document.getElementById(note.id)) {
+            this.showNotification(note);
+          }
+        })
+      });
+  }
+
   showNotification({title, body, id}) {
     const note = this.notificationTemplateTarget.cloneNode(true);
     note.classList.remove('hidden');
@@ -97,19 +84,7 @@ export default class extends Controller {
    */
   handleNotificationClick(event) {
     const noteElement = event.currentTarget;
-    this.removeNotification(Number(noteElement.id));
+    this.removeNotification(noteElement.id);
     this.hideNotification(noteElement);
-  }
-
-  /**
-   * DEVELOPMENT
-   */
-
-  mockNotification() {
-    const note = this.addNotification(
-      'Woo something happen at ' + Date.now().toString(),
-      'Something happen and we now have so much room!<br /><strong>WOOO</strong>'
-    );
-    this.showNotification(note);
   }
 }

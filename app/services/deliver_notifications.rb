@@ -48,10 +48,10 @@ class DeliverNotifications < ApplicationService
       {
         message: {
           token: user_id,
-          # notification: {
-          #   title: title,
-          #   body: text,
-          # },
+          notification: {
+            title: title,
+            body: text,
+          },
           data: {
             id: SecureRandom.hex,
             title: title,
