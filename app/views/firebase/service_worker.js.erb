@@ -1,5 +1,6 @@
 importScripts('https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.2.6/firebase-messaging.js');
+importScripts('https://cdnjs.cloudflare.com/ajax/libs/localforage/1.9.0/localforage.min.js');
 
 firebase.initializeApp({
   apiKey: '<%= Rails.application.config.x.firebase.api_key %>',
@@ -12,3 +13,104 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
+
+const notificationsDatabaseKey = 'notifications.db';
+
+function storeNotifications(notifications) {
+  const payload = JSON.stringify(notifications);
+  return localforage.setItem(notificationsDatabaseKey, payload);
+}
+
+function loadNotifications() {
+  return localforage.getItem(notificationsDatabaseKey)
+    .then(function (payload) {
+      try {
+        return JSON.parse(payload) || [];
+      } catch (e) {
+        console.log('could not load stored notifications', e);
+      }
+      return [];
+    });
+}
+
+self.addEventListener('push', function (event) {
+  const payload = event.data.json();
+  console.log('Message received on Background Raw', event, payload, new Date());
+
+  loadNotifications()
+    .then(function (notifications) {
+      notifications.push(payload.data);
+      return storeNotifications(notifications);
+    })
+    .then(function () {
+
+    });
+});
+
+//self.addEventListener('notificationclick', function (event) {
+//  console.log('Notification clicked Background Raw', event, new Date());
+
+//  event.notification.close();
+//  clients.openWindow(event.notification.data.url);
+//});
+
+//function messageToClient(client, data) {
+//  return new Promise(function (resolve, reject) {
+//    const channel = new MessageChannel();
+
+//    channel.port1.onmessage = function (event) {
+//      if (event.data.error) {
+//        reject(event.data.error);
+//      } else {
+//        resolve(event.data);
+//      }
+//    };
+
+//    console.log('Sending to client', data);
+//    client.postMessage(JSON.stringify(data), [channel.port2]);
+//  });
+//}
+
+//console.log(self.registration);
+
+//messaging.setBackgroundMessageHandler(function (payload) {
+//  console.log('Message received on Background', payload, new Date());
+//});
+
+//messaging.onBackgroundMessage((payload) => {
+//  console.log('Message received on Background', payload, new Date());
+
+//  const title = payload.data.title;
+//  const options = {
+//    body: payload.data.body,
+//    requireInteraction: true,
+//  };
+//  self.registration.showNotification(title, options);
+
+//  clients
+//    .matchAll({includeUncontrolled: true, type: 'window'})
+//    .then(function (clientList) {
+//      if (clientList.length > 0) {
+//        messageToClient(clientList[0], {
+//          message: payload,
+//        });
+//      }
+//    });
+//});
+
+//self.addEventListener('push', function (event) {
+//  if (event && event.data) {
+//    self.pushData = event.data.json();
+//    if (self.pushData) {
+//      clients
+//        .matchAll({includeUncontrolled: true, type: 'window'})
+//        .then(function (clientList) {
+//          if (clientList.length > 0) {
+//            messageToClient(clientList[0], {
+//              message: self.pushData.body // suppose it is: "Hello World !"
+//            });
+//          }
+//        });
+//    }
+//  }
+//});

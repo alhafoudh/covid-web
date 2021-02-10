@@ -48,9 +48,15 @@ class DeliverNotifications < ApplicationService
       {
         message: {
           token: user_id,
-          notification: {
+          # notification: {
+          #   title: title,
+          #   body: text,
+          # },
+          data: {
+            id: SecureRandom.hex,
             title: title,
-            body: text
+            body: text,
+            url: 'https://www.freevision.sk',
           },
         }.merge(extra)
       }

@@ -1,5 +1,6 @@
 import {Controller} from 'stimulus';
 import firebase from 'firebase/app';
+import localforage from 'localforage';
 
 export default class extends Controller {
   static pendingNotificationsLocalStorageKey = "pendingNotifications";
@@ -10,6 +11,27 @@ export default class extends Controller {
 
   connect() {
     window.mockNotification = this.mockNotification.bind(this)
+
+    const messaging = firebase.messaging();
+    messaging.onMessage((payload) => {
+      console.log('Message received on Foreground', payload);
+      const notification = this.addNotification(
+        payload.data.title,
+        payload.data.body,
+      )
+      this.showNotification(notification);
+    });
+
+    navigator.serviceWorker.addEventListener('message', event => {
+      console.log('Message received on Channel', event);
+      if (event.data.messageType === 'notification-clicked') {
+        const notification = this.addNotification(
+          event.data.data.title,
+          event.data.data.body,
+        )
+        this.showNotification(notification);
+      }
+    });
 
     this.loadNotifications().forEach(note => this.showNotification(note));
   }

@@ -11,6 +11,7 @@
     "@tailwindcss/typography": "^0.4.0",
     "date-fns": "^2.16.1",
     "firebase": "^8.2.6",
+    "localforage": "^1.9.0",
     "stimulus": "^2.0.0",
     "tailwindcss": "^2.0.1-compat"
   },
