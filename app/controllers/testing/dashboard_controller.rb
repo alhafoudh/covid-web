@@ -28,7 +28,10 @@ module Testing
       if stale?(places, public: true)
         @places_by_county = places.group_by(&:county)
       end
-      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
+
+      if Rails.env.production?
+        expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
+      end
     end
 
     private
