@@ -1,4 +1,4 @@
-class DeliverNotificationsJob < ActiveJob::Base
+class DeliverNotificationsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
