@@ -37,6 +37,14 @@ module SkCovidTesting
       g.jbuilder false
     end
 
+    config.active_job.queue_adapter = :sidekiq
+
+    # Enable following when action_mailer and active_storage are used
+    # config.action_mailer.deliver_later_queue_name = nil
+    # config.active_storage.queues.analysis   = nil
+    # config.active_storage.queues.purge      = nil
+    # config.active_storage.queues.mirror     = nil
+
     config.hosts = nil
 
     config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
