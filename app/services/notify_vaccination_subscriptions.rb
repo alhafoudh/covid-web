@@ -94,8 +94,17 @@ class NotifyVaccinationSubscriptions < ApplicationService
   end
 
   def deliver_to_region(region, text)
-    VaccinationSubscription.where(region: region).map do |subscription|
-      subscription.deliver(text)
+    subscriptions_by_channel = VaccinationSubscription
+                                 .where(region: region)
+                                 .group_by(&:channel)
+                                 .map do |channel, subscriptions|
+      user_ids = subscriptions.pluck(:user_id)
+      DeliverNotifications.new(
+        channel: channel,
+        user_ids: user_ids,
+        text: text,
+        title: nil,
+      ).perform
     end
   end
 end

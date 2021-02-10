@@ -50,12 +50,12 @@ module SkCovidTesting
 
     config.x.analytics.gtm_code = ENV.fetch('ANALYTICS_GTM_CODE', nil)
 
-    config.x.firebase.api_key = ENV.fetch('FIREBASE_API_KEY')
-    config.x.firebase.project_id = ENV.fetch('FIREBASE_PROJECT_ID')
-    config.x.firebase.sender_id = ENV.fetch('FIREBASE_SENDER_ID')
-    config.x.firebase.app_id = ENV.fetch('FIREBASE_APP_ID')
-    config.x.firebase.vapid_key = ENV.fetch('FIREBASE_VAPID_KEY')
-    config.x.firebase.server_key = ENV.fetch('FIREBASE_SERVER_KEY')
+    config.x.firebase.api_key = ENV.fetch('FIREBASE_API_KEY', nil)
+    config.x.firebase.project_id = ENV.fetch('FIREBASE_PROJECT_ID', nil)
+    config.x.firebase.sender_id = ENV.fetch('FIREBASE_SENDER_ID', nil)
+    config.x.firebase.app_id = ENV.fetch('FIREBASE_APP_ID', nil)
+    config.x.firebase.vapid_key = ENV.fetch('FIREBASE_VAPID_KEY', nil)
+    config.x.firebase.server_key = ENV.fetch('FIREBASE_SERVER_KEY', nil)
 
     config.x.status.content_expiration = ENV.fetch('STATUS_CONTENT_EXPIRATION_SECONDS', 5).to_i
 
@@ -71,11 +71,11 @@ module SkCovidTesting
     config.x.cache.content_expiration_minutes = ENV.fetch('CACHED_CONTENT_EXPIRATION_MINUTES', 15).to_i.minutes
     config.x.cache.content_stale_minutes = ENV.fetch('CACHED_CONTENT_STALE_MINUTES', 1).to_i.minutes
 
-    config.x.messenger.page_id = ENV.fetch('MESSENGER_PAGE_ID')
-    config.x.messenger.access_token = ENV.fetch('MESSENGER_ACCESS_TOKEN')
-    config.x.messenger.verify_token = ENV.fetch('MESSENGER_VERIFY_TOKEN')
-    config.x.messenger.app_secret = ENV.fetch('MESSENGER_APP_SECRET')
-    config.x.messenger.link_host = ENV.fetch('MESSENGER_LINK_HOST')
+    config.x.messenger.page_id = ENV.fetch('MESSENGER_PAGE_ID', nil)
+    config.x.messenger.access_token = ENV.fetch('MESSENGER_ACCESS_TOKEN', nil)
+    config.x.messenger.verify_token = ENV.fetch('MESSENGER_VERIFY_TOKEN', nil)
+    config.x.messenger.app_secret = ENV.fetch('MESSENGER_APP_SECRET', nil)
+    config.x.messenger.link_host = ENV.fetch('MESSENGER_LINK_HOST', nil)
 
     config.middleware.use Rack::HostRedirect, config.x.redirects
 

@@ -9,8 +9,12 @@ describe NotifyVaccinationSubscriptions do
     create(:region)
   end
 
-  let!(:subscription) do
-    create(:vaccination_subscription, region: region)
+  let!(:subscription1) do
+    create(:vaccination_subscription, channel: 'webpush', user_id: 'user1', region: region)
+  end
+
+  let!(:subscription2) do
+    create(:vaccination_subscription, channel: 'messenger', user_id: 'user2', region: region)
   end
 
   let(:county) do
@@ -25,7 +29,7 @@ describe NotifyVaccinationSubscriptions do
     it 'should not send any notifications' do
       Subscription.delete_all
 
-      expect_any_instance_of(VaccinationSubscription).not_to receive(:deliver)
+      expect_any_instance_of(DeliverNotifications).not_to receive(:perform)
 
       NotifyVaccinationSubscriptions.new(latest_snapshots: []).perform
     end
@@ -49,7 +53,7 @@ describe NotifyVaccinationSubscriptions do
       let(:previous_snapshot_capacity) { 2 }
 
       it 'should not send any notifications' do
-        expect_any_instance_of(VaccinationSubscription).not_to receive(:deliver)
+        expect_any_instance_of(DeliverNotifications).not_to receive(:perform)
 
         NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
       end
@@ -60,7 +64,7 @@ describe NotifyVaccinationSubscriptions do
       let(:previous_snapshot_capacity) { 1 }
 
       it 'should not send any notifications' do
-        expect_any_instance_of(VaccinationSubscription).not_to receive(:deliver)
+        expect_any_instance_of(DeliverNotifications).not_to receive(:perform)
 
         NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
       end
@@ -71,16 +75,21 @@ describe NotifyVaccinationSubscriptions do
       let(:previous_snapshot_capacity) { 1 }
 
       it 'should send notification' do
-        expect_any_instance_of(VaccinationSubscription).to receive(:deliver)
+        stub_messenger_delivery(user_id: 'user2')
+        stub_webpush_delivery(user_ids: %w{user1})
 
         results = NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
+
+        expect(a_request_for_messenger_delivery(user_id: 'user2')).to have_been_made.once
+        expect(a_request_for_webpush_delivery(user_ids: %w{user1})).to have_been_made.once
+
         expect(results.size).to eq 1
 
         result = results.first
         expect(result[:region_capacities][:region]).to eq region
         expect(result[:region_capacities][:total_current_free_capacity]).to eq 2
         expect(result[:region_capacities][:total_previous_free_capacity]).to eq 1
-        expect(result[:deliveries].size).to eq 1
+        expect(result[:deliveries].size).to eq 2
       end
     end
   end
@@ -113,9 +122,14 @@ describe NotifyVaccinationSubscriptions do
       let(:previous_snapshot_capacities) { [0, 10, 30, 35, 50] }
 
       it 'should send notification' do
-        expect_any_instance_of(VaccinationSubscription).to receive(:deliver)
+        stub_messenger_delivery(user_id: 'user2')
+        stub_webpush_delivery(user_ids: %w{user1})
 
         results = NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
+
+        expect(a_request_for_messenger_delivery(user_id: 'user2')).to have_been_made.once
+        expect(a_request_for_webpush_delivery(user_ids: %w{user1})).to have_been_made.once
+
         expect(results.size).to eq 1
 
         result = results.first
@@ -123,7 +137,7 @@ describe NotifyVaccinationSubscriptions do
         expect(result[:region_capacities][:capacity_delta]).to eq 25
         expect(result[:region_capacities][:total_current_free_capacity]).to eq 150
         expect(result[:region_capacities][:total_previous_free_capacity]).to eq 125
-        expect(result[:deliveries].size).to eq 1
+        expect(result[:deliveries].size).to eq 2
       end
     end
   end
