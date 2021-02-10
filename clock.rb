@@ -9,8 +9,8 @@ module Clockwork
     SkCovidTesting::Application.load_tasks
 
     update_result = UpdateAllVaccinationData.new.perform
-    latest_snapshots = update_result.flatten
-    NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
+    # latest_snapshots = update_result.flatten
+    # NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
 
     UpdateAllTestingData.new.perform
   end
