@@ -1,10 +1,10 @@
 <% region = @region_capacities[:region] %>
 <% delta = @region_capacities[:capacity_delta] %>
 <% plan_dates = @region_capacities[:plan_dates] %>
-<%= t('bot.vaccination_notification.header', region: region.name, delta: delta) %>
+<%= t('bot.vaccination_notification.header', region: region&.name || t(:other_region), delta: delta) %>
 
 <% plan_dates.map do |plan_date_capacity| %>
 <%= l plan_date_capacity[:plan_date].date, format: '%A %d.%m.%Y' %>: <%= plan_date_capacity[:current_free_capacity] %>
 <% end %>
 
-<%= t('bot.vaccination_notification.footer', region: region.name, region_url: "#{vaccination_root_url(host: Rails.application.config.x.messenger.link_host)}##{dom_id(region)}") %>
+<%= t('bot.vaccination_notification.footer', region: region&.name || t(:other_region), region_url: "#{vaccination_root_url(host: Rails.application.config.x.messenger.link_host)}##{dom_id(region)}") %>
