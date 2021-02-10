@@ -79,11 +79,13 @@ module SkCovidTesting
     config.x.cache.content_expiration_minutes = ENV.fetch('CACHED_CONTENT_EXPIRATION_MINUTES', 15).to_i.minutes
     config.x.cache.content_stale_minutes = ENV.fetch('CACHED_CONTENT_STALE_MINUTES', 1).to_i.minutes
 
-    config.x.messenger.page_id = ENV.fetch('MESSENGER_PAGE_ID', nil)
-    config.x.messenger.access_token = ENV.fetch('MESSENGER_ACCESS_TOKEN', nil)
-    config.x.messenger.verify_token = ENV.fetch('MESSENGER_VERIFY_TOKEN', nil)
-    config.x.messenger.app_secret = ENV.fetch('MESSENGER_APP_SECRET', nil)
-    config.x.messenger.link_host = ENV.fetch('MESSENGER_LINK_HOST', nil)
+    config.x.messenger.page_id = ENV.fetch('MESSENGER_PAGE_ID')
+    config.x.messenger.access_token = ENV.fetch('MESSENGER_ACCESS_TOKEN')
+    config.x.messenger.verify_token = ENV.fetch('MESSENGER_VERIFY_TOKEN')
+    config.x.messenger.app_secret = ENV.fetch('MESSENGER_APP_SECRET')
+
+    config.x.notifications.enabled = ENV.fetch('NOTIFICATIONS_ENABLED', 'false') == 'true'
+    config.x.notifications.link_host = ENV.fetch('NOTIFICATIONS_LINK_HOST')
 
     config.middleware.use Rack::HostRedirect, config.x.redirects
 
