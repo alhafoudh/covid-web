@@ -23,7 +23,9 @@ class Dashboard::CountyPlacesComponent < ViewComponent::Base
   end
 
   def any_available_in_county?
-    places.any?(&:available?)
+    places.any? do |place|
+      place.available?(plan_dates)
+    end
   end
 
   def title

@@ -2,7 +2,7 @@
   <a id="<%= region_dom_id %>" class="anchor -top-36 md:-top-32"></a>
   <h2 class="flex flex-wrap items-center justify-start">
     <div class="flex-grow flex-shrink-0 flex items-center space-x-2">
-      <span class="text-lg font-bold uppercase text-gray"><%= title %></span>
+      <span class="text-lg font-bold uppercase text-gray-dark"><%= title %></span>
       <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity) %>
     </div>
     <%= render Dashboard::RegionNotificationComponent.new(region: region, class_name: 'my-2 md:my-0') %>

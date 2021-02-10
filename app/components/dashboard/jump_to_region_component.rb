@@ -16,7 +16,9 @@ class Dashboard::JumpToRegionComponent < ViewComponent::Base
       places_for(county)
     end
       .flatten
-      .any?(&:available?)
+      .any? do |place|
+      place.available?(plan_dates)
+    end
   end
 
   def total_free_capacity(region)
