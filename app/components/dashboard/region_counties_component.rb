@@ -18,7 +18,9 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
       places_for(county)
     end
       .flatten
-      .any?(&:visible?)
+      .any? do |place|
+      place.available?(plan_dates)
+    end
   end
 
   def region_dom_id
@@ -41,7 +43,9 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
       places_for(county)
     end
       .flatten
-      .any?(&:available?)
+      .any? do |place|
+      place.available?(plan_dates)
+    end
   end
 
   def title
