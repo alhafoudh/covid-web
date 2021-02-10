@@ -1,6 +1,9 @@
 {
   "name": "sk-covid-testing",
   "private": true,
+  "scripts": {
+    "start": "./bin/webpack-dev-server"
+  },
   "dependencies": {
     "@rails/webpacker": "5.2.1",
     "@tailwindcss/aspect-ratio": "^0.2.0",
