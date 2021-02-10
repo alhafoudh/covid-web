@@ -29,9 +29,9 @@ describe NotifyVaccinationSubscriptions do
     it 'should not send any notifications' do
       Subscription.delete_all
 
-      expect_any_instance_of(DeliverNotifications).not_to receive(:perform)
-
-      NotifyVaccinationSubscriptions.new(latest_snapshots: []).perform
+      expect {
+        NotifyVaccinationSubscriptions.new(latest_snapshots: []).perform
+      }.not_to have_enqueued_job(DeliverNotificationsJob)
     end
   end
 
@@ -55,7 +55,9 @@ describe NotifyVaccinationSubscriptions do
       it 'should not send any notifications' do
         expect_any_instance_of(DeliverNotifications).not_to receive(:perform)
 
-        NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
+        expect {
+          NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
+        }.not_to have_enqueued_job(DeliverNotificationsJob)
       end
     end
 
@@ -66,7 +68,9 @@ describe NotifyVaccinationSubscriptions do
       it 'should not send any notifications' do
         expect_any_instance_of(DeliverNotifications).not_to receive(:perform)
 
-        NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
+        expect {
+          NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
+        }.not_to have_enqueued_job(DeliverNotificationsJob)
       end
     end
 
@@ -75,13 +79,12 @@ describe NotifyVaccinationSubscriptions do
       let(:previous_snapshot_capacity) { 1 }
 
       it 'should send notification' do
-        stub_messenger_delivery(user_id: 'user2')
-        stub_webpush_delivery(user_ids: %w{user1})
-
-        results = NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
-
-        expect(a_request_for_messenger_delivery(user_id: 'user2')).to have_been_made.once
-        expect(a_request_for_webpush_delivery(user_ids: %w{user1})).to have_been_made.once
+        results = nil
+        expect {
+          results = NotifyVaccinationSubscriptions.new(latest_snapshots: [latest_snapshot]).perform
+        }
+          .to have_enqueued_job(DeliverNotificationsJob).with(hash_including(channel: 'messenger', user_ids: %w{user2}))
+                .and(have_enqueued_job(DeliverNotificationsJob).with(hash_including(channel: 'webpush', user_ids: %w{user1})))
 
         expect(results.size).to eq 1
 
@@ -122,13 +125,13 @@ describe NotifyVaccinationSubscriptions do
       let(:previous_snapshot_capacities) { [0, 10, 30, 35, 50] }
 
       it 'should send notification' do
-        stub_messenger_delivery(user_id: 'user2')
-        stub_webpush_delivery(user_ids: %w{user1})
+        results = nil
 
-        results = NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
-
-        expect(a_request_for_messenger_delivery(user_id: 'user2')).to have_been_made.once
-        expect(a_request_for_webpush_delivery(user_ids: %w{user1})).to have_been_made.once
+        expect {
+          results = NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
+        }
+          .to have_enqueued_job(DeliverNotificationsJob).with(hash_including(channel: 'messenger', user_ids: %w{user2}))
+                .and(have_enqueued_job(DeliverNotificationsJob).with(hash_including(channel: 'webpush', user_ids: %w{user1})))
 
         expect(results.size).to eq 1
 
