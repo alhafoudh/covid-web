@@ -46,4 +46,14 @@ describe DeliverNotifications do
       end
     end
   end
+
+  context 'duplicate user_ids' do
+    it 'should deliver notification to unique user_ids' do
+      stub_webpush_delivery(user_ids: %w{user1})
+
+      DeliverNotifications.new(channel: 'webpush', user_ids: %w{user1 user1}, text: 'hello').perform
+
+      expect(a_request_for_webpush_delivery(user_ids: %w{user1})).to have_been_made.once
+    end
+  end
 end

@@ -1,9 +1,9 @@
 class DeliverNotifications < ApplicationService
   attr_reader :channel, :user_ids, :title, :text
 
-  def initialize(channel:, user_ids:, title: nil, text: )
+  def initialize(channel:, user_ids:, title: nil, text:)
     @channel = channel
-    @user_ids = user_ids
+    @user_ids = user_ids.uniq
     @title = title
     @text = text
   end
@@ -27,7 +27,8 @@ class DeliverNotifications < ApplicationService
 
   def deliver_messenger!
     # TODO: use batching!
-    user_ids.map do |user_id|
+    user_ids
+      .map do |user_id|
       Bot.deliver({
         recipient: {
           id: user_id
