@@ -4,7 +4,7 @@ const DEFAULT_CONFIGURATION = {analytic: true}
 
 export default class extends Controller {
   static configurationLocalStorageKey = "cookies";
-  static targets = ["container", "info", "configPanel", "analyticsCheckbox", "acceptAllButton", "saveConfigurationButton"];
+  static targets = ["container", "box", "info", "configPanel", "analyticsCheckbox", "acceptAllButton", "saveConfigurationButton"];
 
   connect() {
     const configuration = JSON.parse(localStorage.getItem(this.constructor.configurationLocalStorageKey));
@@ -49,6 +49,7 @@ export default class extends Controller {
   }
 
   toggle(show) {
+    this.boxTarget.classList.toggle('pointer-events-auto', show)
     this.containerTarget.classList.toggle('translate-y-1/2', !show)
     this.containerTarget.classList.toggle('opacity-100', show)
   }
