@@ -202,4 +202,19 @@ a {
   }
 }
 
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(10deg);
+  }
+
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+
+.animate-shake {
+  @apply origin-top;
+  animation: shake 1s infinite;
+}
+
 @import 'tailwindcss/utilities';
