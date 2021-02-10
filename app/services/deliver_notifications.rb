@@ -1,11 +1,12 @@
 class DeliverNotifications < ApplicationService
-  attr_reader :channel, :user_ids, :title, :text
+  attr_reader :channel, :user_ids, :title, :text, :extra
 
-  def initialize(channel:, user_ids:, title: nil, text:)
+  def initialize(channel:, user_ids:, title: nil, text:, extra: {})
     @channel = channel
     @user_ids = user_ids.uniq
     @title = title
     @text = text
+    @extra = extra
   end
 
   def perform
@@ -42,13 +43,19 @@ class DeliverNotifications < ApplicationService
   end
 
   def deliver_webpush!
-    FCM
-      .new(Rails.application.config.x.firebase.server_key)
-      .send(user_ids, {
-        notification: {
-          title: title,
-          body: text
-        }
-      })
+    payloads = user_ids.map do |user_id|
+      # ref. https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages
+      {
+        message: {
+          token: user_id,
+          notification: {
+            title: title,
+            body: text
+          },
+        }.merge(extra)
+      }
+    end
+    client = Fcmpush.new(Rails.application.config.x.firebase.project_id)
+    client.batch_push(payloads)
   end
 end

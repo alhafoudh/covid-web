@@ -64,6 +64,7 @@ module SkCovidTesting
     config.x.firebase.app_id = ENV.fetch('FIREBASE_APP_ID', nil)
     config.x.firebase.vapid_key = ENV.fetch('FIREBASE_VAPID_KEY', nil)
     config.x.firebase.server_key = ENV.fetch('FIREBASE_SERVER_KEY', nil)
+    config.x.firebase.credentials_json = ENV.fetch('FIREBASE_CREDENTIALS_JSON', nil)
 
     config.x.status.content_expiration = ENV.fetch('STATUS_CONTENT_EXPIRATION_SECONDS', 5).to_i
 
