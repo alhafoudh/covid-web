@@ -26,5 +26,7 @@ Rails.application.routes.draw do
     get 'configuration', to: 'firebase#configuration'
   end
 
+  get 'crash', to: 'application#crash'
+
   root to: 'testing/dashboard#index'
 end
