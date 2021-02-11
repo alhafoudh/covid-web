@@ -104,8 +104,8 @@ class NotifyVaccinationSubscriptions < ApplicationService
       DeliverNotificationsJob.perform_later(
         channel: channel,
         user_ids: user_ids,
-        text: text,
         title: t('bot.vaccination_notification.title', region: region&.name || t(:other_region)),
+        body: text,
       )
     end
   end

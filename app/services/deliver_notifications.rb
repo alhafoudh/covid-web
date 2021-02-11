@@ -1,12 +1,12 @@
 class DeliverNotifications < ApplicationService
-  attr_reader :channel, :user_ids, :title, :text, :extra
+  attr_reader :channel, :user_ids, :title, :body, :link, :extra
 
-  def initialize(channel:, user_ids:, title: nil, text:, extra: {})
+  def initialize(channel:, user_ids:, title: nil, body:, link: nil)
     @channel = channel
     @user_ids = user_ids.uniq
     @title = title
-    @text = text
-    @extra = extra
+    @body = body
+    @link = link
   end
 
   def perform
@@ -35,7 +35,7 @@ class DeliverNotifications < ApplicationService
           id: user_id
         },
         message: {
-          text: text,
+          text: body,
         },
         messaging_type: Facebook::Messenger::Bot::MessagingType::UPDATE,
       }, page_id: Rails.application.config.x.messenger.page_id)
@@ -50,15 +50,20 @@ class DeliverNotifications < ApplicationService
           token: user_id,
           notification: {
             title: title,
-            body: text,
+            body: body,
           },
           data: {
             id: SecureRandom.hex,
             title: title,
-            body: text,
-            url: 'https://www.freevision.sk',
+            body: body,
+            link: link,
           },
-        }.merge(extra)
+          webpush: {
+            fcm_options: {
+              link: link,
+            },
+          },
+        }
       }
     end
     client = Fcmpush.new(Rails.application.config.x.firebase.project_id)

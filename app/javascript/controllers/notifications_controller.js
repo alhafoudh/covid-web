@@ -14,6 +14,8 @@ export default class extends Controller {
       this.showNotifications();
     });
 
+    window.addEventListener('removeNotification', this.onRemoveNotification.bind(this), false)
+
     this.showNotifications();
   }
 
@@ -37,6 +39,10 @@ export default class extends Controller {
       })
   }
 
+  onRemoveNotification(event) {
+    this.removeNotification(event.detail.id);
+  }
+
   removeNotification(id) {
     return this.loadNotifications()
       .then(notifications => this.storeNotifications(notifications.filter(note => note.id !== id)))
@@ -56,35 +62,16 @@ export default class extends Controller {
       });
   }
 
-  showNotification({title, body, id}) {
-    const note = this.notificationTemplateTarget.cloneNode(true);
-    note.classList.remove('hidden');
-    note.querySelector('[data-note-title]').innerHTML = title;
-    note.querySelector('[data-note-body]').innerHTML = body;
-    note.id = id;
-    this.element.appendChild(note);
+  showNotification(notification) {
+    const element = this.notificationTemplateTarget.cloneNode(true);
+    element.classList.remove('hidden');
+    delete element.dataset.notificationsTarget;
 
-    setTimeout(() => {
-      note.classList.add('mr-4')
-      note.classList.remove('translate-x-full')
-    }, 100)
-  }
-
-  hideNotification(element) {
-    element.classList.add('translate-x-full')
-    element.classList.remove('mr-4')
-
-    setTimeout(() => {
-      element.remove();
-    }, 300)
-  }
-
-  /**
-   * CONTROLLER ACTIONS
-   */
-  handleNotificationClick(event) {
-    const noteElement = event.currentTarget;
-    this.removeNotification(noteElement.id);
-    this.hideNotification(noteElement);
+    element.id = notification.id;
+    element.dataset.notificationIdValue = notification.id;
+    element.dataset.notificationTitleValue = notification.title;
+    element.dataset.notificationBodyValue = notification.body;
+    element.dataset.notificationLinkValue = notification.link ?? '';
+    this.element.appendChild(element);
   }
 }
