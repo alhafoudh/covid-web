@@ -138,8 +138,8 @@ describe NotifyVaccinationSubscriptions do
         result = results.first
         expect(result[:region_capacities][:region]).to eq region
         expect(result[:region_capacities][:capacity_delta]).to eq 25
-        expect(result[:region_capacities][:total_current_free_capacity]).to eq 150
-        expect(result[:region_capacities][:total_previous_free_capacity]).to eq 125
+        expect(result[:region_capacities][:total_current_free_capacity]).to eq 70
+        expect(result[:region_capacities][:total_previous_free_capacity]).to eq 45
         expect(result[:deliveries].size).to eq 2
       end
     end

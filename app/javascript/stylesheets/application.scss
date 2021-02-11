@@ -104,27 +104,27 @@ select {
   }
 }
 
-table {
-  @apply my-5;
-  @apply shadow overflow-hidden border-b border-gray-light sm:rounded-lg;
-  @apply min-w-full divide-y divide-gray-light;
-}
-
-thead {
-  @apply bg-gray-light;
-
-  th {
-    @apply px-6 py-3 text-left text-xs font-medium text-gray uppercase tracking-wider;
-  }
-}
-
-tbody {
-  @apply bg-white divide-y divide-gray-light;
-
-  td {
-    @apply px-6 py-4 whitespace-nowrap;
-  }
-}
+//table {
+//  @apply my-5;
+//  @apply shadow overflow-hidden border-b border-gray-light sm:rounded-lg;
+//  @apply min-w-full divide-y divide-gray-light;
+//}
+//
+//thead {
+//  @apply bg-gray-light;
+//
+//  th {
+//    @apply px-6 py-3 text-left text-xs font-medium text-gray uppercase tracking-wider;
+//  }
+//}
+//
+//tbody {
+//  @apply bg-white divide-y divide-gray-light;
+//
+//  td {
+//    @apply px-6 py-4 whitespace-nowrap;
+//  }
+//}
 
 a {
   @apply hover:underline;

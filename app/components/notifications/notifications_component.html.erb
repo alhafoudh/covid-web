@@ -5,7 +5,6 @@
   <div
     data-notifications-target="notificationTemplate"
     data-controller="notification"
-    data-action="click->notification#click"
     class="hidden bg-blue-light ring-blue ring-4 rounded-xl p-4 mb-4 relative text-blue transition-all duration-300 transform translate-x-full cursor-pointer"
   >
     <div class="flex items-center">
@@ -14,12 +13,17 @@
           <path fill="currentColor" d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"></path>
         </svg>
       </div>
-      <div class="flex-1 text-xs leading-relaxed">
+      <div
+        class="flex-1 text-xs leading-relaxed"
+        data-action="click->notification#click"
+      >
         <p class="font-bold" data-notification-target="title"></p>
         <p data-notification-target="body"></p>
       </div>
       <button class="self-start py-2 px-3 hover:text-blue-dark" data-action="click->notification#close">
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="fill-current w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="fill-current w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+          <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
+        </svg>
       </button>
     </div>
   </div>

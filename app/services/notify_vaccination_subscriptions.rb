@@ -14,11 +14,9 @@ class NotifyVaccinationSubscriptions < ApplicationService
     return if latest_snapshots.empty?
 
     capacities.map do |region_capacities|
-      text = compose_notification_text(region_capacities)
-      deliveries = deliver_to_region(region_capacities[:region], text)
+      deliveries = deliver_to_region(region_capacities)
       {
         region_capacities: region_capacities,
-        text: text,
         deliveries: deliveries,
       }
     end
@@ -86,27 +84,59 @@ class NotifyVaccinationSubscriptions < ApplicationService
                     end
   end
 
-  def compose_notification_text(region_capacities)
-    NotificationsController.new.render_to_string(
-      Notifications::RegionVaccinationsComponent.new(
-        region: region_capacities[:region],
-        plan_date_capacities: region_capacities[:plan_dates],
-      ),
-    )
-  end
+  def deliver_to_region(capacities)
+    region = capacities[:region]
+    controller = NotificationsController.new
 
-  def deliver_to_region(region, text)
+    component_cache = {}
+
     VaccinationSubscription
       .where(region: region)
       .group_by(&:channel)
       .map do |channel, subscriptions|
+      component = if channel == 'webpush'
+                    component_cache[[region, channel]] ||= Notifications::RegionVaccinationsFreeCapacityNotificationWebpush.new(
+                      region: region,
+                      plan_date_capacities: capacities[:plan_dates],
+                    )
+                  elsif channel == 'messenger'
+                    component_cache[[region, channel]] ||= Notifications::RegionVaccinationsFreeCapacityNotificationMessenger.new(
+                      region: region,
+                      plan_date_capacities: capacities[:plan_dates],
+                    )
+                  else
+                    raise NotImplementedError
+                  end
+      title = component.title
+      body = controller.render_to_string(component)
+      link = component.link
+
       user_ids = subscriptions.pluck(:user_id)
-      DeliverNotificationsJob.perform_later(
+
+      DeliverNotificationsJob
+        .perform_later(
+          channel: channel,
+          user_ids: user_ids,
+          notification: {
+            title: title,
+            body: '',
+          },
+          data: {
+            id: SecureRandom.hex,
+            title: title,
+            body: body,
+            link: link,
+          },
+        )
+
+      {
+        region: region,
         channel: channel,
         user_ids: user_ids,
-        title: t('bot.vaccination_notification.title', region: region&.name || t(:other_region)),
-        body: text,
-      )
+        title: title,
+        body: body,
+        link: link,
+      }
     end
   end
 end

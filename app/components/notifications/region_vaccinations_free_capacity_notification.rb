@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Notifications::RegionVaccinationsComponent < ViewComponent::Base
+class Notifications::RegionVaccinationsFreeCapacityNotification < ViewComponent::Base
   attr_reader :region, :plan_date_capacities
 
   def initialize(region:, plan_date_capacities:)
@@ -9,7 +9,7 @@ class Notifications::RegionVaccinationsComponent < ViewComponent::Base
   end
 
   def region_title
-    region.present? ? region.name : t(:other_region)
+    region.present? ? region.name : nil
   end
 
   def region_dom_id

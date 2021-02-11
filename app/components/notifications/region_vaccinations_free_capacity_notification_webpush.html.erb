@@ -1,0 +1,12 @@
+<%= t('notifications.vaccination_notification.webpush.body.header', delta: total_capacity_delta) %><br/>
+<table>
+  <% plan_date_capacities.map do |plan_date_capacity| %>
+    <tr>
+      <td class="p-1"><%= l plan_date_capacity[:plan_date].date, format: '%A %d.%m.%Y' %></td>
+      <td class="p-1 text-right"><%= plan_date_capacity[:current_free_capacity] %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="font-medium">
+  <%= t('notifications.vaccination_notification.webpush.body.footer') %>
+</span>

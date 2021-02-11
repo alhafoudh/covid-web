@@ -97,11 +97,6 @@ sk:
     cancelled: "V poriadku. Upozornenia boli zrušené. Ak by si si to rozmyslel, môžeme to skúsiť znova."
     start_again: "🔄 Skúsiť znova"
     confirmed: "Výborne! Od teraz ťa vždy upozorním, keď sa zverejnia nové termíny na očkovanie v regióne: %{region}."
-    vaccination_notification:
-      title: "%{region} Región: Nové kapacity na očkovanie"
-      header: "%{region} Región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
-      plan_date: "%{date}: %{delta}"
-      footer: "Prehľad aktuálnych kapacít pre %{region} región nájdeš na %{region_url}"
     has_schedule: "Momentálne máš nastavené upozornenia na nové zverejnené termíny očkovania v regióne: %{region}."
     change: "✏️ Zmeniť"
   free_capacity:
@@ -113,6 +108,20 @@ sk:
     enable: "Zapnúť upozornenia"
     disable: "Vypnúť upozornenia"
     allow: "Povoliť upozornenia"
+    vaccination_notification:
+      webpush:
+        title:
+          region: "%{region} región: Nové kapacity na očkovanie"
+          other: "Nezaradené v regióne: Nové kapacity na očkovanie"
+        body:
+          header: "Navýšené očkovacie kapacity o %{delta} na nasledovné termíny:"
+          footer: "Kliknutím na toto upozornenie sa otvorí daný región."
+      messenger:
+        header:
+          region: "%{region} Región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
+          other: "Región nezaradených navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
+        plan_date: "%{date}: %{delta}"
+        footer: "Prehľad aktuálnych kapacít v danom regióne nájdeš na %{region_url}"
   notifications_html: |
     Na tomto mieste si môžete povoliť upozornenia na nové voľné termíny.<br/>
     Povolenie je potrebné potvrdiť aj vo vyskakovacom okne Vášho prehliadača.<br/>

@@ -1,12 +1,10 @@
 class DeliverNotifications < ApplicationService
-  attr_reader :channel, :user_ids, :title, :body, :link, :extra
+  attr_reader :channel, :user_ids, :notification
 
-  def initialize(channel:, user_ids:, title: nil, body:, link: nil)
+  def initialize(channel:, user_ids:, **notification)
     @channel = channel
     @user_ids = user_ids.uniq
-    @title = title
-    @body = body
-    @link = link
+    @notification = notification
   end
 
   def perform
@@ -27,7 +25,7 @@ class DeliverNotifications < ApplicationService
   end
 
   def deliver_messenger!
-    # TODO: use batching!
+    # # TODO: use batching!
     user_ids
       .map do |user_id|
       Bot.deliver({
@@ -35,7 +33,7 @@ class DeliverNotifications < ApplicationService
           id: user_id
         },
         message: {
-          text: body,
+          text: notification[:body],
         },
         messaging_type: Facebook::Messenger::Bot::MessagingType::UPDATE,
       }, page_id: Rails.application.config.x.messenger.page_id)
@@ -48,22 +46,7 @@ class DeliverNotifications < ApplicationService
       {
         message: {
           token: user_id,
-          notification: {
-            title: title,
-            body: body,
-          },
-          data: {
-            id: SecureRandom.hex,
-            title: title,
-            body: body,
-            link: link,
-          },
-          webpush: {
-            fcm_options: {
-              link: link,
-            },
-          },
-        }
+        }.merge(notification)
       }
     end
     client = Fcmpush.new(Rails.application.config.x.firebase.project_id)
