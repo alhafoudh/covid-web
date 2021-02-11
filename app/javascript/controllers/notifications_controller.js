@@ -1,9 +1,7 @@
 import {Controller} from 'stimulus';
-import localforage from 'localforage';
+import {loadNotifications, storeNotifications} from '../lib/notifications_store';
 
 export default class extends Controller {
-  static notificationsDatabaseKey = 'notifications.db';
-
   static targets = [
     'notificationTemplate',
   ];
@@ -19,40 +17,20 @@ export default class extends Controller {
     this.showNotifications();
   }
 
-  /**
-   * STORAGE HELPERS
-   */
-  storeNotifications(notifications) {
-    const payload = JSON.stringify(notifications);
-    return localforage.setItem(this.constructor.notificationsDatabaseKey, payload);
-  }
-
-  loadNotifications() {
-    return localforage.getItem(this.constructor.notificationsDatabaseKey)
-      .then((payload) => {
-        try {
-          return JSON.parse(payload) || [];
-        } catch (e) {
-          console.log('could not load stored notifications', e);
-        }
-        return [];
-      })
-  }
-
   onRemoveNotification(event) {
     this.removeNotification(event.detail.id);
   }
 
   removeNotification(id) {
-    return this.loadNotifications()
-      .then(notifications => this.storeNotifications(notifications.filter(note => note.id !== id)))
+    return loadNotifications()
+      .then(notifications => storeNotifications(notifications.filter(note => note.id !== id)))
   }
 
   /**
    * VISUAL HELPERS
    */
   showNotifications() {
-    return this.loadNotifications()
+    return loadNotifications()
       .then(notifications => {
         notifications.map(note => {
           if (!document.getElementById(note.id)) {

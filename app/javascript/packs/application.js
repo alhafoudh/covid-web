@@ -4,7 +4,6 @@ const images = require.context('../images', true)
 import firebase from 'firebase/app';
 import 'firebase/messaging';
 
-import "controllers"
+window.firebase = firebase;
 
-// Initialize Firebase
-firebase.initializeApp(window.firebaseConfig);
+import "controllers"

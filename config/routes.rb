@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   get 'cookies', to: 'pages#cookies', as: 'cookies_page'
 
   mount Facebook::Messenger::Server, at: 'bot'
-  get 'firebase-messaging-sw', to: 'firebase#service_worker'
+  scope :firebase do
+    get 'configuration', to: 'firebase#configuration'
+  end
 
   root to: 'testing/dashboard#index'
 end

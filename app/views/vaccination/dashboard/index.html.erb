@@ -18,6 +18,7 @@
   data-region-notifications-allow-disabled-class="hidden"
   data-region-notifications-hide-class="hidden"
   data-region-notifications-subscriptions-url-value="<%= vaccination_subscriptions_path %>"
+  data-region-notifications-service-worker-url-value="<%= asset_pack_path('firebase/service_worker.js') %>"
 >
   <div data-region-notifications-target="infoBox" class="overflow-hidden ease-in-out duration-1000 max-h-0 opacity-0 origin-top transform transition-all">
     <%= render(Dashboard::NoticeComponent.new(type: :success, icon: :bell, message: t(:notifications_html), class_name: 'mt-4')) do |c| %>

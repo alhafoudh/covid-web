@@ -52,22 +52,16 @@ module ApplicationHelper
 ".html_safe
   end
 
-  def facebook_app_config_tag
+  def firebase_app_config
+    FirebaseController.new.render_to_string('firebase/configuration')
+  end
+
+  def firebase_app_config_tag
     return unless Rails.application.config.x.firebase.api_key.present?
 
-    "
-  <script>
-    window.firebaseConfig = {
-      apiKey: '#{Rails.application.config.x.firebase.api_key}',
-      authDomain: '#{Rails.application.config.x.firebase.project_id}.firebaseapp.com',
-      databaseURL: 'https://#{Rails.application.config.x.firebase.project_id}.firebaseio.com',
-      projectId: '#{Rails.application.config.x.firebase.project_id}',
-      storageBucket: '#{Rails.application.config.x.firebase.project_id}.appspot.com',
-      messagingSenderId: '#{Rails.application.config.x.firebase.sender_id}',
-      appId: '#{Rails.application.config.x.firebase.app_id}',
-    };
-    window.firebaseVapidKey = '#{Rails.application.config.x.firebase.vapid_key}';
-  </script>
-".html_safe
+    javascript_tag %{
+      #{firebase_app_config}
+      window.firebaseVapidKey = '#{Rails.application.config.x.firebase.vapid_key}';
+    }
   end
 end

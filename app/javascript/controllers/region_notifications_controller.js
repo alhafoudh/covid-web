@@ -18,28 +18,35 @@ export default class extends Controller {
   ];
 
   static values = {
+    serviceWorkerUrl: String,
     subscriptionsUrl: String,
   };
 
   connect() {
     // bail if firebase is not configured
-    if (!window.firebaseConfig)
+    if (firebase.apps.length === 0)
       return;
 
     // bail if messaging is not supported
     if (!firebase.messaging.isSupported())
       return;
 
-    this.messaging = firebase.messaging();
+    navigator.serviceWorker
+      .register(this.serviceWorkerUrlValue)
+      .then((registration) => {
+        this.serviceWorkerRegistration = registration;
+        this.messaging = firebase.messaging();
 
-    this.initialize();
+        this.init();
 
-    if (!this.allowed) {
-      // show info box with slight delay
-      setTimeout(() => {
-        this.toggleInfoBox(true);
-      }, 500);
-    }
+        if (!this.allowed) {
+          // show info box with slight delay
+          setTimeout(() => {
+            this.toggleInfoBox(true);
+          }, 500);
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   get allowed() {
@@ -50,7 +57,7 @@ export default class extends Controller {
     localStorage.setItem(this.constructor.allowedNotificationsLocalStorageKey, value ? 'yes' : 'no');
   }
 
-  initialize() {
+  init() {
     if (!this.allowed)
       return;
 
@@ -107,7 +114,10 @@ export default class extends Controller {
 
   loadUserId() {
     return this.messaging
-      .getToken({vapidKey: window.firebaseVapidKey})
+      .getToken({
+        vapidKey: window.firebaseVapidKey,
+        serviceWorkerRegistration: this.serviceWorkerRegistration,
+      })
       .then(currentToken => {
         if (currentToken) {
           console.log('[RegionNotificationsController] currentToken', currentToken);
@@ -125,7 +135,7 @@ export default class extends Controller {
    */
   allow() {
     this.allowed = true;
-    this.initialize();
+    this.init();
   }
 
   subscribe(event) {
@@ -161,16 +171,16 @@ export default class extends Controller {
     if (!this.userId) throw new Error('UserId missing');
 
     return fetch(this.subscriptionsUrlValue, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          channel: 'webpush',
-          user_id: this.userId,
-          region_id,
-        }),
-      });
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        channel: 'webpush',
+        user_id: this.userId,
+        region_id,
+      }),
+    });
   }
 
   // delete subscription
