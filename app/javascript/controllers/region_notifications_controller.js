@@ -2,6 +2,7 @@ import {Controller} from 'stimulus';
 import firebase from 'firebase/app';
 
 export default class extends Controller {
+  static featureEnabledLocalStorageKey = "region_notifications.feature_enabled";
   static allowedNotificationsLocalStorageKey = "region_notifications.allowed_notifications";
 
   static targets = [
@@ -23,6 +24,9 @@ export default class extends Controller {
   };
 
   connect() {
+    if (!this.featureEnabled)
+      return;
+    
     // bail if firebase is not configured
     if (firebase.apps.length === 0)
       return;
@@ -47,6 +51,10 @@ export default class extends Controller {
         }
       })
       .catch((error) => console.log(error));
+  }
+
+  get featureEnabled() {
+    return localStorage.getItem(this.constructor.featureEnabledLocalStorageKey) === 'yes';
   }
 
   get allowed() {
