@@ -12,17 +12,6 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
     @plan_dates = plan_dates
   end
 
-  def render?
-    counties
-      .map do |county|
-      places_for(county)
-    end
-      .flatten
-      .any? do |place|
-      place.available?(plan_dates)
-    end
-  end
-
   def region_dom_id
     dom_id(region)
   end
