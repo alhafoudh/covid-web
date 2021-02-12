@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_104709) do
+ActiveRecord::Schema.define(version: 2021_02_12_104156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,17 @@ ActiveRecord::Schema.define(version: 2021_02_10_104709) do
     t.index ["postal_code"], name: "index_vaccs_on_postal_code"
     t.index ["region_id"], name: "index_vaccs_on_region_id"
     t.index ["type"], name: "index_vaccs_on_type"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object"
+    t.datetime "created_at"
+    t.jsonb "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "counties", "regions", on_delete: :restrict

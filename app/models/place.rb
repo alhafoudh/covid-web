@@ -1,4 +1,6 @@
 class Place < ApplicationRecord
+  has_paper_trail
+
   include Locatable
   include Capacitable
 
