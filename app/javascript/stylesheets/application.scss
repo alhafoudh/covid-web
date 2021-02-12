@@ -202,6 +202,22 @@ a {
   }
 }
 
+.notification-info {
+  @apply bg-blue-light ring-blue text-blue;
+
+  button {
+    @apply hover:text-blue-dark;
+  }
+}
+
+.notification-danger {
+  @apply bg-red-light ring-red text-red;
+
+  button {
+    @apply hover:text-red-dark;
+  }
+}
+
 @keyframes shake {
   0%, 100% {
     transform: rotate(10deg);

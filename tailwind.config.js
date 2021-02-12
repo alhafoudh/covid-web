@@ -31,6 +31,7 @@ module.exports = {
       },
       indigo: colors.indigo,
       red: {
+        dark: '#991b1b',
         DEFAULT: '#e00000',
         light: '#fff0f0',
       },

@@ -7,6 +7,7 @@ export default class extends Controller {
   ];
 
   connect() {
+    window.showMessage = this.showMessage.bind(this);
     navigator.serviceWorker.addEventListener('message', event => {
       console.log('Message received on Channel', event);
       this.showNotifications();
@@ -40,7 +41,7 @@ export default class extends Controller {
       });
   }
 
-  showNotification(notification) {
+  showNotification(notification, style = 'info') {
     const element = this.notificationTemplateTarget.cloneNode(true);
     element.classList.remove('hidden');
     delete element.dataset.notificationsTarget;
@@ -50,6 +51,27 @@ export default class extends Controller {
     element.dataset.notificationTitleValue = notification.title;
     element.dataset.notificationBodyValue = notification.body;
     element.dataset.notificationLinkValue = notification.link ?? '';
+
+    switch (style) {
+      case "danger":
+        element.classList.add('notification-danger');
+        break;
+      default:
+        element.classList.add('notification-info');
+        break;
+    }
+
     this.element.appendChild(element);
+  }
+
+  /**
+   * GLOBAL HELPERS
+   */
+  showMessage(title, body, style) {
+    this.showNotification({
+      id: new Date().getTime().toString(),
+      title,
+      body,
+    }, style)
   }
 }
