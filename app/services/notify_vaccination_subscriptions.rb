@@ -88,6 +88,8 @@ class NotifyVaccinationSubscriptions < ApplicationService
     region = capacities[:region]
     controller = NotificationsController.new
 
+    logger.info "Preparing notification delivery for Region ##{region&.id} #{region&.name}"
+
     component_cache = {}
 
     VaccinationSubscription
