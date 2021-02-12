@@ -113,6 +113,8 @@ class NotifyVaccinationSubscriptions < ApplicationService
 
       user_ids = subscriptions.pluck(:user_id)
 
+      logger.info "Notifying #{user_ids.size} subscriptions about Region ##{region&.id} #{region&.name} using #{channel} channel."
+
       DeliverNotificationsJob
         .perform_later(
           channel: channel,
