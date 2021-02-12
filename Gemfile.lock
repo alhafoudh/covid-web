@@ -187,6 +187,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rack-timeout (0.6.0)
     rails (6.1.1)
       actioncable (= 6.1.1)
       actionmailbox (= 6.1.1)
@@ -346,6 +347,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.0)
   rack-host-redirect
+  rack-timeout
   rails (~> 6.1.1)
   rails-i18n
   rspec-rails
