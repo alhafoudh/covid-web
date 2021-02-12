@@ -56,6 +56,14 @@ module ApplicationHelper
     FirebaseController.new.render_to_string('firebase/configuration')
   end
 
+  def sentry_config_tag
+    return unless Rails.application.config.x.sentry.dsn.present?
+
+    javascript_tag %{
+      window.sentryDsn = '#{Rails.application.config.x.sentry.dsn}';
+    }
+  end
+
   def firebase_app_config_tag
     return unless Rails.application.config.x.firebase.api_key.present?
 

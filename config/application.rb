@@ -52,6 +52,8 @@ module SkCovidTesting
 
     config.middleware.use Rack::Deflater
 
+    config.x.sentry.dsn = ENV.fetch('SENTRY_DSN', nil)
+
     config.x.redirects = JSON.parse(ENV.fetch('REDIRECTS', '{}'))
     config.x.http_proxy = ENV.fetch('http_proxy', nil)
     config.x.update_interval = ENV.fetch('UPDATE_INTERVAL', 15).to_i
