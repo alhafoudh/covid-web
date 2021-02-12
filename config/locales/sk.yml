@@ -105,9 +105,12 @@ sk:
     many: "%{formatted_count} voľných miest"
     other: "%{formatted_count} voľných miest"
   notifications:
-    enable: "Zapnúť upozornenia"
+    enable: "Zapnúť upozornenia na voľné termíny"
     disable: "Vypnúť upozornenia"
-    allow: "Povoliť upozornenia"
+    errors:
+      title: "Chyba pri zmene upozornení"
+      not_allowed: "Upozornenia niesú zapnuté"
+      disabled_in_browser: "Upozornenia sú vypnuté v prehliadači. Povoľte upozornenia v prehliadači a skúste znova!"
     vaccination_notification:
       webpush:
         title:
@@ -122,8 +125,3 @@ sk:
           other: "Región nezaradených navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
         plan_date: "%{date}: %{delta}"
         footer: "Prehľad aktuálnych kapacít v danom regióne nájdeš na %{region_url}"
-  notifications_html: |
-    Na tomto mieste si môžete povoliť upozornenia na nové voľné termíny.<br/>
-    Povolenie je potrebné potvrdiť aj vo vyskakovacom okne Vášho prehliadača.<br/>
-    Jedná sa o web push notifikácie a momentálne ich máme spustené v testovacej verzii.<br/>
-    Následne sa Vám otvorí možnosť, povoliť si tieto notifikácie na konkrétny región, na ktorý chcete byť upozornený.

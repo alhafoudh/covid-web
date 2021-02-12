@@ -7,7 +7,6 @@ export default class extends Controller {
   static targets = [
     'enableButton',
     'disableButton',
-    'infoBox',
   ];
 
   static classes = [
@@ -23,30 +22,36 @@ export default class extends Controller {
   };
 
   connect() {
-    // bail if firebase is not configured
-    if (firebase.apps.length === 0)
-      return;
+    // Bail early when notifications are not supported
+    // Bailing here omits any button initializations or token loading so
+    // end user is not aware of the notifications system at all
+    if (!this.isSupported) return;
 
-    // bail if messaging is not supported
-    if (!firebase.messaging.isSupported())
-      return;
-
+    // Register service worker for handling notifications
     navigator.serviceWorker
       .register(this.serviceWorkerUrlValue)
       .then((registration) => {
         this.serviceWorkerRegistration = registration;
         this.messaging = firebase.messaging();
 
-        this.init();
+        // Without loaded subscriptions, this will only show all "enable" buttons
+        this.updateButtons();
 
-        if (!this.allowed) {
-          // show info box with slight delay
-          setTimeout(() => {
-            this.toggleInfoBox(true);
-          }, 500);
-        }
+        // init() might throw error about notifications being blocked in browser
+        return this.init();
       })
-      .catch((error) => console.log(error));
+      // Do not show any errors from initialization to user
+      // These errors might include error during service worker registration
+      // or notifications being blocked in browser.
+      .catch(error => this.logError(error));
+  }
+
+  get isSupported() {
+    // bail if firebase is not configured
+    if (!firebase || !firebase.apps || firebase.apps.length === 0) return false;
+
+    // bail if messaging is not supported
+    return firebase.messaging.isSupported();
   }
 
   get allowed() {
@@ -59,57 +64,77 @@ export default class extends Controller {
 
   init() {
     if (!this.allowed)
-      return;
+      return Promise.reject(new Error(window.strings['notifications.errors.not_allowed']));
 
     return Promise.resolve()
       .then(() => this.loadUserId())
       .then(() => this._fetchSubscriptions())
       .then(res => this.processSubscriptionsResponse(res))
-      .catch(err => this.processError(err));
   }
 
-  processError(error) {
-    // ignore if user declined messaging permission
-    if (error.code === 'messaging/permission-blocked') return;
+  logError(error) {
+    console.log('[RegionNotificationsController]', error.message || error.toString());
+  }
+
+  showError(error) {
+    if (error.code === 'messaging/permission-blocked') {
+      this.showErrorMessage(window.strings['notifications.errors.disabled_in_browser']);
+      return;
+    }
 
     console.log('[RegionNotificationsController]', error);
+    this.showErrorMessage(error.message || error.toString());
+  }
+
+  showErrorMessage(message, title = window.strings['notifications.errors.title']) {
+    window.showMessage(title, message, 'danger');
   }
 
   processSubscriptionsResponse(response) {
-    return Promise.resolve()
-      .then(() => response.json())
+    return Promise.resolve(response.json())
       .then(data => this.subscriptions = data)
       .then(() => this.updateButtons());
   }
 
-  toggleInfoBox(visible) {
-    if (visible) {
-      this.infoBoxTarget.classList.add('max-h-80')
-      this.infoBoxTarget.classList.add('opacity-100')
-      this.infoBoxTarget.classList.add('scale-y-100')
-    } else {
-      this.infoBoxTarget.classList.remove('max-h-80')
-      this.infoBoxTarget.classList.remove('opacity-100')
-      this.infoBoxTarget.classList.remove('scale-y-100')
-    }
+  /**
+   * Updates visual state of all enable and disable button
+   */
+  updateButtons() {
+    this.enableButtonTargets.forEach(button => this.updateButton(button, 'enableButton'));
+    this.disableButtonTargets.forEach(button => this.updateButton(button, 'disableButton'));
   }
 
-  updateButtons() {
-    this.enableButtonTargets.forEach((element) => {
-      const region_id = element.dataset.region;
-      const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
+  /**
+   * Updates visual state of one specific button based on current application state
+   * @param button - button element
+   * @param buttonType - can be 'enableButton' or 'disableButton'
+   */
+  updateButton(button, buttonType) {
+    // When not allowed or subscriptions not loaded
+    // show all subscribe buttons and hide all unsubscribe buttons
+    if (!this.allowed || !this.subscriptions) {
+      // subscribe button should be enabled end vice versa
+      this.toggleButton(button, buttonType === 'enableButton');
+      return;
+    }
 
-      element.classList.toggle(this.enabledClass, !subscription);
-      element.classList.toggle(this.disabledClass, !!subscription);
-    });
+    const region_id = button.dataset.region;
+    const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
 
-    this.disableButtonTargets.forEach((element) => {
-      const region_id = element.dataset.region;
-      const subscription = this.subscriptions.find(subscription => subscription.region_id.toString() === region_id);
+    // if subscription exists, disableButton should be visible
+    // otherwise enableButton should be visible
+    const isVisible = subscription ? buttonType === 'disableButton' : buttonType === 'enableButton';
+    this.toggleButton(button, isVisible);
+  }
 
-      element.classList.toggle(this.enabledClass, !!subscription);
-      element.classList.toggle(this.disabledClass, !subscription);
-    });
+  /**
+   * Toggles button visually
+   * @param button
+   * @param isVisible
+   */
+  toggleButton(button, isVisible) {
+    button.classList.toggle(this.enabledClass, isVisible);
+    button.classList.toggle(this.disabledClass, !isVisible);
   }
 
   loadUserId() {
@@ -126,34 +151,33 @@ export default class extends Controller {
         } else {
           throw new Error('getToken did not return token, this should not happen');
         }
-      })
-      .finally(() => this.toggleInfoBox(false));
+      });
+  }
+
+  allow() {
+    this.allowed = true;
+    return this.init();
   }
 
   /**
    * CONTROLLER ACTIONS
    */
-  allow() {
-    this.allowed = true;
-    this.init();
-  }
-
   subscribe(event) {
     const region_id = event.currentTarget.dataset.region;
 
-    return Promise.resolve()
+    return this.allow()
       .then(() => this._subscribeRegion(region_id))
       .then(res => this.processSubscriptionsResponse(res))
-      .catch(err => this.processError(err));
+      .catch(err => this.showError(err));
   }
 
   unsubscribe(event) {
     const region_id = event.currentTarget.dataset.region;
 
-    Promise.resolve()
+    return this.allow()
       .then(() => this._unsubscribeRegion(region_id))
       .then(res => this.processSubscriptionsResponse(res))
-      .catch(err => this.processError(err));
+      .catch(err => this.showError(err));
   }
 
   /**

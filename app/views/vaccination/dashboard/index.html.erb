@@ -20,15 +20,6 @@
   data-region-notifications-subscriptions-url-value="<%= vaccination_subscriptions_path %>"
   data-region-notifications-service-worker-url-value="<%= asset_pack_path('firebase/service_worker.js') %>"
 >
-  <div data-region-notifications-target="infoBox" class="overflow-hidden ease-in-out duration-1000 max-h-0 opacity-0 origin-top transform transition-all">
-    <%= render(Dashboard::NoticeComponent.new(type: :success, icon: :bell, message: t(:notifications_html), class_name: 'mt-4')) do |c| %>
-      <%= c.with(:actions) do %>
-        <div class="flex justify-center items-center md:ml-4 md:mt-0 mt-4">
-          <button class="bg-green hover:bg-green-dark text-white button-small" data-action="region-notifications#allow"><%= t('notifications.allow') %></button>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
   <%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
   <%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
 </div>

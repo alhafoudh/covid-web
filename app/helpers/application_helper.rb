@@ -72,4 +72,16 @@ module ApplicationHelper
       window.firebaseVapidKey = '#{Rails.application.config.x.firebase.vapid_key}';
     }
   end
+
+  def js_strings_tag
+    strings = {
+      'notifications.errors.title': t('notifications.errors.title'),
+      'notifications.errors.disabled_in_browser': t('notifications.errors.disabled_in_browser'),
+      'notifications.errors.not_allowed': t('notifications.errors.not_allowed'),
+    }
+
+    javascript_tag %{
+      window.strings = #{strings.to_json}
+    }
+  end
 end
