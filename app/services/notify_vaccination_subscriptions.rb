@@ -129,6 +129,11 @@ class NotifyVaccinationSubscriptions < ApplicationService
             body: body,
             link: link,
           },
+          webpush: {
+            fcm_options: {
+              link: link,
+            },
+          },
         )
 
       {
