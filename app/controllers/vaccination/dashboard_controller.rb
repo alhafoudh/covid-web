@@ -23,6 +23,9 @@ module Vaccination
                      { snapshot: [:plan_date] }
                    ]
                  )
+                 .where(latest_snapshots: {
+                   vaccination_date_id: @plan_dates.pluck(:id)
+                 })
                  .order(title: :asc)
 
       if stale?(places, public: true)
