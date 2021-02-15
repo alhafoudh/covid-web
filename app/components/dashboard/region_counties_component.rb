@@ -21,9 +21,7 @@ class Dashboard::RegionCountiesComponent < ViewComponent::Base
   end
 
   def classes
-    class_names(
-      'no-free-capacity': !any_available_in_region?
-    )
+    class_names()
   end
 
   def any_available_in_region?
