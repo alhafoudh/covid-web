@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :override do
+    sequence(:name) do |n|
+      "Override ##{n}"
+    end
     matches { [] }
     replacements { [] }
   end
