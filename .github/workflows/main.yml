@@ -3,41 +3,41 @@ name: Main
 on: [ push, pull_request ]
 
 jobs:
-  test:
-    name: CI
-    runs-on: ubuntu-latest
-    env:
-      RAILS_ENV: test
-      PGHOST: localhost
-      PGUSER: postgres
-
-    services:
-      postgres:
-        image: postgres:11.4
-        ports: [ "5432:5432" ]
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Install PostgreSQL libs
-        run: sudo apt-get -yqq install libpq-dev
-
-      - name: Setup Database
-        run: bin/rails db:create db:schema:load
-
-      - name: Build and test with rspec
-        run: ./bin/rspec
-
+#  test:
+#    name: CI
+#    runs-on: ubuntu-latest
+#    env:
+#      RAILS_ENV: test
+#      PGHOST: localhost
+#      PGUSER: postgres
+#
+#    services:
+#      postgres:
+#        image: postgres:11.4
+#        ports: [ "5432:5432" ]
+#        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: ruby/setup-ruby@v1
+#        with:
+#          bundler-cache: true
+#
+#      - name: Install PostgreSQL libs
+#        run: sudo apt-get -yqq install libpq-dev
+#
+#      - name: Setup Database
+#        run: bin/rails db:create db:schema:load
+#
+#      - name: Build and test with rspec
+#        run: ./bin/rspec
+#
   build:
     name: Build Docker image and push to GitHub Packages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1
+      - uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
