@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_104156) do
+ActiveRecord::Schema.define(version: 2021_02_15_102458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,14 @@ ActiveRecord::Schema.define(version: 2021_02_12_104156) do
     t.index ["supports_reservation"], name: "index_moms_on_supports_reservation"
     t.index ["title"], name: "index_moms_on_title"
     t.index ["type"], name: "index_moms_on_type"
+  end
+
+  create_table "overrides", force: :cascade do |t|
+    t.string "type", null: false
+    t.jsonb "matches", default: [], null: false
+    t.jsonb "replacements", default: [], null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "regions", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class PlaceOverride < Override
+end
