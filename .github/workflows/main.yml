@@ -33,7 +33,7 @@ jobs:
 #        run: ./bin/rspec
 #
   build:
-    name: Build Docker image and push to GitHub Packages
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
