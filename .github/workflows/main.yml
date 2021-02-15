@@ -37,8 +37,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: docker-tag
-        uses: yuya-takeyama/docker-tag-from-github-ref-action@v1
+      - id: get-ref
+        uses: ankitvgupta/ref-to-tag-action@master
+        with:
+          ref: ${{ github.ref }}
+          head_ref: ${{ github.head_ref }}
       - uses: docker/login-action@v1
         with:
           registry: ghcr.io
@@ -47,4 +50,4 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/sk-covid-testing/covid-web:${{ steps.docker-tag.outputs.tag }}
+          tags: ghcr.io/${{ github.repository_owner }}/sk-covid-testing/covid-web:${{ steps.get-ref.outputs.tag }}
