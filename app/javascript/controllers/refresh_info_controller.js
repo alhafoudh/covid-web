@@ -36,18 +36,24 @@ export default class extends Controller {
   }
 
   tick() {
-    if (this.hasOldIndicatorTarget)
-      if (this.isOld()) {
-        this.oldIndicatorTarget.classList.add(this.oldClass);
-        this.oldIndicatorTarget.classList.remove(this.freshClass);
-      } else {
-        this.oldIndicatorTarget.classList.add(this.freshClass);
-        this.oldIndicatorTarget.classList.remove(this.oldClass);
-      }
-    const distance = formatDistanceToNow(this.lastUpdated, {
-      addSuffix: true,
-      locale: this.locale,
-    });
-    this.outputTarget.innerHTML = `${this.prefixValue}${distance}${this.suffixValue}`;
+    try {
+      if (this.hasOldIndicatorTarget)
+        if (this.isOld()) {
+          this.oldIndicatorTarget.classList.add(this.oldClass);
+          this.oldIndicatorTarget.classList.remove(this.freshClass);
+        } else {
+          this.oldIndicatorTarget.classList.add(this.freshClass);
+          this.oldIndicatorTarget.classList.remove(this.oldClass);
+        }
+      const distance = formatDistanceToNow(this.lastUpdated, {
+        addSuffix: true,
+        locale: this.locale,
+      });
+      this.outputTarget.innerHTML = `${this.prefixValue}${distance}${this.suffixValue}`;
+    } catch (error) {
+      clearInterval(this.timer);
+
+      throw error;
+    }
   }
 }
