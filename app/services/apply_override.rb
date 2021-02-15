@@ -1,22 +1,23 @@
 class ApplyOverride < ApplicationService
-  attr_reader :record, :replacements
+  attr_reader :record, :override
 
-  def initialize(record:, replacements:)
+  def initialize(record:, override:)
     @record = record
-    @replacements = replacements
+    @override = override
   end
 
   def perform
-    replacements.map do |replacement|
+    override
+      .replacements
+      .reduce(record.dup) do |acc, replacement|
       values = Hash[replacement.map do |key, value|
         [
-          key,
+          key.to_sym,
           value ? process_erb(value) : value
         ]
       end]
-      record.assign_attributes(values)
+      acc.merge(values)
     end
-    record
   end
 
   private

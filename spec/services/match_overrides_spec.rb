@@ -12,7 +12,7 @@ describe MatchOverrides do
 
   context 'no overrides' do
     let(:record) do
-      create(:nczi_mom)
+      attributes_for(:nczi_mom)
     end
 
     let(:overrides) do
@@ -26,7 +26,7 @@ describe MatchOverrides do
 
   context 'not matching overrides' do
     let(:record) do
-      create(
+      attributes_for(
         :nczi_mom,
         title: 'Foo bar'
       )
@@ -56,7 +56,7 @@ describe MatchOverrides do
 
   context 'matching overrides' do
     let(:record) do
-      create(
+      attributes_for(
         :nczi_mom,
         title: 'Foo bar',
         street_name: 'Bar baz',

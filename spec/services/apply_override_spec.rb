@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ApplyOverride do
   let!(:record) do
-    create(:nczi_mom,
+    {
       title: "AG Poliklinika Karlova Ves - vek od 6 rokov (1)",
       longitude: 17.06124286,
       latitude: 48.15410566,
@@ -17,16 +17,23 @@ describe ApplyOverride do
       external_endpoint: nil,
       supports_reservation: true,
       enabled: false
-    )
+    }
   end
 
   subject(:service) do
     ApplyOverride
       .new(
         record: record,
-        replacements: replacements,
+        override: override,
       )
       .perform
+  end
+
+  let(:override) do
+    build(
+      :override,
+      replacements: replacements
+    )
   end
 
   context 'empty replacements' do
@@ -35,9 +42,7 @@ describe ApplyOverride do
     end
 
     it 'should do nothing' do
-      expect(record.changed?).to eq false
-      service
-      expect(record.changed?).to eq false
+      expect(service).to eq record
     end
   end
 
@@ -50,12 +55,10 @@ describe ApplyOverride do
     end
 
     it 'should replace title' do
-      expect(record.changed?).to eq false
-      service
-      expect(record.changed?).to eq true
+      expect(service).not_to eq record
 
-      expect(record.title).to eq 'Foo bar'
-      expect(record.street_name).to eq 'Bar baz'
+      expect(service[:title]).to eq 'Foo bar'
+      expect(service[:street_name]).to eq 'Bar baz'
     end
   end
 
@@ -67,25 +70,22 @@ describe ApplyOverride do
     end
 
     it 'should replace title' do
-      expect(record.changed?).to eq false
-      service
-      expect(record.changed?).to eq true
+      expect(service).not_to eq record
 
-      expect(record.title).to eq 'Foo bar'
-      expect(record.street_name).to eq 'Bar baz'
+      expect(service[:title]).to eq 'Foo bar'
+      expect(service[:street_name]).to eq 'Bar baz'
     end
   end
 
   context 'replacements with ERB' do
     let(:replacements) do
       [
-        { title: 'Foo <%= record.street_name %> Bar' },
+        { title: 'Foo <%= record[:street_name] %> Bar' },
       ]
     end
 
     it 'should replace title with ERB template' do
-      service
-      expect(record.title).to eq 'Foo Líščie údolie Bar'
+      expect(service[:title]).to eq 'Foo Líščie údolie Bar'
     end
   end
 
@@ -97,8 +97,7 @@ describe ApplyOverride do
     end
 
     it 'should replace title with ERB template' do
-      service
-      expect(record.title).to be_nil
+      expect(service[:title]).to be_nil
     end
   end
 end

@@ -1,5 +1,6 @@
 class UpdateNcziMoms < ApplicationService
   include NcziClient
+  include Overridable
 
   attr_reader :data
 
@@ -76,6 +77,8 @@ class UpdateNcziMoms < ApplicationService
       mom[:county_id] = county&.id
       mom[:type] = 'NcziMom'
 
+      mom = override_attributes(mom, all_overrides)
+
       mom.except(:region_name, :county_name)
     end
 
@@ -89,6 +92,10 @@ class UpdateNcziMoms < ApplicationService
       .update_all(enabled: false).tap do |num_disabled_moms|
       logger.info "Disabled #{num_disabled_moms} NCZI moms"
     end
+  end
+
+  def all_overrides
+    @all_overrides ||= PlaceOverride.all
   end
 
   def all_regions

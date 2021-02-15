@@ -1,5 +1,6 @@
 class UpdateRychlejsieMoms < ApplicationService
   include RychlejsieClient
+  include Overridable
 
   attr_reader :base_url
   attr_reader :city
@@ -74,6 +75,8 @@ class UpdateRychlejsieMoms < ApplicationService
       mom[:county_id] = county&.id
       mom[:type] = 'RychlejsieMom'
 
+      mom = override_attributes(mom, all_overrides)
+
       mom.except(:region_name, :county_name)
     end
 
@@ -92,6 +95,10 @@ class UpdateRychlejsieMoms < ApplicationService
 
   def all_counties
     @all_counties ||= County.all
+  end
+
+  def all_overrides
+    @all_overrides ||= PlaceOverride.all
   end
 
   def county_by_external_id(external_id)

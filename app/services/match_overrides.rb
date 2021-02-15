@@ -21,7 +21,7 @@ class MatchOverrides < ApplicationService
   def override_matches?(override)
     override.matches.any? do |match|
       match.all? do |key, match_value|
-        record_value = record.public_send(key.to_sym)
+        record_value = record[key.to_sym]
         value_matches?(match_value, record_value)
       end
     end
