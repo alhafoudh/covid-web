@@ -1,1 +1,5 @@
+WAIT=1
+TIMEOUT=30
+ATTEMPTS=30
+
 /status.json
