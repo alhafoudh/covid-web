@@ -3,7 +3,7 @@ name: Main
 on: [ push, pull_request ]
 
 jobs:
-  build:
+  test:
     name: CI
     runs-on: ubuntu-latest
     env:
@@ -18,7 +18,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -31,3 +31,16 @@ jobs:
 
       - name: Build and test with rspec
         run: ./bin/rspec
+
+  build:
+    name: Build Docker image and push to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: alhafoudh/sk-covid-testing/covid-web
+          tag_with_ref: true
