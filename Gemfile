@@ -31,7 +31,6 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'concurrent-ruby'
 gem 'concurrent-ruby-edge', require: 'concurrent-edge'
-gem 'clockwork'
 gem 'active_link_to'
 gem 'dotenv-rails'
 gem 'view_component', require: 'view_component/engine'
@@ -44,6 +43,7 @@ gem 'rack-timeout', group: :production
 gem 'activeadmin'
 gem 'devise'
 gem 'devise-i18n'
+gem 'sidekiq-cron'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
