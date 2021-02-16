@@ -43,7 +43,7 @@ workers ENV.fetch("WEB_CONCURRENCY") { 1 }
 plugin :tmp_restart
 
 def prometheus
-  yield if block_given? && ENV.fethc('PROMETHEUS_ENABLED', 'false') == 'true'
+  yield if block_given? && ENV.fetch('PROMETHEUS_ENABLED', 'false') == 'true'
 end
 
 prometheus do
