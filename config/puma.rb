@@ -42,7 +42,11 @@ workers ENV.fetch("WEB_CONCURRENCY") { 1 }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-Rails.application.prometheus do
+def prometheus
+  yield if block_given? && ENV.fethc('PROMETHEUS_ENABLED', 'false') == 'true'
+end
+
+prometheus do
   on_worker_boot do
     require 'prometheus_exporter/instrumentation'
     PrometheusExporter::Instrumentation::Process.start(type: "web")
