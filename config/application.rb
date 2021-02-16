@@ -52,6 +52,7 @@ module SkCovidTesting
 
     config.middleware.use Rack::Deflater
 
+    config.x.prometheus.enabled = ENV.fetch('PROMETHEUS_ENABLED', 'false') == 'true'
     config.x.sentry.dsn = ENV.fetch('SENTRY_DSN', nil)
 
     config.x.redirects = JSON.parse(ENV.fetch('REDIRECTS', '{}'))
@@ -93,5 +94,9 @@ module SkCovidTesting
     config.middleware.use Rack::HostRedirect, config.x.redirects
 
     config.i18n.available_locales = [:sk]
+
+    def prometheus
+      yield if block_given? && Rails.application.config.x.prometheus.enabled
+    end
   end
 end
