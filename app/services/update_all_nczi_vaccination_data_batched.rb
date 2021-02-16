@@ -48,7 +48,11 @@ class UpdateAllNcziVaccinationDataBatched < ApplicationService
   end
 
   def fetch_all_data_raw
-    response = nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_all_drivein_times_vacc')
+    response = if Rails.application.config.x.nczi.use_proxy
+                 nczi_client.get('https://data.korona.gov.sk/ncziapi/get_all_drivein_times_vacc')
+               else
+                 nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_all_drivein_times_vacc')
+               end
     response.body
   end
 end
