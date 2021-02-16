@@ -4,7 +4,7 @@ push_dokku:
 	time git push dokku master
 
 invalidate_cloudfront_cache:
-	aws cloudfront create-invalidation --distribution-id EIJAI3FE592YV --paths '/*'
+	aws cloudfront create-invalidation --distribution-id EIJAI3FE592YV --paths '/ /vaccination'
 
 db_dump:
 	$(DOKKU) postgres:export sk-covid-testing-postgresql > last_production_backup.dump
