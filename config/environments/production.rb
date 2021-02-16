@@ -119,4 +119,8 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.static_cache_control = 'public, max-age=31536000'
+
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, s-maxage=31536000'
+  }
 end
