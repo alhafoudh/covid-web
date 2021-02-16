@@ -49,6 +49,8 @@ class UpdateNcziMoms < ApplicationService
       }
     end.compact.uniq
 
+    return if regions.empty?
+
     Region.upsert_all(regions, unique_by: :external_id)
   end
 
@@ -64,6 +66,8 @@ class UpdateNcziMoms < ApplicationService
         name: mom[:county_name],
       }
     end.compact.uniq
+
+    return if counties.empty?
 
     County.upsert_all(counties, unique_by: :external_id)
   end
@@ -81,6 +85,8 @@ class UpdateNcziMoms < ApplicationService
 
       mom.except(:region_name, :county_name)
     end
+
+    return if updated_moms.empty?
 
     Mom.upsert_all(updated_moms, unique_by: :external_id)
   end
@@ -123,11 +129,11 @@ class UpdateNcziMoms < ApplicationService
   end
 
   def fetch_nczi_data
-    if data.present?
-      data
-    else
+    if data.nil?
       response = nczi_client.get("#{base_url}/get_driveins")
       response.body.fetch('payload', [])
+    else
+      data
     end
       .map(&:symbolize_keys)
   end

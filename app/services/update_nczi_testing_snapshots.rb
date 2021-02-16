@@ -48,15 +48,15 @@ class UpdateNcziTestingSnapshots < TestingSnapshotsBase
   end
 
   def fetch_raw_snapshots
-    if data.present?
-      data
-    else
+    if data.nil?
       response = if Rails.application.config.x.nczi.use_proxy
                    nczi_client.get("https://data.korona.gov.sk/ncziapi/validate_drivein_times?drivein_id=#{mom.external_id.to_s}")
                  else
                    nczi_client.post('https://mojeezdravie.nczisk.sk/api/v1/web/validate_drivein_times', { drivein_id: mom.external_id.to_s })
                  end
       response.body.fetch('payload', [])
+    else
+      data
     end
   end
 end

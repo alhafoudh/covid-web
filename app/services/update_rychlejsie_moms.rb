@@ -64,6 +64,8 @@ class UpdateRychlejsieMoms < ApplicationService
       }
     end.compact.uniq
 
+    return if counties.empty?
+
     County.upsert_all(counties, unique_by: :external_id)
   end
 
@@ -79,6 +81,8 @@ class UpdateRychlejsieMoms < ApplicationService
 
       mom.except(:region_name, :county_name)
     end
+
+    return if updated_moms.empty?
 
     Mom.upsert_all(updated_moms, unique_by: :external_id)
   end

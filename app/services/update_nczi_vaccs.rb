@@ -46,6 +46,8 @@ class UpdateNcziVaccs < ApplicationService
       }
     end.compact.uniq
 
+    return if regions.empty?
+
     Region.upsert_all(regions, unique_by: :external_id)
   end
 
@@ -62,6 +64,8 @@ class UpdateNcziVaccs < ApplicationService
       }
     end.compact.uniq
 
+    return if counties.empty?
+
     County.upsert_all(counties, unique_by: :external_id)
   end
 
@@ -75,6 +79,8 @@ class UpdateNcziVaccs < ApplicationService
 
       vacc.except(:region_name, :county_name)
     end
+
+    return if updated_vaccs.empty?
 
     Vacc.upsert_all(updated_vaccs, unique_by: :external_id)
   end
@@ -113,15 +119,15 @@ class UpdateNcziVaccs < ApplicationService
   end
 
   def fetch_nczi_data
-    if data.present?
-      data
-    else
+    if data.nil?
       response = if Rails.application.config.x.nczi.use_proxy
                    nczi_client.get('https://data.korona.gov.sk/ncziapi/get_driveins_vacc')
                  else
                    nczi_client.get('https://mojeezdravie.nczisk.sk/api/v1/web/get_driveins_vacc')
                  end
       response.body.fetch('payload', [])
+    else
+      data
     end
       .map(&:symbolize_keys)
   end
