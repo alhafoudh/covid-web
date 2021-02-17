@@ -8,6 +8,7 @@ module RychlejsieClient
       faraday.use :instrumentation
       faraday.use Faraday::Response::RaiseError
       faraday.response :json
+      faraday.response :logger, nil, { headers: false, bodies: false }
       faraday.request :retry
       faraday.adapter Faraday.default_adapter
     end

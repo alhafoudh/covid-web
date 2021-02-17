@@ -17,6 +17,7 @@ module NcziClient
       faraday.use Faraday::Response::RaiseError
       faraday.request :json
       faraday.response :json
+      faraday.response :logger, nil, { headers: false, bodies: false }
       faraday.request :retry
       faraday.adapter Faraday.default_adapter
     end

@@ -65,6 +65,7 @@ class UpdateVacuumlabsTestingSnapshots < TestingSnapshotsBase
       faraday.use Faraday::Response::RaiseError
       faraday.request :json
       faraday.response :json
+      faraday.response :logger, nil, { headers: false, bodies: false }
       faraday.adapter Faraday.default_adapter
     end
   end
