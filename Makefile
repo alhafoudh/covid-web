@@ -4,7 +4,7 @@ push_dokku:
 	time git push dokku master
 
 invalidate_cloudfront_cache:
-	aws cloudfront create-invalidation --distribution-id EIJAI3FE592YV --paths '/' '/vaccination' '/firebase/configuration.js'
+	aws cloudfront create-invalidation --distribution-id EIJAI3FE592YV --paths '/' '/testing' '/vaccination' '/testing/embed*' '/vaccination/embed*' '/firebase/configuration.js'
 
 db_dump:
 	$(DOKKU) postgres:export covid-web-postgresql > last_production_backup.dump
