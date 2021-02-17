@@ -74,9 +74,11 @@ module SkCovidTesting
     config.x.nczi.use_proxy = ENV.fetch('NCZI_USE_PROXY', 'false') == 'true'
     config.x.nczi.use_batch_api = ENV.fetch('NCZI_USE_BATCH_API', 'false') == 'true'
 
+    config.x.testing.num_plan_date_days = ENV.fetch('TESTING_NUM_PLAN_DATE_DAYS', 10).to_i
     config.x.testing.update_interval = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_INTERVAL', 15).to_i
     config.x.testing.rate_limit = ENV.fetch('UPDATE_TEST_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_f
 
+    config.x.vaccination.num_plan_date_days = ENV.fetch('VACCINATION_NUM_PLAN_DATE_DAYS', 10).to_i
     config.x.vaccination.update_interval = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_INTERVAL', 15).to_i
     config.x.vaccination.rate_limit = ENV.fetch('UPDATE_VACCINATION_DATE_SNAPSHOTS_RATE_LIMIT', 1).to_f
 
