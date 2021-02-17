@@ -15,6 +15,7 @@ ActiveAdmin.register Mom do
 
   scope :all
   scope :enabled
+  scope :other
 
   filter :region
   filter :county
@@ -50,7 +51,7 @@ ActiveAdmin.register Mom do
   controller do
     def scoped_collection
       end_of_association_chain
-        .joins(
+        .left_joins(
           :region,
           :county
         )

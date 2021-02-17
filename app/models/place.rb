@@ -10,6 +10,7 @@ class Place < ApplicationRecord
   belongs_to :county, optional: true, touch: true
 
   scope :enabled, -> { where(enabled: true) }
+  scope :other, -> { where(region_id: nil) }
 
   def commercial?
     false
