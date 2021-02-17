@@ -57,6 +57,8 @@ class UpdateNcziVaccs < ApplicationService
 
       region = region_by_external_id(vacc[:region_id])
 
+      next if vacc[:county_name].blank?
+
       {
         external_id: vacc[:county_id],
         region_id: region&.id,

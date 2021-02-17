@@ -60,6 +60,8 @@ class UpdateNcziMoms < ApplicationService
 
       region = region_by_external_id(mom[:region_id])
 
+      next if mom[:county_name].blank?
+
       {
         external_id: mom[:county_id],
         region_id: region&.id,

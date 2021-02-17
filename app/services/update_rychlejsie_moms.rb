@@ -57,6 +57,7 @@ class UpdateRychlejsieMoms < ApplicationService
 
   def update_counties!(moms)
     counties = moms.map do |mom|
+      next if mom[:county_name].blank?
       {
         external_id: mom[:county_name],
         region_id: region.id,
