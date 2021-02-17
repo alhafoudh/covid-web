@@ -7,7 +7,7 @@ invalidate_cloudfront_cache:
 	aws cloudfront create-invalidation --distribution-id EIJAI3FE592YV --paths '/' '/vaccination'
 
 db_dump:
-	$(DOKKU) postgres:export sk-covid-testing-postgresql > last_production_backup.dump
+	$(DOKKU) postgres:export covid-web-postgresql > last_production_backup.dump
 
 db_restore:
 	pg_restore --no-owner --verbose --clean -d sk_covid_testing_development last_production_backup.dump
