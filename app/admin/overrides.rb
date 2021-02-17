@@ -5,6 +5,9 @@ ActiveAdmin.register Override do
 
   config.sort_order = 'created_at_desc'
 
+  scope :enabled
+  scope :disabled
+
   index do
     id_column
     column :type

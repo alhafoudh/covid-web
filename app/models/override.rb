@@ -4,4 +4,5 @@ class Override < ApplicationRecord
   validates :replacements, presence: { allow_blank: true }
 
   scope :enabled, -> { where(enabled: true) }
+  scope :disabled, -> { where(enabled: false) }
 end
