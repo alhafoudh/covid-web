@@ -1,6 +1,7 @@
 class DashboardController < ApplicationController
   before_action :skip_session, only: [:index, :embed]
   before_action :fetch_places, only: [:index, :embed]
+  before_action :allow_iframe, only: [:embed]
 
   layout 'embed', only: [:embed]
 
