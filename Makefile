@@ -1,4 +1,4 @@
-DOKKU := $(HOME)/.dokku/contrib/dokku_client.sh
+DOKKU := dokku
 
 push_dokku:
 	time git push dokku master
