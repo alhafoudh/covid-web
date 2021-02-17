@@ -4,14 +4,11 @@ ActiveAdmin.register Mom do
   config.sort_order = ''
 
   action_item only: :index do
-    link_to 'Update MOMs', update_moms_admin_moms_path, method: :post
+    link_to 'Update testing places', update_moms_admin_moms_path, method: :post
   end
 
   collection_action :update_moms, method: :post do
-    RychlejsieMom.instances.map do |config|
-      UpdateRychlejsieMoms.new(config).perform
-    end
-    UpdateNcziMoms.new.perform
+    UpdateAllMomsBatched.new.perform
   end
 
   actions :index, :show

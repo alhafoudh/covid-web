@@ -3,6 +3,14 @@ ActiveAdmin.register Vacc do
 
   config.sort_order = ''
 
+  action_item only: :index do
+    link_to 'Update vaccination places', update_vaccs_admin_vaccs_path, method: :post
+  end
+
+  collection_action :update_vaccs, method: :post do
+    UpdateAllVaccsBatched.new.perform
+  end
+
   actions :index, :show
 
   scope :all

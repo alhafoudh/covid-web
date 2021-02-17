@@ -1,5 +1,6 @@
 class UpdateNcziVaccs < ApplicationService
   include NcziClient
+  include Overridable
 
   attr_reader :data
 
@@ -79,6 +80,8 @@ class UpdateNcziVaccs < ApplicationService
       vacc[:region_id] = region&.id
       vacc[:county_id] = county&.id
 
+      vacc = override_attributes(vacc, all_overrides)
+
       vacc.except(:region_name, :county_name)
     end
 
@@ -94,6 +97,10 @@ class UpdateNcziVaccs < ApplicationService
       .update_all(enabled: false).tap do |num_disabled_moms|
       logger.info "Disabled #{num_disabled_moms} NCZI vaccs"
     end
+  end
+
+  def all_overrides
+    @all_overrides ||= PlaceOverride.all
   end
 
   def all_regions
