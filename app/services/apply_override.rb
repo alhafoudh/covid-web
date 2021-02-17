@@ -24,7 +24,7 @@ class ApplyOverride < ApplicationService
 
   def process_erb(template)
     ERB
-      .new(template)
+      .new(template.to_s)
       .result(
         TemplateContext
           .new(

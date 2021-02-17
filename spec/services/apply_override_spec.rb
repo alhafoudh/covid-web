@@ -100,4 +100,28 @@ describe ApplyOverride do
       expect(service[:title]).to be_nil
     end
   end
+
+  context 'replacements with number' do
+    let(:replacements) do
+      [
+        { title: 4 },
+      ]
+    end
+
+    it 'should replace title with ERB template' do
+      expect(service[:title]).to eq '4'
+    end
+  end
+
+  context 'replacements with boolean' do
+    let(:replacements) do
+      [
+        { title: true },
+      ]
+    end
+
+    it 'should replace title with ERB template' do
+      expect(service[:title]).to eq 'true'
+    end
+  end
 end
