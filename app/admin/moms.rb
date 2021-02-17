@@ -19,6 +19,17 @@ ActiveAdmin.register Mom do
   scope :all
   scope :enabled
 
+  filter :region
+  filter :county
+  filter :enabled
+  filter :type
+  filter :title
+  filter :external_id
+  filter :city
+  filter :street_name
+  filter :postal_code
+  filter :supports_reservation
+
   index do
     id_column
     column :region

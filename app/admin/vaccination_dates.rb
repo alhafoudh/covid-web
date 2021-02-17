@@ -5,6 +5,8 @@ ActiveAdmin.register VaccinationDate do
 
   actions :index
 
+  filter :date
+
   index do
     id_column
     column :date

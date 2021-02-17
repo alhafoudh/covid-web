@@ -5,6 +5,8 @@ ActiveAdmin.register TestDate do
 
   actions :index
 
+  filter :date
+
   index do
     id_column
     column :date
