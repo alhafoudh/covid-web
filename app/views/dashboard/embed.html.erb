@@ -1,0 +1,9 @@
+<% content_for :menu_info do %>
+  <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
+<% end %>
+<div class="mb-4">
+  <%= render Dashboard::PromotionComponent.new %>
+</div>
+<%= render Dashboard::EmptySwitcherComponent.new %>
+<%= render Dashboard::NoticeComponent.new(type: :announcement, message: t(:announcement_html)) %>
+<%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>

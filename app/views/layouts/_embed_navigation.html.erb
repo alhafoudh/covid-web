@@ -1,0 +1,60 @@
+<nav class="bg-white sticky top-0 z-50" data-controller="toggle" id="menu">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <%= link_to root_path, class: 'flex-shrink-0 flex hover:no-underline' do %>
+          <%= image_srcset_tag 'logo.png', title: t(:app_title) %>
+          <span class="ml-2 text-black"><%= t(:app_title_html) %></span>
+        <% end %>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-center space-x-2">
+            <%#= render 'layouts/menu_items' %>
+          </div>
+        </div>
+      </div>
+      <div class="hidden md:block">
+        <div class="flex items-center">
+          <% if content_for?(:menu_info) %>
+            <div class="text-black">
+              <%= yield(:menu_info) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="-mr-2 flex md:hidden">
+        <!-- Mobile menu button -->
+        <button class="inline-flex items-center justify-center p-2 rounded-md text-gray focus:text-black focus:outline-none" data-action="toggle#toggle" data-toggle-target="menu-list,icon-burger,icon-check">
+          <span class="sr-only"><%= t(:open_main_menu) %></span>
+
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-toggle-name="icon-burger">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+
+          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-toggle-name="icon-check">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    Mobile menu, toggle classes based on menu state.
+
+    Open: "block", closed: "hidden"
+  -->
+  <div data-toggle-name="menu-list" class="hidden md:hidden">
+    <div class="flex flex-col px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <%#= render 'layouts/menu_items' %>
+    </div>
+    <div class="pt-4 pb-3 border-t border-b border-gray">
+      <div class="flex flex-col px-2 md:pb-3 space-y-1 sm:px-3">
+        <% if content_for?(:menu_info) %>
+          <div class="text-black">
+            <%= yield(:menu_info) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

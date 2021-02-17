@@ -22,11 +22,15 @@ Rails.application.routes.draw do
       resources :latest_snapshots, only: [:index]
     end
 
+    get 'embed', to: 'dashboard#embed'
+
     root to: 'dashboard#index'
   end
 
   namespace :vaccination do
     resources :subscriptions, only: [:index, :create, :destroy]
+
+    get 'embed', to: 'dashboard#embed'
 
     root to: 'dashboard#index'
   end
