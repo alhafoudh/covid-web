@@ -14,5 +14,5 @@ Sentry.init do |config|
   config.breadcrumbs_logger = [:active_support_logger]
   config.rails.report_rescued_exceptions = true
 
-  config.traces_sample_rate = 0.1
+  config.traces_sample_rate = Rails.config.x.sentry.traces_sample_rate
 end
