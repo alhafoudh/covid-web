@@ -57,10 +57,10 @@ module ApplicationHelper
   end
 
   def sentry_config_tag
-    return unless Rails.application.config.x.sentry.dsn.present?
+    return unless Rails.application.config.x.sentry.js_dsn.present?
 
     javascript_tag %{
-      window.sentryDsn = '#{Rails.application.config.x.sentry.dsn}';
+      window.sentryDsn = '#{Rails.application.config.x.sentry.js_dsn}';
     }
   end
 

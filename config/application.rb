@@ -54,6 +54,7 @@ module SkCovidTesting
 
     config.x.prometheus.enabled = ENV.fetch('PROMETHEUS_ENABLED', 'false') == 'true'
     config.x.sentry.dsn = ENV.fetch('SENTRY_DSN', nil)
+    config.x.sentry.js_dsn = ENV.fetch('SENTRY_JS_DSN', nil)
 
     config.x.redirects = JSON.parse(ENV.fetch('REDIRECTS', '{}'))
     config.x.http_proxy = ENV.fetch('http_proxy', nil)
