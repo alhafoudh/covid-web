@@ -94,6 +94,7 @@ module SkCovidTesting
 
     config.x.notifications.enabled = ENV.fetch('NOTIFICATIONS_ENABLED', 'false') == 'true'
     config.x.notifications.link_host = ENV.fetch('NOTIFICATIONS_LINK_HOST')
+    config.x.notifications.free_capacity_threshold = ENV.fetch('NOTIFICATIONS_FREE_CAPACITY_THRESHOLD', 10).to_i
 
     config.middleware.use Rack::HostRedirect, config.x.redirects
 

@@ -85,6 +85,11 @@ class NotifyVaccinationSubscriptions < ApplicationService
   end
 
   def deliver_to_region(capacities)
+    if capacities[:capacity_delta] <= free_capacity_threshold
+      logger.info "Skipping notification delivery for Region ##{region&.id} #{region&.name}, because free capacity threshold #{free_capacity_threshold} is not met. Delta is #{capacities[:capacity_delta]}."
+      return []
+    end
+
     region = capacities[:region]
     controller = NotificationsController.new
 
@@ -147,5 +152,9 @@ class NotifyVaccinationSubscriptions < ApplicationService
         link: link,
       }
     end
+  end
+
+  def free_capacity_threshold
+    Rails.application.config.x.notifications.free_capacity_threshold
   end
 end
