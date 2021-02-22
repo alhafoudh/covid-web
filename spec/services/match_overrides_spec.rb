@@ -131,5 +131,29 @@ describe MatchOverrides do
         end
       end
     end
+
+    context 'number match' do
+      let(:record) do
+        attributes_for(
+          :nczi_mom,
+          street_number: 10,
+        )
+      end
+
+      let(:override) do
+        create(
+          :place_override,
+          matches: [
+            {
+              street_number: 10,
+            }
+          ]
+        )
+      end
+
+      it 'should match override' do
+        expect(service).to eq [override]
+      end
+    end
   end
 end

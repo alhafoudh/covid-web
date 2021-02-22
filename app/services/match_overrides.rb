@@ -28,6 +28,6 @@ class MatchOverrides < ApplicationService
   end
 
   def value_matches?(match, value)
-    value.to_s.match?(Regexp.new(match))
+    value.to_s.match?(Regexp.new(match.to_s))
   end
 end
