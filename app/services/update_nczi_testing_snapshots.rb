@@ -12,8 +12,14 @@ class UpdateNcziTestingSnapshots < TestingSnapshotsBase
     logger.info "Updating NCZI test date snapshots for mom ##{mom.id}"
 
     ActiveRecord::Base.transaction do
-      snapshots = create_snapshots!(fetch_snapshots)
-      update_latest_snapshots!(snapshots)
+      snapshots = fetch_snapshots
+      created_snapshots = create_snapshots!(snapshots)
+      latest_snapshots = update_latest_snapshots!(created_snapshots)
+      disable_latest_snapshots!(snapshots)
+
+      logger.info "Done updating NCZI testing date snapshots. Currently we have #{mom.latest_snapshots.enabled.count} enabled latest snapshots."
+
+      latest_snapshots
     end
   end
 

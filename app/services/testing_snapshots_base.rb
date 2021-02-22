@@ -32,4 +32,15 @@ class TestingSnapshotsBase < ApplicationService
     end
   end
 
+  def disable_latest_snapshots!(snapshots)
+    mom.latest_snapshots
+      .enabled
+      .where.not(
+      test_date_id: snapshots.pluck(:test_date_id),
+    )
+      .update_all(enabled: false)
+      .tap do |num_disabled_latest_snapshots|
+      logger.info "Disabled #{num_disabled_latest_snapshots} Mom latest snapshots"
+    end
+  end
 end
