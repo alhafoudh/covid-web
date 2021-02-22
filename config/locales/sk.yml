@@ -34,6 +34,18 @@ sk:
       warning_html: |
         Zoznam odberných miest, kde nie je možné sa objednávať nájdete na stránke ministerstva zdravotníctva: <a href="https://www.health.gov.sk/?ag-mom" target="_blank">https://www.health.gov.sk/?ag-mom</a>.
         Sledujte aj stránku svojej mestskej časti alebo obce pre ďalšie informácie ohľadom testovacích miest, prípadne využite komerčné testovanie.<br/>
+        <br/>
+        <strong>Naša práca na stránke je čisto dobrovoľnícka s úmyslom uľahčiť ľuďom nájdenie voľného termínu.</strong><br/>
+        <br/>
+        Celý proces objednávania prebieha na stránke <a href="https://korona.gov.sk/" target="_blank">korona.gov.sk</a> s zodpovednosť za jeho funkčnosť má <a href="http://www.nczisk.sk">štátna inštitúcia NCZI</a>.<br/>
+        Na tomto odkaze nájdete aj kontakty, kam môžete zasielať svoje podnety a sťažnosti: <a href="http://www.nczisk.sk/Kontakty/Pages/default.aspx" target="_blank">http://www.nczisk.sk/Kontakty/Pages/default.aspx</a>.<br/>
+        Prípadne priamo píšte e-mail na nasledovné adresy:<br/>
+        <a href="mailto:nczisk@nczisk.sk">nczisk@nczisk.sk</a><br/>
+        <a href="mailto:sekretariat@nczisk.sk">sekretariat@nczisk.sk</a><br/>
+        <a href="mailto:Veronika.Bauch@nczisk.sk">Veronika.Bauch@nczisk.sk</a><br/>
+        <br/>
+        NCZI je štátna inštitúcia a na jej rozhodnutia nemáme žiadny vplyv.<br/>
+        <br/>
         Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
       action_title: "Zobraziť odberné miesta"
   vaccination:
@@ -47,7 +59,20 @@ sk:
         Tento zoznam obsahuje <strong>iba očkovacie miesta, kde sa dá objednávať a ich aktuálnu voľnú kapacitu na daný deň.</strong><br/>
         Pred očkovaním musí registrovaný žiadateľ preukázať fakt, že patrí do skupiny obyvateľov s aktuálnym nárokom na očkovanie.<br/>
         V prípade, že do takejto skupiny nepatríte, formulár NCZI prosíme nevypĺňajte.<br/>
-        Viac informácií nájdete na <a href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a>
+        Viac informácií nájdete na <a href="https://korona.gov.sk/vakcinacia" target="_blank">https://korona.gov.sk/vakcinacia</a><br/>
+        <br/>
+        <strong>Naša práca na stránke je čisto dobrovoľnícka s úmyslom uľahčiť ľuďom nájdenie voľného termínu.</strong><br/>
+        <br/>
+        Celý proces objednávania prebieha na stránke <a href="https://korona.gov.sk/" target="_blank">korona.gov.sk</a> s zodpovednosť za jeho funkčnosť má <a href="http://www.nczisk.sk">štátna inštitúcia NCZI</a>.<br/>
+        Na tomto odkaze nájdete aj kontakty, kam môžete zasielať svoje podnety a sťažnosti: <a href="http://www.nczisk.sk/Kontakty/Pages/default.aspx" target="_blank">http://www.nczisk.sk/Kontakty/Pages/default.aspx</a>.<br/>
+        Prípadne priamo píšte e-mail na nasledovné adresy:<br/>
+        <a href="mailto:nczisk@nczisk.sk">nczisk@nczisk.sk</a><br/>
+        <a href="mailto:sekretariat@nczisk.sk">sekretariat@nczisk.sk</a><br/>
+        <a href="mailto:Veronika.Bauch@nczisk.sk">Veronika.Bauch@nczisk.sk</a><br/>
+        <br/>
+        NCZI je štátna inštitúcia a na jej rozhodnutia nemáme žiadny vplyv.<br/>
+        <br/>
+        Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
       action_title: "Zobraziť očkovacie miesta"
   cookies:
     title: "Cookies"
