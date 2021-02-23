@@ -83,7 +83,7 @@ select {
 }
 
 [type="checkbox"] {
-  @apply rounded text-blue border-blue focus:outline-none focus:ring-0
+  @apply rounded text-blue border-blue focus:outline-none focus:ring-0;
 }
 
 .actions {
@@ -166,6 +166,7 @@ a {
     }
   }
 }
+
 .address-link {
   @apply text-sm text-gray;
 }
