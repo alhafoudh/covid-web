@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Notifications::NotificationsComponent < ViewComponent::Base
+class Notifications::NotificationsComponent < ApplicationComponent
 end

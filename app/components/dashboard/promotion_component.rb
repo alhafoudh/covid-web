@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Dashboard::PromotionComponent < ViewComponent::Base
+class Dashboard::PromotionComponent < ApplicationComponent
 end

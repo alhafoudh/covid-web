@@ -1,4 +1,5 @@
 import '../stylesheets/application.scss';
+import '@hotwired/turbo-rails';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
 import * as Sentry from "@sentry/browser";

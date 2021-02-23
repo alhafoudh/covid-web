@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::CountyPlacesComponent < ViewComponent::Base
+class Dashboard::CountyPlacesComponent < ApplicationComponent
 
   with_collection_parameter :county
 

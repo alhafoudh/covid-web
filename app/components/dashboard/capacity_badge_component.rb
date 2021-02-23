@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::CapacityBadgeComponent < ViewComponent::Base
+class Dashboard::CapacityBadgeComponent < ApplicationComponent
   attr_reader :count, :size, :show_label
 
   def initialize(count:, size: :normal, show_label: false)

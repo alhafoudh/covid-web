@@ -1,18 +1,20 @@
-<a id="list" class="anchor"></a>
-<div class="mt-8 mb-2 flex items-center justify-between flex-wrap">
-  <h2 class="text-3xl font-normal"><%= t(:jump_to_region) %></h2>
-  <div class="whitespace-nowrap pt-2">
-    <%= render Dashboard::EmptySwitcherComponent.new %>
+<%= turbo_frame_tag :jump do %>
+  <a id="list" class="anchor"></a>
+  <div class="mt-8 mb-2 flex items-center justify-between flex-wrap">
+    <h2 class="text-3xl font-normal"><%= t(:jump_to_region) %></h2>
+    <div class="whitespace-nowrap pt-2">
+      <%= render Dashboard::EmptySwitcherComponent.new %>
+    </div>
   </div>
-</div>
-<div class="sticky top-16 z-40 mb-2 bg-white mb-4 pb-4">
-  <div class="jump-region flex overflow-x-auto justify-start items-start">
-    <% (regions + [nil]).map do |region| %>
-      <%= link_to "##{region_dom_id(region)}", class: classes_for_region(region), data: { controller: 'hash-observer', hash_observer_hash_value: "##{region_dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
-        <%= region_label(region) %>
-        <br />
-        <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(region), size: :small) %>
+  <div class="sticky top-16 z-40 mb-2 bg-white mb-4 pb-4">
+    <div class="jump-region flex overflow-x-auto justify-start items-start">
+      <% (regions + [nil]).map do |region| %>
+        <%= link_to "##{region_dom_id(region)}", class: classes_for_region(region), data: { turbo: false, controller: 'hash-observer', hash_observer_hash_value: "##{region_dom_id(region)}", hash_observer_target: 'element', hash_observer_active_class: 'active' } do %>
+          <%= region_label(region) %>
+          <br/>
+          <%= render Dashboard::CapacityBadgeComponent.new(count: total_free_capacity(region), size: :small) %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

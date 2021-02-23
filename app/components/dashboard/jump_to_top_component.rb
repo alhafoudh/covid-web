@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Dashboard::JumpToTopComponent < ViewComponent::Base
+class Dashboard::JumpToTopComponent < ApplicationComponent
 end

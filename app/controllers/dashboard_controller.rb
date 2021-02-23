@@ -1,18 +1,35 @@
 class DashboardController < ApplicationController
-  before_action :skip_session, only: [:index, :embed]
-  before_action :fetch_places, only: [:index, :embed]
+  before_action :skip_session, only: [:index, :embed, :region, :other_region]
+  before_action :fetch_regions, only: [:jump, :index, :embed, :region]
+  before_action :fetch_places, only: [:jump, :embed, :region, :other_region]
   before_action :allow_iframe, only: [:embed]
 
   layout 'embed', only: [:embed]
+  layout 'turbo', only: [:jump, :region, :other_region]
+
+  def jump
+    cache_places!
+    expire_static!
+  end
 
   def index
-    if stale?(@places, public: true)
-      @places_by_county = @places.group_by(&:county)
-    end
+    expire_static!
+  end
 
-    if Rails.env.production?
-      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
-    end
+  def region
+    @regions = @regions.where(id: params[:region_id] )
+    @places = @places.where(region_id: params[:region_id])
+
+    cache_places!
+    expire_static!
+  end
+
+  def other_region
+    @regions = nil
+    @places = @places.where(region_id: nil)
+
+    cache_places!
+    expire_static!
   end
 
   def embed
@@ -30,13 +47,7 @@ class DashboardController < ApplicationController
       @places = place_model.none
     end
 
-    if stale?(@places, public: true)
-      @places_by_county = @places.group_by(&:county)
-    end
-
-    if Rails.env.production?
-      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
-    end
+    cache_places!
   end
 
   private
@@ -45,17 +56,19 @@ class DashboardController < ApplicationController
     request.session_options[:skip] = true
   end
 
-  def fetch_places
-    @plan_dates = plan_date_model
-                    .where('date >= ? AND date <= ?', Date.today, Date.today + num_plan_date_days)
-                    .order(date: :asc)
-
+  def fetch_regions
     @regions = Region
                  .includes(
                    places_association,
                    :counties,
                  )
                  .order(name: :asc)
+  end
+
+  def fetch_places
+    @plan_dates = plan_date_model
+                    .where('date >= ? AND date <= ?', Date.today, Date.today + num_plan_date_days)
+                    .order(date: :asc)
 
     @places = place_model
                 .enabled
@@ -70,6 +83,18 @@ class DashboardController < ApplicationController
                   plan_date_snapshot_foreign_key => @plan_dates.pluck(:id)
                 })
                 .order(title: :asc)
+  end
+
+  def cache_places!
+    if stale?(@places, public: true)
+      @places_by_county = @places.group_by(&:county)
+    end
+  end
+
+  def expire_static!
+    if Rails.env.production?
+      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
+    end
   end
 
   def plan_date_snapshot_foreign_key

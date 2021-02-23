@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::JumpToRegionComponent < ViewComponent::Base
+class Dashboard::JumpToRegionComponent < ApplicationComponent
 
   attr_reader :regions, :places_by_county, :plan_dates
 

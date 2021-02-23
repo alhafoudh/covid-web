@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::DataRefreshInfoComponent < ViewComponent::Base
+class Dashboard::DataRefreshInfoComponent < ApplicationComponent
 
   attr_reader :snapshot_class, :update_interval
 

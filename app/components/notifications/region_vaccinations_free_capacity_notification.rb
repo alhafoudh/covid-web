@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Notifications::RegionVaccinationsFreeCapacityNotification < ViewComponent::Base
+class Notifications::RegionVaccinationsFreeCapacityNotification < ApplicationComponent
   attr_reader :region, :plan_date_capacities
 
   def initialize(region:, plan_date_capacities:)

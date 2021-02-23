@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::RegionCountiesComponent < ViewComponent::Base
-
+class Dashboard::RegionCountiesComponent < ApplicationComponent
   with_collection_parameter :region
 
   attr_reader :region, :places_by_county, :plan_dates

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::NoticeComponent < ViewComponent::Base
+class Dashboard::NoticeComponent < ApplicationComponent
   attr_reader :type, :message, :classes, :class_name
 
   with_content_areas :actions

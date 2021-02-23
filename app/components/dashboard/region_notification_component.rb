@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::RegionNotificationComponent < ViewComponent::Base
+class Dashboard::RegionNotificationComponent < ApplicationComponent
   attr_reader :region, :class_name
 
   def initialize(region:, class_name: nil)

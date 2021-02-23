@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Dashboard::EmptySwitcherComponent < ViewComponent::Base
+class Dashboard::EmptySwitcherComponent < ApplicationComponent
 end

@@ -3,20 +3,13 @@
 <head>
   <%= render 'head' %>
 </head>
-
 <body>
-<%= gtm_noscript_tag %>
 <div>
-  <%= render 'layouts/embed_navigation' %>
-
   <main>
     <div class="max-w-7xl mx-auto lg:px-8 px-2">
       <%= yield %>
     </div>
-    <%= render 'layouts/footer' %>
   </main>
-
-  <%= render Dashboard::JumpToTopComponent.new %>
 </div>
 </body>
 </html>

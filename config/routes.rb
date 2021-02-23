@@ -25,6 +25,13 @@ Rails.application.routes.draw do
 
     get 'embed', to: 'dashboard#embed'
 
+    get 'jump', to: 'dashboard#jump', as: :jump
+
+    scope :regions do
+      get 'other', to: 'dashboard#other_region', as: :other_region
+      get ':region_id', to: 'dashboard#region', as: :region
+    end
+
     root to: 'dashboard#index'
   end
 

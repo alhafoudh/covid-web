@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::PlacePlanComponent < ViewComponent::Base
+class Dashboard::PlacePlanComponent < ApplicationComponent
   with_collection_parameter :place
 
   attr_reader :place, :plan_dates
