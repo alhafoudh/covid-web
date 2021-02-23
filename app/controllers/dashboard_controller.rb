@@ -6,13 +6,7 @@ class DashboardController < ApplicationController
   layout 'embed', only: [:embed]
 
   def index
-    if stale?(@places, public: true)
-      @places_by_county = @places.group_by(&:county)
-    end
-
-    if Rails.env.production?
-      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
-    end
+    set_content_expiration!
   end
 
   def embed
@@ -30,13 +24,7 @@ class DashboardController < ApplicationController
       @places = place_model.none
     end
 
-    if stale?(@places, public: true)
-      @places_by_county = @places.group_by(&:county)
-    end
-
-    if Rails.env.production?
-      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
-    end
+    set_content_expiration!
   end
 
   private
@@ -46,30 +34,48 @@ class DashboardController < ApplicationController
   end
 
   def fetch_places
-    @plan_dates = plan_date_model
-                    .where('date >= ? AND date <= ?', Date.today, Date.today + num_plan_date_days)
-                    .order(date: :asc)
+    benchmark(:plan_dates) do
+      @plan_dates = plan_date_model
+                      .where('date >= ? AND date <= ?', Date.today, Date.today + num_plan_date_days)
+                      .order(date: :asc)
+    end
 
-    @regions = Region
-                 .includes(
-                   places_association,
-                   :counties,
-                 )
-                 .order(name: :asc)
+    benchmark(:regions) do
+      @regions = Region
+                   .includes(
+                     places_association,
+                     :counties,
+                   )
+                   .order(name: :asc)
+    end
 
-    @places = place_model
-                .enabled
-                .includes(
-                  :region, :county,
-                  latest_snapshots: [
-                    :plan_date,
-                    { snapshot: [:plan_date] }
-                  ]
-                )
-                .where(latest_snapshots: {
-                  plan_date_snapshot_foreign_key => @plan_dates.pluck(:id)
-                })
-                .order(title: :asc)
+    benchmark(:places) do
+      @places = place_model
+                  .enabled
+                  .includes(
+                    :region, :county,
+                    latest_snapshots: [
+                      :plan_date,
+                      { snapshot: [:plan_date] }
+                    ]
+                  )
+                  .where(latest_snapshots: {
+                    plan_date_snapshot_foreign_key => @plan_dates.pluck(:id)
+                  })
+                  .order(title: :asc)
+    end
+
+    if stale?(@places, public: true)
+      benchmark(:places_by_county) do
+        @places_by_county = @places.group_by(&:county)
+      end
+    end
+  end
+
+  def set_content_expiration!
+    if Rails.env.production?
+      expires_in(Rails.application.config.x.cache.content_expiration_minutes, public: true, stale_while_revalidate: Rails.application.config.x.cache.content_stale_minutes)
+    end
   end
 
   def plan_date_snapshot_foreign_key
