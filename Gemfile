@@ -38,12 +38,13 @@ gem 'facebook-messenger'
 gem 'rack-host-redirect'
 gem 'fcmpush'
 gem 'sidekiq'
+gem 'sidekiq-cron'
+gem 'sidekiq-status'
 gem 'paper_trail'
 gem 'rack-timeout', group: :production
 gem 'activeadmin'
 gem 'devise'
 gem 'devise-i18n'
-gem 'sidekiq-cron'
 gem 'prometheus_exporter'
 
 # Reduces boot times through caching; required in config/boot.rb

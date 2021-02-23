@@ -1,4 +1,5 @@
 class ApplicationJob < ActiveJob::Base
+  include Sidekiq::Status::Worker
   sidekiq_options retry: false
 
   # Automatically retry jobs that encountered a deadlock

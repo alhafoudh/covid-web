@@ -1,5 +1,12 @@
+require 'sidekiq'
+require 'sidekiq-status'
+
 if Sidekiq.server?
   Sidekiq::Cron::Job.load_from_hash(Rails.application.config_for('schedule'))
+end
+
+Sidekiq.configure_client do |config|
+  Sidekiq::Status.configure_client_middleware config, expiration: Rails.application.config.x.sidekiq.status_expiration
 end
 
 Sidekiq.configure_server do |config|
@@ -24,4 +31,7 @@ Sidekiq.configure_server do |config|
       PrometheusExporter::Client.default.stop(wait_timeout_seconds: 10)
     end
   end
+
+  Sidekiq::Status.configure_server_middleware(config, expiration: Rails.application.config.x.sidekiq.status_expiration)
+  Sidekiq::Status.configure_client_middleware(config, expiration: Rails.application.config.x.sidekiq.status_expiration)
 end

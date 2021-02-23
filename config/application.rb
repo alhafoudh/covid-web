@@ -53,6 +53,7 @@ module SkCovidTesting
     config.middleware.use Rack::Deflater
 
     config.x.prometheus.enabled = ENV.fetch('PROMETHEUS_ENABLED', 'false') == 'true'
+    config.x.sidekiq.status_expiration = ENV.fetch('SIDEKIQ_STATUS_EXPIRATION', 240).to_i.minutes
     config.x.sentry.dsn = ENV.fetch('SENTRY_DSN', nil)
     config.x.sentry.traces_sample_rate = ENV.fetch('SENTRY_TRACES_SAMPLE_RATE', '0.01').to_f
     config.x.sentry.js_dsn = ENV.fetch('SENTRY_JS_DSN', nil)
