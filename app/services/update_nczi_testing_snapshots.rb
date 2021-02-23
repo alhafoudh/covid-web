@@ -26,9 +26,9 @@ class UpdateNcziTestingSnapshots < TestingSnapshotsBase
   private
 
   def fetch_snapshots
-    plan_dates_statuses = fetch_raw_snapshots
+    plan_date_statuses = fetch_raw_snapshots
 
-    plan_dates_statuses.map do |plan_date_status|
+    plan_date_statuses.map do |plan_date_status|
       parsed_date = Date.parse(plan_date_status['c_date'])
       plan_date = plan_dates.find do |plan_date|
         plan_date.date == parsed_date
