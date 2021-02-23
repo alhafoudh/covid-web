@@ -24,6 +24,7 @@ class TestingSnapshotsBase < ApplicationService
         mom_id: snapshot.mom_id,
         test_date_id: snapshot.test_date_id,
       )
+      latest_snapshot.enabled = true
       latest_snapshot.previous_snapshot = latest_snapshot.snapshot
       latest_snapshot.snapshot = snapshot
       latest_snapshot.save!
