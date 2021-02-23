@@ -41,15 +41,19 @@ class DeliverNotifications < ApplicationService
   end
 
   def deliver_webpush!
-    payloads = user_ids.map do |user_id|
-      # ref. https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages
-      {
-        message: {
-          token: user_id,
-        }.merge(notification)
-      }
+    user_ids
+      .in_groups_of(500, false)
+      .map do |group|
+      payloads = group.map do |user_id|
+        # ref. https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages
+        {
+          message: {
+            token: user_id,
+          }.merge(notification)
+        }
+      end
+      client = Fcmpush.new(Rails.application.config.x.firebase.project_id)
+      client.batch_push(payloads)
     end
-    client = Fcmpush.new(Rails.application.config.x.firebase.project_id)
-    client.batch_push(payloads)
   end
 end

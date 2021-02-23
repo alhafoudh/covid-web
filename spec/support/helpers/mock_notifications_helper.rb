@@ -25,13 +25,16 @@ module MockNotificationsHelper
   end
 
   def stub_webpush_delivery(user_ids:, status: 200)
-    expect_any_instance_of(Fcmpush::Client)
-      .to receive(:v1_authorize)
-            .at_least(:once)
-            .and_return(
-              'access_token' => 'token',
-              'expires_in' => 120,
-            )
+    stub_request(:post, 'https://www.googleapis.com/oauth2/v4/token')
+      .to_return(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: {
+          'access_token' => 'token',
+          'expires_in' => 120,
+        }.to_json
+      )
 
     stub_request(:post, 'https://fcm.googleapis.com/batch')
       .with do |request|

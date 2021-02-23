@@ -18,8 +18,7 @@ describe DeliverNotifications do
         stub_messenger_delivery(user_id: 'user2')
 
         DeliverNotifications.new(channel: 'messenger', user_ids: %w{user1 user2}, text: 'hello').perform
-
-        expect(a_request_for_messenger_delivery(user_id: 'user1')).to have_been_made.once
+expect(a_request_for_messenger_delivery(user_id: 'user1')).to have_been_made.once
         expect(a_request_for_messenger_delivery(user_id: 'user2')).to have_been_made.once
       end
     end
@@ -43,6 +42,22 @@ describe DeliverNotifications do
         DeliverNotifications.new(channel: 'webpush', user_ids: %w{user1 user2}, text: 'hello').perform
 
         expect(a_request_for_webpush_delivery(user_ids: %w{user1 user2})).to have_been_made.once
+      end
+    end
+
+    context 'a lot of notifications' do
+      it 'should call webpush api multiple times with multiple users with limit of 500 per call' do
+        all_users = (1..700).map { |i| "user#{i}" }
+        first_batch = all_users[0..499]
+        second_batch = all_users[500..699]
+
+        stub_webpush_delivery(user_ids: first_batch)
+        stub_webpush_delivery(user_ids: second_batch)
+
+        DeliverNotifications.new(channel: 'webpush', user_ids: all_users, text: 'hello').perform
+
+        expect(a_request_for_webpush_delivery(user_ids: first_batch)).to have_been_made.once
+        expect(a_request_for_webpush_delivery(user_ids: second_batch)).to have_been_made.once
       end
     end
   end
