@@ -53,7 +53,7 @@ module ApplicationHelper
   end
 
   def firebase_app_config
-    FirebaseController.new.render_to_string('firebase/configuration')
+    FirebaseController.render('firebase/configuration')
   end
 
   def sentry_config_tag

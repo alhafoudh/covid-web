@@ -92,8 +92,6 @@ class NotifyVaccinationSubscriptions < ApplicationService
       return []
     end
 
-    controller = NotificationsController.new
-
     logger.info "Preparing notification delivery for Region ##{region&.id} #{region&.name}"
 
     component_cache = {}
@@ -116,7 +114,7 @@ class NotifyVaccinationSubscriptions < ApplicationService
                     raise NotImplementedError
                   end
       title = component.title
-      body = controller.render_to_string(component)
+      body = NotificationsController.render(component)
       link = component.link
 
       user_ids = subscriptions.pluck(:user_id)
