@@ -1,7 +1,7 @@
 <%= header %>
 
 <% plan_date_capacities.map do |plan_date_capacity| %>
-  <%= l plan_date_capacity[:plan_date].date, format: '%A %d.%m.%Y' %>: <%= plan_date_capacity[:current_free_capacity] %>
+<%= l plan_date_capacity[:plan_date].date, format: '%A %d.%m.%Y' %>: <%= plan_date_capacity[:current_free_capacity] %>
 <% end %>
 
 <%= footer %>
