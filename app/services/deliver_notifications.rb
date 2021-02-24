@@ -28,12 +28,25 @@ class DeliverNotifications < ApplicationService
     # # TODO: use batching!
     user_ids
       .map do |user_id|
+      quick_replies = [
+        {
+          content_type: 'text',
+          title: I18n.t('bot.change'),
+          payload: UserVaccinationFlow.new(action: 'ask_region', user_id: user_id).to_json,
+        },
+        {
+          content_type: 'text',
+          title: I18n.t('bot.cancel_notifications'),
+          payload: UserVaccinationFlow.new(action: 'cancel', user_id: user_id, region_id: notification[:region_id]).to_json,
+        },
+      ]
       Bot.deliver({
         recipient: {
           id: user_id
         },
         message: {
           text: notification[:body],
+          quick_replies: quick_replies,
         },
         messaging_type: Facebook::Messenger::Bot::MessagingType::UPDATE,
       }, page_id: Rails.application.config.x.messenger.page_id)
