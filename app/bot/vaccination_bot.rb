@@ -5,17 +5,13 @@ include Facebook::Messenger
 Bot.on :message do |message|
   Rails.logger.debug message.inspect
 
-  payload = UserVaccinationFlow.from_message(message)
-  bot = VaccinationBot.new(message, payload)
-  bot.process
+  VaccinationBotOnMessageJob.perform_later(message_data: message.messaging)
 end
 
 Bot.on :postback do |message|
   Rails.logger.debug message.inspect
 
-  payload = UserVaccinationFlow.from_message(message)
-  bot = VaccinationBot.new(message, payload)
-  bot.process
+  VaccinationBotOnPostbackJob.perform_later(message_data: message.messaging)
 end
 
 class VaccinationBot
