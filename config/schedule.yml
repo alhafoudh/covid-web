@@ -9,8 +9,7 @@ default: &default
     class: "UpdateAllVaccinationDataAndNotifyJob"
     queue: default
 
-development:
-  <<: *default
+development: {}
 
 test:
   <<: *default
