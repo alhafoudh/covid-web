@@ -146,7 +146,7 @@ sk:
           footer: "Kliknutím na toto upozornenie sa otvorí daný región."
       messenger:
         header:
-          region: "%{region} Región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
+          region: "%{region} región práve navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
           other: "Región nezaradených navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
         plan_date: "%{date}: %{delta}"
         footer: "Prehľad aktuálnych kapacít v danom regióne nájdeš na %{region_url}"
