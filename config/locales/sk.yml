@@ -136,7 +136,7 @@ sk:
       title: "Chyba pri zmene upozornení"
       not_allowed: "Upozornenia niesú zapnuté"
       disabled_in_browser: "Upozornenia sú vypnuté v prehliadači. Povoľte upozornenia v prehliadači a skúste znova!"
-    vaccination_notification:
+    region_vaccinations_free_capacity_notification:
       webpush:
         title:
           region: "%{region} región: Nové kapacity na očkovanie"

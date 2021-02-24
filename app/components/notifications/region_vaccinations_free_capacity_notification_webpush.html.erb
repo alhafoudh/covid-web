@@ -1,4 +1,4 @@
-<%= t('notifications.vaccination_notification.webpush.body.header', delta: total_capacity_delta) %><br/>
+<%= t('notifications.region_vaccinations_free_capacity_notification.webpush.body.header', delta: total_capacity_delta) %><br/>
 <table>
   <% plan_date_capacities.map do |plan_date_capacity| %>
     <tr>
@@ -8,5 +8,5 @@
   <% end %>
 </table>
 <span class="font-medium">
-  <%= t('notifications.vaccination_notification.webpush.body.footer') %>
+  <%= t('notifications.region_vaccinations_free_capacity_notification.webpush.body.footer') %>
 </span>
