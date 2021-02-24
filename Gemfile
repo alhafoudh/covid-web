@@ -46,6 +46,7 @@ gem 'activeadmin'
 gem 'devise'
 gem 'devise-i18n'
 gem 'prometheus_exporter'
+gem 'scenic'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

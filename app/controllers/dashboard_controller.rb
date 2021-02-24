@@ -50,25 +50,33 @@ class DashboardController < ApplicationController
     end
 
     benchmark(:places) do
-      @places = place_model
-                  .enabled
-                  .includes(
-                    :region, :county,
-                    latest_snapshots: [
-                      :plan_date,
-                      { snapshot: [:plan_date] }
-                    ]
-                  )
-                  .where(latest_snapshots: {
-                    plan_date_snapshot_foreign_key => @plan_dates.pluck(:id)
-                  })
-                  .order(title: :asc)
+      # @places = place_model
+      #             .enabled
+      #             .includes(
+      #               :region, :county,
+      #               latest_snapshots: [
+      #                 :plan_date,
+      #                 { snapshot: [:plan_date] }
+      #               ]
+      #             )
+      #             .where(latest_snapshots: {
+      #               plan_date_snapshot_foreign_key => @plan_dates.pluck(:id)
+      #             })
+      #             .order(title: :asc)
+      @places = TestingPlaceCapacity
+                  .where(plan_date_id: @plan_dates.pluck(:id))
     end
 
     if stale?(@places, public: true)
       benchmark(:places_by_county) do
-        @places_by_county = @places.group_by(&:county)
+        # @places_by_county = @places.group_by(&:county_id)
+        @places_by_county = ActiveRecord::Base.connection
+                              .execute(@places.to_sql)
+        #                       .group_by do |record|
+        #   record[:county_id]
+        # end
       end
+      binding.pry
     end
   end
 

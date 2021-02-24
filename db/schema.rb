@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_231638) do
+ActiveRecord::Schema.define(version: 2021_02_24_073317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,4 +273,78 @@ ActiveRecord::Schema.define(version: 2021_02_15_231638) do
   add_foreign_key "vaccination_date_snapshots", "vaccs", on_delete: :restrict
   add_foreign_key "vaccs", "counties", on_delete: :restrict
   add_foreign_key "vaccs", "regions", on_delete: :restrict
+
+  create_view "region_county_places", materialized: true, sql_definition: <<-SQL
+      SELECT r.id AS region_id,
+      r.name AS region_name,
+      c.id AS county_id,
+      c.name AS county_name,
+      p.id,
+      p.title
+     FROM ((moms p
+       LEFT JOIN regions r ON ((p.region_id = r.id)))
+       LEFT JOIN counties c ON ((r.id = c.region_id)))
+    WHERE (p.enabled = true)
+    ORDER BY r.name, c.name, p.title;
+  SQL
+  create_view "testing_dashboard_stats", materialized: true, sql_definition: <<-SQL
+      SELECT r.id AS region_id,
+      r.name AS region_name,
+      c.id AS county_id,
+      c.name AS county_name,
+      p.id,
+      p.title,
+      pd.id AS plan_date_id,
+      pd.date AS plan_date_date,
+      ls.id AS latest_snapshot_id,
+      ls.enabled AS latest_snapshot_enabled,
+      cs.id AS current_snapshot_id,
+      cs.is_closed AS current_snapshot_is_closed,
+      cs.free_capacity AS current_snapshot_free_capacity,
+      ps.id AS previous_snapshot_id,
+      ps.is_closed AS previous_snapshot_is_closed,
+      ps.free_capacity AS previous_snapshot_free_capacity,
+      ls.updated_at
+     FROM ((((((moms p
+       LEFT JOIN regions r ON ((p.region_id = r.id)))
+       LEFT JOIN counties c ON ((r.id = c.region_id)))
+       LEFT JOIN latest_test_date_snapshots ls ON ((ls.mom_id = p.id)))
+       JOIN test_dates pd ON ((ls.test_date_id = pd.id)))
+       LEFT JOIN test_date_snapshots cs ON ((cs.id = ls.test_date_snapshot_id)))
+       LEFT JOIN test_date_snapshots ps ON ((ps.id = ls.previous_snapshot_id)))
+    WHERE (p.enabled = true)
+    ORDER BY pd.date, r.name, c.name, p.title;
+  SQL
+  add_index "testing_dashboard_stats", ["plan_date_id", "region_id", "county_id", "latest_snapshot_id", "updated_at"], name: "index_testing_dashboard_stats_order", unique: true
+
+  create_view "testing_place_capacities", materialized: true, sql_definition: <<-SQL
+      SELECT r.id AS region_id,
+      r.name AS region_name,
+      c.id AS county_id,
+      c.name AS county_name,
+      p.id,
+      p.title,
+      pd.id AS plan_date_id,
+      pd.date AS plan_date_date,
+      cs.id AS current_snapshot_id,
+      cs.is_closed AS current_snapshot_is_closed,
+      cs.free_capacity AS current_snapshot_free_capacity,
+      ps.id AS previous_snapshot_id,
+      ps.is_closed AS previous_snapshot_is_closed,
+      ps.free_capacity AS previous_snapshot_free_capacity,
+      ls.id AS latest_snapshot_id,
+      ls.enabled AS latest_snapshot_enabled,
+      ls.updated_at
+     FROM ((((((moms p
+       LEFT JOIN regions r ON ((p.region_id = r.id)))
+       LEFT JOIN counties c ON ((r.id = c.region_id)))
+       LEFT JOIN latest_test_date_snapshots ls ON ((ls.mom_id = p.id)))
+       JOIN test_dates pd ON ((ls.test_date_id = pd.id)))
+       LEFT JOIN test_date_snapshots cs ON ((cs.id = ls.test_date_snapshot_id)))
+       LEFT JOIN test_date_snapshots ps ON ((ps.id = ls.previous_snapshot_id)))
+    WHERE (p.enabled = true)
+    ORDER BY pd.date, r.name, c.name, p.title;
+  SQL
+  add_index "testing_place_capacities", ["plan_date_id", "region_id", "county_id", "latest_snapshot_id", "updated_at"], name: "index_testing_place_capacities_fk", unique: true
+
 end
