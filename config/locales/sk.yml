@@ -150,3 +150,20 @@ sk:
           other: "Región nezaradených navýšil očkovacie kapacity o %{delta} na nasledovné termíny:"
         plan_date: "%{date}: %{delta}"
         footer: "Prehľad aktuálnych kapacít v danom regióne nájdeš na %{region_url}"
+    region_vaccinations_daily_report_notification:
+      messenger:
+        header: "Zasielam ti denný prehľad."
+        report:
+          region: "%{region} región má aktuálne %{free_slots} na očkovanie na najbližších %{days}."
+          other: "Región nezaradených má aktuálne %{free_slots} na očkovanie na najbližších %{days}."
+        free_slots:
+          zero: "0 voľných miest"
+          one: "1 voľné miesto"
+          few: "%{count} voľné miesta"
+          other: "%{count} voľných miest"
+        days:
+          zero: "0 dní"
+          one: "1 deň"
+          few: "%{count} dni"
+          other: "%{count} dní"
+        footer: "Prehľad aktuálnych kapacít v danom regióne nájdeš na %{region_url}"
