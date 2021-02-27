@@ -1,7 +1,7 @@
 default: &default
   update_testing_data:
     cron: "*/<%= Rails.application.config.x.update_interval %> * * * *"
-    class: "UpdateAllTestingDataJob"
+    class: "Testing::Update"
     queue: default
 
   update_vaccination_data:

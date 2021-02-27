@@ -1,6 +1,6 @@
 module Testing
   module Vacuumlabs
-    class UpdateAllMomSnapshots < ApplicationJob
+    class UpdateSnapshots < ApplicationJob
       include VacuumlabsApi
       include RateLimits
 

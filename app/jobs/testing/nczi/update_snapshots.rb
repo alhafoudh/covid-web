@@ -1,13 +1,13 @@
 module Testing
-  module Rychlejsie
-    class UpdateAllMomSnapshots < ApplicationJob
-      include RychlejsieApi
+  module Nczi
+    class UpdateSnapshots < ApplicationJob
+      include NcziApi
       include RateLimits
 
       def perform
         ActiveRecord::Base.transaction do
           plan_dates = TestDate.all.to_a
-          jobs = RychlejsieMom
+          jobs = NcziMom
                    .all
                    .includes(
                      latest_snapshots: [
@@ -33,26 +33,18 @@ module Testing
       private
 
       def snapshots_data_for(mom)
-        fetch_slots(mom)
-          .map do |slot|
-          fetch_hours_in_slot(mom, slot[:slotId])
-        end.flatten
-      end
+        @all_snapshots ||= begin
+                             nczi_client
+                               .get("#{base_url}/get_all_drivein_times")
+                               .body
+                               .fetch('payload', [])
+                               .reduce({}) do |acc, record|
+                               acc[record['id']] = record.fetch('calendar_data', [])
+                               acc
+                             end
+                           end
 
-      def fetch_slots(mom)
-        rychlejsie_client
-          .get("#{mom.external_endpoint}/api/Slot/ListDaySlotsByPlace?placeId=#{mom.external_id}")
-          .body
-          .map(&:last)
-          .map(&:symbolize_keys)
-      end
-
-      def fetch_hours_in_slot(mom, slot_id)
-        rychlejsie_client
-          .get("#{mom.external_endpoint}/api/Slot/ListHourSlotsByPlaceAndDaySlotId?placeId=#{mom.external_id}&daySlotId=#{slot_id}")
-          .body
-          .map(&:last)
-          .map(&:symbolize_keys)
+        @all_snapshots.fetch(mom.external_id, [])
       end
     end
   end
