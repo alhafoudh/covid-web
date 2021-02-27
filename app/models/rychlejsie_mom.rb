@@ -3,20 +3,23 @@ class RychlejsieMom < Mom
     [
       {
         city: 'Pezinok',
-        region: Region.find_by(name: 'Bratislavský'),
+        region: Region.find_by!(name: 'Bratislavský'),
         base_url: 'https://covid.pezinok.sk',
       },
       {
         city: 'Skalica',
-        region: Region.find_by(name: 'Trnavský'),
+        region: Region.find_by!(name: 'Trnavský'),
         base_url: 'https://skalica.rychlejsie.sk',
       },
       {
         city: 'Bratislava',
-        region: Region.find_by(name: 'Bratislavský'),
+        region: Region.find_by!(name: 'Bratislavský'),
         base_url: 'https://covid.bratislava.sk',
       }
     ]
+  rescue ActiveRecord::RecordNotFound => ex
+    Rails.logger.warn ex
+    []
   end
 
   def visible?
