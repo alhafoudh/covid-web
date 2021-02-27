@@ -8,7 +8,8 @@ ActiveAdmin.register Mom do
   end
 
   collection_action :update_moms, method: :post do
-    UpdateAllMomsBatched.new.perform
+    Testing::Nczi::UpdateMoms.perform_now
+    Testing::Rychlejsie::UpdateMoms.perform_now
   end
 
   actions :index, :show
