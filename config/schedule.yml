@@ -6,7 +6,7 @@ default: &default
 
   update_vaccination_data:
     cron: "*/<%= Rails.application.config.x.update_interval %> * * * *"
-    class: "UpdateAllVaccinationDataAndNotifyJob"
+    class: "Vaccination::UpdateAndNotify"
     queue: default
 
 development: {}

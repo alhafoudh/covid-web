@@ -1,13 +1,11 @@
 namespace :vaccination do
-  desc 'Update all vaccination'
+  desc 'Update all vaccination data'
   task update: [:environment] do
-    UpdateAllVaccinationData.new.perform
+    Vaccination::Update.perform_now
   end
 
-  desc 'Update all vaccination and notify'
+  desc 'Update all vaccination data and notify'
   task update_and_notify: [:environment] do
-    update_result = UpdateAllVaccinationData.new.perform
-    latest_snapshots = update_result.flatten
-    NotifyVaccinationSubscriptions.new(latest_snapshots: latest_snapshots).perform
+    Vaccination::UpdateAndNotify.perform_now
   end
 end
