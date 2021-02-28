@@ -3,9 +3,6 @@ class StatusController < ApplicationController
     testing_update_interval = Rails.application.config.x.testing.update_interval.minutes
     vaccination_update_interval = Rails.application.config.x.vaccination.update_interval.minutes
 
-    testing_job_result_stale_seconds = Time.zone.now.to_i - (UpdateTestingDataJobResult.last_finished_at || 0).to_i
-    vaccination_job_result_stale_seconds = Time.zone.now.to_i - (UpdateVaccinationDataJobResult.last_finished_at || 0).to_i
-
     expires_in(Rails.application.config.x.status.content_expiration, public: true)
 
     render json: {
@@ -26,11 +23,6 @@ class StatusController < ApplicationController
         last_updated_at: TestDateSnapshot.last_updated_at,
         last_updated_stale_seconds: Time.zone.now.to_i - (TestDateSnapshot.last_updated_at || 0).to_i,
 
-        last_job_result_updated_at: UpdateTestingDataJobResult.last_finished_at,
-        last_job_result_duration: UpdateTestingDataJobResult.last_finished&.duration,
-        last_job_result_stale: testing_job_result_stale_seconds > testing_update_interval,
-        last_job_result_stale_seconds: testing_job_result_stale_seconds,
-
         update_interval: testing_update_interval,
       },
       vaccination: {
@@ -42,11 +34,6 @@ class StatusController < ApplicationController
 
         last_updated_at: VaccinationDateSnapshot.last_updated_at,
         last_updated_stale_seconds: Time.zone.now.to_i - (VaccinationDateSnapshot.last_updated_at || 0).to_i,
-
-        last_job_result_updated_at: UpdateVaccinationDataJobResult.last_finished_at,
-        last_job_result_duration: UpdateVaccinationDataJobResult.last_finished&.duration,
-        last_job_result_stale: vaccination_job_result_stale_seconds > vaccination_update_interval,
-        last_job_result_stale_seconds: vaccination_job_result_stale_seconds,
 
         update_interval: vaccination_update_interval,
       },

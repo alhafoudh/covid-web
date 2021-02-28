@@ -1,2 +1,0 @@
-class UpdateVaccinationDataJobResult < JobResult
-end

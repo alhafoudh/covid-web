@@ -1,2 +1,0 @@
-class UpdateTestingDataJobResult < JobResult
-end
