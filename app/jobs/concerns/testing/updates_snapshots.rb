@@ -37,15 +37,18 @@ module Testing
     end
 
     def disable_latest_snapshots!(snapshots)
+      num_enabled_snapshots_before = mom.latest_snapshots.enabled.count
+      mom.latest_snapshots.update_all(enabled: true)
+
       mom.latest_snapshots
-        .enabled
         .where.not(
         test_date_id: snapshots.pluck(:test_date_id),
       )
         .update_all(enabled: false)
-        .tap do |num_disabled_latest_snapshots|
-        logger.info "Disabled #{num_disabled_latest_snapshots} Mom latest snapshots"
-      end
+
+      num_enabled_snapshots_after = mom.latest_snapshots.enabled.count
+      num_disabled_snapshots = num_enabled_snapshots_after - num_enabled_snapshots_before
+      logger.info "Disabled #{num_disabled_snapshots} Mom latest snapshots"
     end
   end
 end

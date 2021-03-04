@@ -37,15 +37,18 @@ module Vaccination
     end
 
     def disable_latest_snapshots!(snapshots)
+      num_enabled_snapshots_before = vacc.latest_snapshots.enabled.count
+      vacc.latest_snapshots.update_all(enabled: true)
+
       vacc.latest_snapshots
-        .enabled
         .where.not(
         vaccination_date_id: snapshots.pluck(:vaccination_date_id),
       )
         .update_all(enabled: false)
-        .tap do |num_disabled_latest_snapshots|
-        logger.info "Disabled #{num_disabled_latest_snapshots} Vacc latest snapshots"
-      end
+
+      num_enabled_snapshots_after = vacc.latest_snapshots.enabled.count
+      num_disabled_snapshots = num_enabled_snapshots_after - num_enabled_snapshots_before
+      logger.info "Disabled #{num_disabled_snapshots} Mom latest snapshots"
     end
   end
 end
