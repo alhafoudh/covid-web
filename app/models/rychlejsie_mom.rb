@@ -11,11 +11,11 @@ class RychlejsieMom < Mom
         region: Region.find_by!(name: 'Trnavský'),
         base_url: 'https://skalica.rychlejsie.sk',
       },
-      {
-        city: 'Bratislava',
-        region: Region.find_by!(name: 'Bratislavský'),
-        base_url: 'https://covid.bratislava.sk',
-      }
+      # {
+      #   city: 'Bratislava',
+      #   region: Region.find_by!(name: 'Bratislavský'),
+      #   base_url: 'https://covid.bratislava.sk',
+      # }
     ]
   rescue ActiveRecord::RecordNotFound => ex
     Rails.logger.warn ex
