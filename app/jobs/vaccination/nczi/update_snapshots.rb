@@ -9,6 +9,7 @@ module Vaccination
           plan_dates = VaccinationDate.all.to_a
           jobs = NcziVacc
                    .all
+                   .enabled
                    .includes(
                      latest_snapshots: [
                        :plan_date,

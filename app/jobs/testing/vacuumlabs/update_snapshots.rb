@@ -9,6 +9,7 @@ module Testing
           plan_dates = TestDate.all.to_a
           jobs = VacuumlabsMom
                    .all
+                   .enabled
                    .includes(
                      latest_snapshots: [
                        :plan_date,
