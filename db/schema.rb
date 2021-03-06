@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_28_192955) do
+ActiveRecord::Schema.define(version: 2021_03_06_190113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,8 @@ ActiveRecord::Schema.define(version: 2021_02_28_192955) do
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.boolean "enabled", default: true, null: false
+    t.string "age_from"
+    t.string "age_to"
     t.index ["city"], name: "index_vaccs_on_city"
     t.index ["county_id"], name: "index_vaccs_on_county_id"
     t.index ["enabled"], name: "index_vaccs_on_enabled"
