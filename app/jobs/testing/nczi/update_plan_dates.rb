@@ -28,7 +28,9 @@ module Testing
           }
         end
           .tap do |snapshots_plan_dates|
-          TestDate.upsert_all(snapshots_plan_dates, unique_by: :date)
+          if snapshots_plan_dates.any?
+            TestDate.upsert_all(snapshots_plan_dates, unique_by: :date)
+          end
         end
       end
     end

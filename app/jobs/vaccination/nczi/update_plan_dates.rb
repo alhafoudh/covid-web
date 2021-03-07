@@ -28,7 +28,9 @@ module Vaccination
           }
         end
           .tap do |snapshots_plan_dates|
-          VaccinationDate.upsert_all(snapshots_plan_dates, unique_by: :date)
+          if snapshots_plan_dates.any?
+            VaccinationDate.upsert_all(snapshots_plan_dates, unique_by: :date)
+          end
         end
       end
     end
