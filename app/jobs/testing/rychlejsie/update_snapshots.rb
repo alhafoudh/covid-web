@@ -6,7 +6,6 @@ module Testing
 
       def perform
         ActiveRecord::Base.transaction do
-          plan_dates = TestDate.all.to_a
           jobs = RychlejsieMom
                    .all
                    .enabled
@@ -18,9 +17,12 @@ module Testing
                    )
                    .map do |mom|
             proc do
+              snapshots_data = snapshots_data_for(mom)
+              UpdatePlanDates.perform_now(snapshots_data: snapshots_data)
+              plan_dates = TestDate.all.to_a
               UpdateMomSnapshots.perform_now(
                 mom: mom,
-                snapshots_data: snapshots_data_for(mom),
+                snapshots_data: snapshots_data,
                 plan_dates: plan_dates,
               )
             end
