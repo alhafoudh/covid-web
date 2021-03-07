@@ -1,11 +1,11 @@
 default: &default
   update_testing_data:
-    cron: "*/<%= Rails.application.config.x.update_interval %> * * * *"
+    cron: "0-59/<%= Rails.application.config.x.update_interval %> * * * *"
     class: "Testing::Update"
     queue: default
 
   update_vaccination_data:
-    cron: "*/<%= Rails.application.config.x.update_interval %> * * * *"
+    cron: "3-59/<%= Rails.application.config.x.update_interval %> * * * *"
     class: "Vaccination::UpdateAndNotify"
     queue: default
 
