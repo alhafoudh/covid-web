@@ -10,14 +10,17 @@ module Testing
         @snapshots_data = snapshots_data
         @plan_dates = plan_dates
 
-
         ActiveRecord::Base.transaction do
           logger.info "Updating Vacuumlabs snapshots for mom ##{mom.id}"
 
-          snapshots = create_snapshots!(prepare_snapshots!)
-          update_latest_snapshots!(snapshots)
+          prepare_snapshots!
+          created_snapshots = create_snapshots!(snapshots)
+          latest_snapshots = update_latest_snapshots!(created_snapshots)
+          disable_latest_snapshots!(snapshots)
 
           logger.info "Done updating Vacuumlabs snapshots. Currently we have #{mom.latest_snapshots.enabled.count} enabled latest snapshots."
+
+          latest_snapshots
         end
       end
 
