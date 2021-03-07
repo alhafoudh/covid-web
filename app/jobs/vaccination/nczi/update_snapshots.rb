@@ -35,10 +35,7 @@ module Vaccination
 
       def snapshots_data_for(vacc)
         @all_snapshots ||= begin
-                             nczi_client
-                               .get("#{base_url}/get_all_drivein_times_vacc")
-                               .body
-                               .fetch('payload', [])
+                             nczi_get_payload("#{base_url}/get_all_drivein_times_vacc")
                                .reduce({}) do |acc, record|
                                acc[record['id']] = record.fetch('calendar_data', [])
                                acc

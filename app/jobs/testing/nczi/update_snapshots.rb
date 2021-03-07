@@ -35,10 +35,7 @@ module Testing
 
       def snapshots_data_for(mom)
         @all_snapshots ||= begin
-                             nczi_client
-                               .get("#{base_url}/get_all_drivein_times")
-                               .body
-                               .fetch('payload', [])
+                             nczi_get_payload("#{base_url}/get_all_drivein_times")
                                .reduce({}) do |acc, record|
                                acc[record['id']] = record.fetch('calendar_data', [])
                                acc

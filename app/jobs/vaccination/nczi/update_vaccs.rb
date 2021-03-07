@@ -124,10 +124,7 @@ module Vaccination
       end
 
       def fetch_nczi_data
-        nczi_client
-          .get("#{base_url}/get_all_drivein_times_vacc")
-          .body
-          .fetch('payload', [])
+        nczi_get_payload("#{base_url}/get_all_drivein_times_vacc")
           .map do |record|
           record.except('calendar_data')
         end

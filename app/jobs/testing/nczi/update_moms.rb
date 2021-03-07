@@ -126,10 +126,7 @@ module Testing
       end
 
       def fetch_nczi_data
-        nczi_client
-          .get("#{base_url}/get_all_drivein_times")
-          .body
-          .fetch('payload', [])
+        nczi_get_payload("#{base_url}/get_all_drivein_times")
           .map do |record|
           record.except('calendar_data')
         end
