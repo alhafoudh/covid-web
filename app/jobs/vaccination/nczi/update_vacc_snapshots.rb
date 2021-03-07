@@ -13,7 +13,7 @@ module Vaccination
         ActiveRecord::Base.transaction do
           logger.info "Updating NCZI Vaccination snapshots for Vacc ##{vacc.id}"
 
-          snapshots = prepare_snapshots!
+          prepare_snapshots!
           created_snapshots = create_snapshots!(snapshots)
           latest_snapshots = update_latest_snapshots!(created_snapshots)
           disable_latest_snapshots!(snapshots)
@@ -36,9 +36,7 @@ module Vaccination
           end
 
           unless plan_date.present?
-            plan_date = VaccinationDate.create!(
-              date: parsed_date,
-            )
+            raise "Date #{parsed_date} is does not exist as VaccinationDate!"
           end
 
           VaccinationDateSnapshot.new(

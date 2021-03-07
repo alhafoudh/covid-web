@@ -36,9 +36,7 @@ module Testing
           end
 
           unless plan_date.present?
-            plan_date = TestDate.find_or_create_by!(
-              date: parsed_date,
-            )
+            raise "Date #{parsed_date} is does not exist as TestDate!"
           end
 
           TestDateSnapshot.new(
