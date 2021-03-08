@@ -19,10 +19,13 @@ sk:
     </p>
   meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
-  announcement_html: ""
-  #  announcement_html: |
-  #    <strong class="text-red">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
-  #    Dôsledkom toho, môžu byť niektoré údaje na našej stránke dočasne neaktuálne napriek tomu, že uvádzame, že boli nedávno aktualizované. Vopred sa ospravedlňujeme, chyba nie je na našej strane a veríme že po vyladení API napojenia na NCZI budú údaje v čo najkratšej dobe opäť aktuálne.
+#  announcement_html: ""
+#  announcement_html: |
+#    <strong class="text-red">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
+#    Dôsledkom toho, môžu byť niektoré údaje na našej stránke dočasne neaktuálne napriek tomu, že uvádzame, že boli nedávno aktualizované. Vopred sa ospravedlňujeme, chyba nie je na našej strane a veríme že po vyladení API napojenia na NCZI budú údaje v čo najkratšej dobe opäť aktuálne.
+  announcement_html: |
+    <strong class="text-red">Momentálna nedostupnosť voľných termínov je spôsobená výpadkom na strane databázy NCZI.</strong><br/>
+    Vopred sa ospravedlňujeme, chyba nie je na našej strane a údaje zaktualizujeme hneď ako bude databáza NCZI dostupná.
 
   testing:
     title_html: "Zoznam odberných miest s&nbsp;objednávaním na antigénové testovanie na COVID-19"

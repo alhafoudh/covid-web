@@ -2,7 +2,6 @@
   <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: VaccinationDateSnapshot, update_interval: Rails.application.config.x.vaccination.update_interval) %>
 <% end %>
 <%= render Dashboard::PromotionComponent.new %>
-<%= render Dashboard::NoticeComponent.new(type: :announcement, message: t(:announcement_html)) %>
 <%= render Dashboard::InfoComponent.new(
     title: t(:'vaccination.title_html'),
     header: t(:'vaccination.dashboard.header_html'),
@@ -11,6 +10,7 @@
     action_title: t(:'vaccination.dashboard.action_title'),
     action_link: "#{vaccination_root_path}#list",
 ) %>
+<%= render Dashboard::NoticeComponent.new(type: :warning, message: t(:announcement_html), class_name: 'mt-8') %>
 <div
   data-controller="region-notifications"
   data-region-notifications-enabled-class="enabled"
