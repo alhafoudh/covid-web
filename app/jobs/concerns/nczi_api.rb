@@ -13,6 +13,7 @@ module NcziApi
 
   def nczi_client
     Faraday.new(proxy: Rails.application.config.x.http_proxy) do |faraday|
+      faraday.use SentryFaradayMiddleware
       faraday.use :instrumentation
       faraday.use Faraday::Response::RaiseError
       faraday.request :json

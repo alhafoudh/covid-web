@@ -9,6 +9,7 @@ module VacuumlabsApi
 
   def vacuumlabs_client
     Faraday.new do |faraday|
+      faraday.use SentryFaradayMiddleware
       faraday.use :instrumentation
       faraday.use Faraday::Response::RaiseError
       faraday.request :json
