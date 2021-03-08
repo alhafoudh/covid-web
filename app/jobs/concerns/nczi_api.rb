@@ -27,11 +27,10 @@ module NcziApi
   def nczi_get_payload(url)
     response = nczi_client.get(url)
     body = response.body
-    if response.status == 200 && body.present?
-      body.fetch('payload', [])
+    if response.status == 200 && body.present? && body.has_key?('payload')
+      body.fetch('payload')
     else
-      Rails.logger.error("Wrong HTTP response. GET #{url.inspect} HTTP status #{response.status} with body: #{body.inspect}")
-      []
+      raise "Wrong HTTP response. GET #{url.inspect} HTTP status #{response.status} with body: #{body.inspect}"
     end
   end
 end
