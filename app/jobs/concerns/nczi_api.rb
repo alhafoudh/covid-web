@@ -25,7 +25,9 @@ module NcziApi
   end
 
   def nczi_get_payload(url)
-    response = nczi_client.get(url)
+    response = nczi_client.get(url) do |request|
+      request.options[:timeout] = Rails.application.config.x.nczi.timeout
+    end
     body = response.body
     if response.status == 200 && body.present? && body.has_key?('payload')
       body.fetch('payload')
