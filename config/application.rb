@@ -50,6 +50,7 @@ module SkCovidTesting
     config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
     config.log_level = ENV.fetch('LOG_LEVEL', :info).to_sym
 
+    config.middleware.delete Rack::ETag
     config.middleware.use Rack::Deflater
 
     config.x.prometheus.enabled = ENV.fetch('PROMETHEUS_ENABLED', 'false') == 'true'
