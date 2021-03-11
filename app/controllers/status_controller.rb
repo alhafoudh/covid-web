@@ -23,6 +23,8 @@ class StatusController < ApplicationController
         last_updated_at: TestDateSnapshot.last_updated_at,
         last_updated_stale_seconds: Time.zone.now.to_i - (TestDateSnapshot.last_updated_at || 0).to_i,
 
+        place_maximum_updated_at: Mom.maximum(:updated_at),
+
         update_interval: testing_update_interval,
       },
       vaccination: {
@@ -34,6 +36,8 @@ class StatusController < ApplicationController
 
         last_updated_at: VaccinationDateSnapshot.last_updated_at,
         last_updated_stale_seconds: Time.zone.now.to_i - (VaccinationDateSnapshot.last_updated_at || 0).to_i,
+
+        place_maximum_updated_at: Vacc.maximum(:updated_at),
 
         update_interval: vaccination_update_interval,
       },
