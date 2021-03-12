@@ -49,8 +49,7 @@ module SkCovidTesting
 
     config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
     config.log_level = ENV.fetch('LOG_LEVEL', :info).to_sym
-
-    config.middleware.use Rack::Deflater
+    config.remove_etag = ENV.fetch('REMOVE_ETAG', 'true') == 'true'
 
     config.x.prometheus.enabled = ENV.fetch('PROMETHEUS_ENABLED', 'false') == 'true'
     config.x.sidekiq.status_expiration = ENV.fetch('SIDEKIQ_STATUS_EXPIRATION', 240).to_i.minutes
@@ -101,6 +100,13 @@ module SkCovidTesting
     config.middleware.use Rack::HostRedirect, config.x.redirects
 
     config.i18n.available_locales = [:sk]
+
+    if config.x.remove_etag
+      require 'sk_covid_testing/middleware/remove_header'
+      config.middleware.use SkCovidTesting::Middleware::RemoveHeader, headers: %w{ETag}
+    end
+
+    config.middleware.use Rack::Deflater
 
     def prometheus
       yield if block_given? && Rails.application.config.x.prometheus.enabled
