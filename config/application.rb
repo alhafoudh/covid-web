@@ -103,7 +103,7 @@ module SkCovidTesting
 
     if config.x.remove_etag
       require 'sk_covid_testing/middleware/remove_header'
-      config.middleware.use SkCovidTesting::Middleware::RemoveHeader, headers: %w{ETag}
+      config.middleware.use SkCovidTesting::Middleware::RemoveHeader, headers: [{ name: 'ETag', rename_to: 'X-ETag' }]
     end
 
     config.middleware.use Rack::Deflater
