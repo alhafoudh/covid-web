@@ -19,25 +19,26 @@ sk:
     </p>
   meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
-  announcement_html: |
-    <div class="text-2xl">Notifikácie sú pozastavené, pretože dáta od NCZI sú nesprávne.</div>
-
-    <p class="mt-4">
-        Z dôvodu uzavretia <a href="https://www.old.korona.gov.sk/covid-19-vaccination-form.php" target="_blank"> formuláru
-        na registráciu na očkovanie</a> zo strany NCZI sú notifikácie o volných termínoch a otvorení nových skupín momentálne pozastavené.<br/>
-
-        V zdroji dát NCZI, ktorý využíva táto služba aj iné dobrovoľnícke projekty ako aj samotný formulár na registráciu na očkovanie,
-        publikuje nesprávne dáta o voľných termínoch.<br/>
-        Pričom vo formulári na registráciu na očkovanie nie je možné zaregistrovať sa na termíny.<br/>
-        <br/>
-        Dôsledkom toho sú nesprávne údaje o voľných termínoch a odoslanie zbytočných a nerelevantných notifikácií.<br/>
-        Ospravedlňujeme sa Vám za vzniknuté komplikácie. Informácie o dostupnosti ďalších termínov na očkovanie či o spustení nového formulára s čakárňou ešte nemáme.<br/>
-        <br/>
-        Nápravu údajov o voľných termínoch či otvorených skupinách sa nám s NCZI nepodarilo dosiahnuť.<br/>
-        <br/>
-        Viac informácií o očkovaní a vakcínach proti COVID-19 nájdete na: <a href="https://www.slovenskoproticovidu.sk" target="_blank">www.slovenskoproticovidu.sk</a>
-        a <a href="https://korona.gov.sk" target="_blank">korona.gov.sk</a>.
-    </p>
+  announcement_html: ""
+#  announcement_html: |
+#    <div class="text-2xl">Notifikácie sú pozastavené, pretože dáta od NCZI sú nesprávne.</div>
+#
+#    <p class="mt-4">
+#        Z dôvodu uzavretia <a href="https://www.old.korona.gov.sk/covid-19-vaccination-form.php" target="_blank"> formuláru
+#        na registráciu na očkovanie</a> zo strany NCZI sú notifikácie o volných termínoch a otvorení nových skupín momentálne pozastavené.<br/>
+#
+#        V zdroji dát NCZI, ktorý využíva táto služba aj iné dobrovoľnícke projekty ako aj samotný formulár na registráciu na očkovanie,
+#        publikuje nesprávne dáta o voľných termínoch.<br/>
+#        Pričom vo formulári na registráciu na očkovanie nie je možné zaregistrovať sa na termíny.<br/>
+#        <br/>
+#        Dôsledkom toho sú nesprávne údaje o voľných termínoch a odoslanie zbytočných a nerelevantných notifikácií.<br/>
+#        Ospravedlňujeme sa Vám za vzniknuté komplikácie. Informácie o dostupnosti ďalších termínov na očkovanie či o spustení nového formulára s čakárňou ešte nemáme.<br/>
+#        <br/>
+#        Nápravu údajov o voľných termínoch či otvorených skupinách sa nám s NCZI nepodarilo dosiahnuť.<br/>
+#        <br/>
+#        Viac informácií o očkovaní a vakcínach proti COVID-19 nájdete na: <a href="https://www.slovenskoproticovidu.sk" target="_blank">www.slovenskoproticovidu.sk</a>
+#        a <a href="https://korona.gov.sk" target="_blank">korona.gov.sk</a>.
+#    </p>
 
 #  announcement_html: |
 #    <strong class="text-red">Aktuálne riešime úpravu napojenia systému na NCZI API podľa ich nových pokynov.</strong><br/>
