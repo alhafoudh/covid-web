@@ -3,7 +3,8 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   purge: [
     './app/**/*.rb',
-    './app/**/*.erb',
+    './app/**/*.html.erb',
+    './app/**/*.*.html.erb',
     './app/**/*.js',
     './app/**/*.ts',
     './app/**/*.scss',
