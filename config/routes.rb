@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   get 'cookies', to: 'pages#cookies', as: 'cookies_page'
+  get 'about', to: 'pages#about', as: 'about_page'
 
   mount Facebook::Messenger::Server, at: 'bot'
   scope :firebase do

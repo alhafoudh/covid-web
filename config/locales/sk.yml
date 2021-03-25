@@ -97,6 +97,8 @@ sk:
         <br/>
         Ďakujeme, že ste zodpovední a nezabudnite, že <strong>negatívny test nie je priepustka na slobodu</strong>.
       action_title: "Zobraziť očkovacie miesta"
+  about:
+    title: "O nás"
   cookies:
     title: "Cookies"
     info_html: |
@@ -125,6 +127,7 @@ sk:
   menu:
     testing: "Antigénové testovanie"
     vaccination: "Očkovanie"
+    about: "O nás"
   open_main_menu: "Otvoriť hlavné menu"
   app_title: "SK COVID-19 Info"
   app_title_html: "<strong>SK COVID-19</strong> Info"
