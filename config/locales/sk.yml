@@ -19,6 +19,15 @@ sk:
     </p>
   meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
+  vaccination_end_of_life_html: |
+    <div class="text-2xl">Aktualiácia voľných termínov na očkovanie je zrušená.</div>
+
+    <p class="mt-4">
+      Registrácia Voľné termíny na očkovanie bola nahradená takzvaným systémom "čakárne". Táto podstránka už neposkytovala relevantné informácie a rozhodli sme sa ju zrušiť.<br/>
+      Ďakujeme Vám za prejavenú podporu a veríme, že nás budete sledovať naše aktivity aj ďalej.<br/>
+      <br/>
+      <strong>Tím freevision</strong>
+    </p>
   announcement_html: ""
 #  announcement_html: |
 #    <div class="text-2xl">Notifikácie sú pozastavené, pretože dáta od NCZI sú nesprávne.</div>

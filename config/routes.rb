@@ -29,10 +29,10 @@ Rails.application.routes.draw do
   end
 
   namespace :vaccination do
-    resources :subscriptions, only: [:index, :create, :destroy]
-
-    get 'embed', to: 'dashboard#embed'
-
+    #   resources :subscriptions, only: [:index, :create, :destroy]
+    #
+    #   get 'embed', to: 'dashboard#embed'
+    #
     root to: 'dashboard#index'
   end
 
