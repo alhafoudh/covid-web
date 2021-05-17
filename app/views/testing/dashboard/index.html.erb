@@ -1,16 +1,2 @@
-<% content_for :menu_info do %>
-  <%= render Dashboard::DataRefreshInfoComponent.new(snapshot_class: TestDateSnapshot, update_interval: Rails.application.config.x.testing.update_interval) %>
-<% end %>
 <%= render Dashboard::PromotionComponent.new %>
-<%= render Dashboard::InfoComponent.new(
-    title: t(:'testing.title_html'),
-    header: t(:'testing.dashboard.header_html'),
-    image: 'testing_header_image.png',
-    warning: t(:'testing.dashboard.warning_html'),
-    action_title: t(:'testing.dashboard.action_title'),
-    action_link: "#{root_path}#list",
-) %>
-<%= render Dashboard::NoticeComponent.new(type: :warning, message: t(:announcement_html), class_name: 'mt-8') %>
-<%= render Dashboard::JumpToRegionComponent.new(regions: @regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
-<%= render Dashboard::RegionCountiesComponent.with_collection(@regions, places_by_county: @places_by_county, plan_dates: @plan_dates) %>
-<%= render Dashboard::OthersRegionComponent.new(places_by_county: @places_by_county, plan_dates: @plan_dates) %>
+<%= render Dashboard::NoticeComponent.new(type: :warning, message: t(:testing_end_of_life_html), class_name: 'mt-8') %>

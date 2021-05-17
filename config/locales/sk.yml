@@ -19,6 +19,22 @@ sk:
     </p>
   meta_title: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19"
   meta_description: "Zoznam odberných miest na antigénové testovanie a očkovacích miest s objednávaním na COVID-19, ich aktuálna voľná kapacita na daný deň. Aktualizované každých pár minút."
+  testing_end_of_life_html: |
+
+    <div class="text-2xl">Aktualizácia voľných termínov na testovanie je zrušená.</div>
+
+    <p class="mt-4">
+      Dáta od NCZI, z ktorých čerpala naša podstránka, už nie sú aktuálne a preto sme nútení ju zrušiť.<br/>
+      Ďakujeme Vám za prejavenú podporu a naše aktivity môžete sledovať aj naďalej na našej webstránke a sociálnych sieťach.<br/>
+      </br>
+      Odkazy:<br/>
+      <a href="https://www.freevision.sk">Webstránka</a><br/>
+      <a href="https://www.facebook.com/freevisionsk">Facebook</a><br/>
+      <a href="https://www.instagram.com/freevision_sk/">Instagram</a><br/>
+      <a href="https://twitter.com/freevisionsk">Twitter</a><br/>
+      <br/>
+      <strong>Tím freevision</strong>
+    </p>
   vaccination_end_of_life_html: |
 
     <div class="text-2xl">Aktualizácia voľných termínov na očkovanie je zrušená.</div>
